@@ -1,0 +1,82 @@
+\documentclass[a4paper]{article}
+\usepackage{xcolor-solarized}
+\usepackage{tikz}
+\usetikzlibrary{fadings}
+\usetikzlibrary{calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+
+%\tikzfading[name=fade left 0,right color=transparent!0,   left color=transparent!12.5]
+%\tikzfading[name=fade left 1,right color=transparent!12.5,left color=transparent!25.0]
+%\tikzfading[name=fade left 2,right color=transparent!25.0,left color=transparent!37.5]
+%\tikzfading[name=fade left 3,right color=transparent!37.5,left color=transparent!50.0]
+%\tikzfading[name=fade left 4,right color=transparent!50.0,left color=transparent!62.5]
+%\tikzfading[name=fade left 5,right color=transparent!62.5,left color=transparent!75.0]
+%\tikzfading[name=fade left 6,right color=transparent!75.0,left color=transparent!87.5]
+%\tikzfading[name=fade left 7,right color=transparent!87.5,left color=transparent!100]
+
+\pgfmathsetmacro{\numberOfHorizElements}{32}
+\pgfmathsetmacro{\maxElementNumber}{\numberOfHorizElements - 1}
+\foreach \j in {0,...,\maxElementNumber}{%
+    \pgfmathsetmacro{\rightTransp}{100 *  \j    / \numberOfHorizElements}
+    \pgfmathsetmacro{\leftTransp} {100 * (\j+1) / \numberOfHorizElements}
+    \tikzfading[name=fade left \j,right color=transparent!\rightTransp,left color=transparent!\leftTransp]
+}
+
+%http://pgf-and-tikz.10981.n7.nabble.com/Fadings-and-externalization-lib-td4122.html
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=cache/,optimize command away=\includepdf]
+
+\begin{document}
+
+\tikzset{external/export next=false}
+\begin{tikzpicture}[remember picture,overlay]
+
+    \pgfmathsetmacro{\side}{8/\maxElementNumber};
+    \pgfmathcos{30};
+    \pgfmathsetmacro{\height}{\pgfmathresult * \side};
+
+    \begin{scope}
+        \foreach \n in {0,...,\maxElementNumber} {%
+            \foreach \m in {1,3,5,7,9,11} {%
+                \fill[path fading=fade left \n,very thick,fill=solarized-base2,draw=solarized-base3]
+                    ($(current page.north east) - (3 * \n * \side + 1.5 * \side,\m * \height - \height)$) --++ 
+                    (0:\side) --++ 
+                    (-60:\side) --++ (-120:\side) --++ 
+                    (-180:\side) --++ (-240:\side) -- cycle;
+            }
+            \foreach \k in {0,2,4,6,8,10,12} {%
+                \fill[path fading=fade left \n,very thick,fill=solarized-base2,draw=solarized-base3]
+                    ($(current page.north east) - (3 * \n * \side,\k * \height - \height)$) --++ 
+                    (0:\side) --++ 
+                    (-60:\side) --++ (-120:\side) --++ 
+                    (-180:\side) --++ (-240:\side) -- cycle;
+            }
+        }
+    \end{scope}
+
+    \foreach \l in {0,...,19} {%
+        \pgfmathrnd;
+        \pgfmathparse{\pgfmathresult*100};
+        \pgfmathint{\pgfmathresult};
+        \pgfmathmod{\pgfmathresult}{\numberOfHorizElements - 3};
+        \pgfmathint{\pgfmathresult};
+        \pgfmathsetmacro{\randNum}{\pgfmathresult};
+        \pgfmathrnd;
+        \pgfmathparse{\pgfmathresult*100};
+        \pgfmathint{\pgfmathresult};
+        \pgfmathmod{\pgfmathresult}{5};
+        \pgfmathint{\pgfmathresult};
+        \pgfmathsetmacro{\randNumVert}{\pgfmathresult};
+
+        \fill[solarized-cyan,opacity=0.3]
+            ($(current page.north east) - (3 * \randNum * \side + 1.5 * \side,2 * \randNumVert * \height + 2* \height)$) --++ 
+            (0:\side) --++ 
+            (-60:\side) --++ (-120:\side) --++ 
+            (-180:\side) --++ (-240:\side) -- cycle;
+    }
+        
+\end{tikzpicture}
+
+
+\end{document}
