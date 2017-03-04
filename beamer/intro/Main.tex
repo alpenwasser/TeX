@@ -52,6 +52,7 @@
     bgcolor=solarized-base3,
     linenos=true,
 }
+%\setbeamercolor{alerted text}{fg=solarized-red}
 
 
 % Macros --------------------------------------------------------------------- %
@@ -86,11 +87,13 @@
 \end{frame}
 
 
-\section<handout:0>{Was ist \LaTeX?} % --------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Was und Warum?} % ---------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
 
 
 \begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{\TeX~and Friends}
+    \frametitle{Was ist \LaTeX?}
 
     \begin{tikzpicture}[
         draw=solarized-base02,
@@ -221,19 +224,21 @@
                 \item
                     Modularit\"at
                 \item
-                    Archiv-sicher
+                    zukunftssicher (Archivierbarkeit)
             \end{itemize}
         \item
             die feineren Aspekte von Typographie
     \end{itemize}
 \end{frame}
 
-\section<handout:0>{Einrichtung \& Workflow} % ------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Wie? -- Einrichtung \& Workflow} % ----------------- FRAME %
+% ---------------------------------------------------------------------------- %
 
 \begin{frame} % -------------------------------------------------------- FRAME %
     \frametitle{\TeX~Distributionen}
 
-    Wie bekomme ich \LaTeX~ auf mein System?\\[2mm]
+    Wie bekomme ich \TeX~ auf mein System?\\[2mm]
 
     \begin{center}
         \begin{tabular}{lll}
@@ -455,21 +460,40 @@
 \end{frame}
 
 
-\begin{frame}
+\begin{frame} % -------------------------------------------------------- FRAME %
     \frametitle{Editoren}
     \begin{itemize}
         \item
-            TeX Live: TeXworks Editor
+            TeX Live \& MikTeX: TeXworks
         \item
-            MikTeX: \ldots
+            macOS: z.B. TeXShop
         \item
-            MacTeX: \ldots
+            Texmaker, TeXstudio, \ldots
         \item
-            Others: TeXMacs, texmaker, gummi, LyX, Vim, Emacs, \ldots
+            WYSIWYM: LyX
+            %(What you see is what you mean)
+
+        \item
+        Vergleichstabelle: 
+            \href
+                {https://en.wikipedia.org/wiki/Comparison\_of\_TeX\_editors}
+                {https://en.wikipedia.org/wiki/Comparison\_of\_TeX\_editors}
+
+        \item
+        Liste \& Diskussion:
+            \href
+                {http://tex.stackexchange.com/questions/339/}
+                {http://tex.stackexchange.com/questions/339/}
     \end{itemize}
+
+    \pause
+    \centering\alert
+        {abh\"angig von pers\"onlichen Vorlieben \tikzrarrow Ausprobieren}
 \end{frame}
 
+% ---------------------------------------------------------------------------- %
 \section<handout:0>{Beispiel: Ein einfaches \LaTeX-Dokument} % --------- FRAME %
+% ---------------------------------------------------------------------------- %
 
 
 \begin{frame}[fragile] % ----------------------------------------------- FRAME %
@@ -495,32 +519,107 @@
 \end{frame}
 
 \begin{frame}[fragile] % ----------------------------------------------- FRAME %
-    \frametitle{Packages, Optionale Parameter, Environments}
+    \frametitle{Optionale Parameter, Packages, Environments}
 
     \begin{columns}
 
         \column{0.5\textwidth}
-        \inputminted{tex}{code/packages.tex}
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<1>
+            \inputminted{tex}{code/packages.tex}
+
+            \onslide<2>
+            % ----------------------------------------------- MINTED %
+            \begin{minted}[escapeinside=||]{tex}
+\documentclass
+    |\alert{[a4paper,12pt]}|
+    {article}
+\usepackage{lipsum}
+\begin{document}
+\lipsum[1-2]
+\begin{equation}
+    a = 5
+\end{equation}
+\lipsum[3]
+\end{document}
+            \end{minted} 
+            % ------------------------------------------------------ %
+
+            \onslide<3>
+            % ----------------------------------------------- MINTED %
+            \begin{minted}[escapeinside=||]{tex}
+\documentclass
+    [a4paper,12pt]
+    {article}
+|\alert{\textbf{\textbackslash\!\,usepackage\{lipsum\}}}|
+\begin{document}
+\lipsum[1-2]
+\begin{equation}
+    a = 5
+\end{equation}
+\lipsum[3]
+\end{document}
+            \end{minted}
+            % ------------------------------------------------------ %
+
+            \onslide<4>
+            % ----------------------------------------------- MINTED %
+            \begin{minted}[escapeinside=||]{tex}
+\documentclass
+    [a4paper,12pt]
+    {article}
+\usepackage{lipsum}
+\begin{document}
+\lipsum[1-2]
+|\alert{\textbf{\textbackslash\!\,begin\{equation\}}}|
+    a = 5
+|\alert{\textbf{\textbackslash\!\,end\{equation\}}}|
+\lipsum[3]
+\end{document}
+            \end{minted}
+            % ------------------------------------------------------ %
+
+            \onslide<5->
+            % ----------------------------------------------- MINTED %
+            \begin{minted}[escapeinside=||]{tex}
+\documentclass
+    |\alert{[a4paper,12pt]}|
+    {article}
+|\alert{\textbf{\textbackslash\!\,usepackage\{lipsum\}}}|
+\begin{document}
+\lipsum[1-2]
+|\alert{\textbf{\textbackslash\!\,begin\{equation\}}}|
+    a = 5
+|\alert{\textbf{\textbackslash\!\,end\{equation\}}}|
+\lipsum[3]
+\end{document}
+            \end{minted}
+            % ------------------------------------------------------ %
+        \end{overprint} % ---------------------------------------------- %
 
         \column{0.5\textwidth}
-        \begin{tikzpicture}[draw=solarized-base02]
-            \draw
-                [-{stealth},very thick]
-                (0,0) -- (0.5,0);
-            \node
-                [anchor=west,draw]
-                at (1,0)
-                {\includegraphics[height=5.5cm]{code/packages.pdf}};
-        \end{tikzpicture}
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<5->
+            \begin{tikzpicture}[draw=solarized-base02]
+                \draw
+                    [-{stealth},very thick]
+                    (0,0) -- (0.5,0);
+                \node
+                    [anchor=west,draw]
+                    at (1,0)
+                    {\includegraphics[height=5.5cm]{code/packages.pdf}};
+            \end{tikzpicture}
+        \end{overprint} % ---------------------------------------------- %
     \end{columns}
 
     \pause
-
-
-    \begin{center}
-        \vspace{-1em}
-        \alert{\tikzrarrow Stackexchange, Manuals}
-    \end{center}
+    \begin{overprint}
+        \onslide<6>
+        \begin{center}
+            \vspace{-1em}
+            \alert{\tikzrarrow Stackexchange, Manuals}
+        \end{center}
+    \end{overprint}
 \end{frame}
 
 \begin{frame}[fragile] % ----------------------------------------------- FRAME %
@@ -529,8 +628,29 @@
     \inputminted{tex}{code/structure.tex}
 \end{frame}
 
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Version Control}
 
+    Bin\"are  Dateien  erzeugen  gerne   Merge-Konflikte,  wenn  sie  h\"aufig
+    abge\"andert werden. ``Popul\"are'' Kandidaten sind:
+
+    \begin{itemize}
+        \item
+            \texttt{*.synctex.gz}-Datei: Dient  zur  Synchronisation  zwischen
+            Quellcode und der zugeh\"origen \texttt{*.pdf}-Datei.
+        \item
+            Alle \texttt{*.pdf}-Dateien, die aus \LaTeX~kompiliert werden.
+    \end{itemize}
+
+    \emph{Empfehlung}: Diese Dateien zu \texttt{.gitignore} hinzuf\"ugen. 
+
+    Nicht  zu empfehlen  f\"ur  Bilder  und andere  bin\"are  Dateien, die  im
+    \LaTeX-Dokument eingebunden sind.
+\end{frame}
+
+% ---------------------------------------------------------------------------- %
 \section<handout:0>{N\"achste Schritte} % ------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
 
 \begin{frame} % -------------------------------------------------------- FRAME %
     \frametitle{Disposition}
@@ -575,18 +695,44 @@
 
         \href{https://www.overleaf.com}{https://www.overleaf.com}           &
         (Collaborative Editing, Free \& Paid Plans)                         \\[2mm]
-
-        \multicolumn{2}{l}{%
-            \href{https://github.com/alpenwasser/latex-sandbox/}
-                {https://github.com/alpenwasser/latex-sandbox/}} \\
     \end{tabular}}
 \end{frame}
 
 \begin{frame} % -------------------------------------------------------- FRAME %
     \frametitle{Support}
 
-    email, Geb\"aude 4, Termin, \ldots
+    \begin{itemize}
+        \item
+            e-Mail:
+            \texttt{\href{mailto:raphael.frey@students.fhnw.ch}
+            {raphael.frey@students.fhnw.ch}}
+        \item
+            Raum 4.2-irgendwas
+        \item
+            \href{https://github.com/alpenwasser/latex-sandbox/}
+                 {https://github.com/alpenwasser/latex-sandbox/}
+        \item
+            Weiteres Programm: 26. April: Spezifische Probleme
+            \begin{itemize}
+                \item
+                    modulare Dokumentstruktur
+                \item
+                    Bibliographie
+                \item
+                    Floats (Tabellen, Bilder, \ldots )
+                \item
+                    PGF/TikZ
+                \item
+                    minipages
+                \item
+                    ISO-31
+                \item
+                    etc. etc. etc.
+            \end{itemize}
+    \end{itemize}
 \end{frame}
 
+% ---------------------------------------------------------------------------- %
 \section<handout:0>*{Fragen?} % ---------------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
 \end{document}
