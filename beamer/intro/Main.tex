@@ -265,9 +265,9 @@
                 \textcolor{solarized-base0}{(esoterisch und/oder obsolet)}}   \\
         \end{tabular}
 
-    \pause
-    \vspace{1em}
-    \alert{\tikzrarrow siehe Anleitungen}
+    %\pause
+    %\vspace{1em}
+    %\alert{\tikzrarrow siehe Anleitungen}
     \end{center}
 \end{frame}
 
@@ -496,7 +496,7 @@
 % ---------------------------------------------------------------------------- %
 
 
-\begin{frame}[fragile] % ----------------------------------------------- FRAME %
+\begin{frame}<handout:0>[fragile] % ------------------------------------ FRAME %
     \frametitle{Einfachstes Grundger\"ust}
 
     \begin{columns}
@@ -518,7 +518,32 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}[fragile] % ----------------------------------------------- FRAME %
+\begin{frame}<beamer:0>[fragile] % ------------------------------------- FRAME %
+    \frametitle{Einfaches Dokument}
+    Optionale Parameter, Packages, Environments
+    \begin{columns}
+        \column{0.5\textwidth}
+        \inputminted{tex}{code/packages.tex}
+
+        \column{0.5\textwidth}
+        \begin{tikzpicture}[draw=solarized-base02]
+            \draw
+                [-{stealth},very thick]
+                (0,0) -- (0.5,0);
+            \node
+                [anchor=west,draw]
+                at (1,0)
+                {\includegraphics[height=5.5cm]{code/packages.pdf}};
+        \end{tikzpicture}
+    \end{columns}
+
+    \begin{center}
+        \vspace{-2em}
+        \alert{\tikzrarrow Stackexchange, Manuals}
+    \end{center}
+\end{frame}
+
+\begin{frame}<handout:0>[fragile] % ------------------------------------ FRAME %
     \frametitle{Optionale Parameter, Packages, Environments}
 
     \begin{columns}
