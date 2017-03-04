@@ -57,7 +57,7 @@ view: simple
 
 handout: simplest packages structure compiletest
 	cp Main.tex Main.tex.bak
-	cat Main.tex.bak | sed 's/^\\documentclass/\\documentclass[handout]/' > Main.tex
+	cat Main.tex.bak | sed 's/^\\documentclass{/\\documentclass[handout]{/' > Main.tex
 	xelatex -shell-escape Main
 	cp Main.pdf handout.pdf
 	mv Main.tex.bak Main.tex

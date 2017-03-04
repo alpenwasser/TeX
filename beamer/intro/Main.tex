@@ -525,10 +525,10 @@
 
         \column{0.5\textwidth}
         \begin{overprint} % ---------------------------------- OVERPRINT %
-            \onslide<1>
+            \onslide<1|handout:0>
             \inputminted{tex}{code/packages.tex}
 
-            \onslide<2>
+            \onslide<2|handout:0>
             % ----------------------------------------------- MINTED %
             \begin{minted}[escapeinside=||]{tex}
 \documentclass
@@ -545,7 +545,7 @@
             \end{minted} 
             % ------------------------------------------------------ %
 
-            \onslide<3>
+            \onslide<3|handout:0>
             % ----------------------------------------------- MINTED %
             \begin{minted}[escapeinside=||]{tex}
 \documentclass
@@ -562,7 +562,7 @@
             \end{minted}
             % ------------------------------------------------------ %
 
-            \onslide<4>
+            \onslide<4|handout:0>
             % ----------------------------------------------- MINTED %
             \begin{minted}[escapeinside=||]{tex}
 \documentclass
@@ -726,6 +726,8 @@
                     minipages
                 \item
                     ISO-31
+                \item
+                    Listings, minted, \ldots
                 \item
                     etc. etc. etc.
             \end{itemize}
