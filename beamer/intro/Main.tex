@@ -1,0 +1,592 @@
+% ******************************************************** %
+% DOCUMENT INFORMATION                                     %
+% ******************************************************** %
+%                                                          %
+% Purpose of Document                                      %
+% -------------------                                      %
+% Introductory Presentation on LaTeX                       %
+%                                                          %
+% Institution                                              %
+% -----------                                              %
+% University of Applied Sciences and Arts Northwestern     %
+% Switzerland, School of Engineering                       %
+%                                                          %
+% Degree Program                                           %
+% --------------                                           %
+% Electrical Engineering and Information Technology, BSc.  %
+%                                                          %
+% Author & Copyright                                       %
+% ------------------                                       %
+% Raphael Frey, raphael.frey@students.fhnw.ch              %
+%               rmfrey@runbox.com                          %
+%                                                          %
+% Date: 2017-MAR-15                                        %
+% ******************************************************** %
+
+\documentclass{beamer}                % Presentation Version
+%\documentclass[handout]{beamer}      % Handout Version
+
+% Beamer Setup --------------------------------------------------------------- %
+%\addtobeamertemplate{background canvas}{\transdissolve[duration=1]}{}
+\usetheme[titleformat=smallcaps,numbering=none]{metropolis}
+
+% Packages ------------------------------------------------------------------- %
+\usepackage[ngerman]{babel}
+\usepackage{xcolor-solarized}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{shapes.symbols}
+\usepackage{hyperref}
+\usepackage{dirtree}
+\usepackage{minted}
+\setminted{%
+    %style=xcode,
+    %style=trac,
+    %style=paraiso-light,
+    %style=lovelace,
+    style=murphy,
+    bgcolor=solarized-base3,
+    linenos=true,
+}
+
+
+% Macros --------------------------------------------------------------------- %
+% Arrow for use in text
+\def\tikzrarrow{%
+    \tikz[baseline=-0.67ex]\draw[double,very thick,-{stealth}](0,0)--(0.5,0);}
+\newlength{\yOffs}
+\newlength{\xOffs}
+
+% Title Setup ---------------------------------------------------------------- %
+\title{\vspace*{4em}\Huge\LaTeX}
+\date{\today}
+\author{%
+    Raphael Frey%
+    \hfill%
+    \footnotesize\texttt{%
+        \href{mailto:raphael.frey@students.fhnw.ch}%
+        {raphael.frey@students.fhnw.ch}}}
+
+\institute{\vspace*{7em}\hfill\includegraphics[height=2em]{images/fhnw.eps}}
+
+% **************************************************************************** %
+\begin{document}                                                              
+% **************************************************************************** %
+
+\maketitle % ----------------------------------------------------------- FRAME %
+
+
+\begin{frame}<handout:0> % --------------------------------------------- FRAME %
+    \frametitle{Programm}
+    \tableofcontents
+\end{frame}
+
+
+\section<handout:0>{Was ist \LaTeX?} % --------------------------------- FRAME %
+
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{\TeX~and Friends}
+
+    \begin{tikzpicture}[
+        draw=solarized-base02,
+        rounded corners=2mm,
+        text=solarized-base02,
+        every node/.append style={
+            draw,
+            thick,
+            fill=solarized-base2,
+            % technically not necessary with the global rounded corners option:
+            rounded corners=2mm, 
+            inner sep=2mm,
+            font=\fontsize{10}{11}\selectfont,
+        },
+    ]
+        \setlength{\yOffs}{14mm}
+        \setlength{\xOffs}{4mm}
+
+        % TeX Node
+        \node (tex) [align=left] at (0,0) {%
+            \Large\textbf{\alert{\TeX}}\\[2mm]
+            Donald Knuth, 1978\\
+        };
+
+        % LaTeX Node
+        \pause
+        \node (latex)
+            [below right=\yOffs and \xOffs of tex,align=left,anchor=west]
+            {\Large\textbf{\alert{\LaTeX}}\\[2mm] Leslie Lamport, 1985};
+        \draw
+            [thick,-{stealth}] 
+            (tex) -| (latex.north);
+
+        % ConTeXt Node
+        \pause
+        \node (context) 
+            [below left=\yOffs and \xOffs of tex,align=left,anchor=east]
+            {\Large\textbf{\alert{ConTeXt}}\\[2mm] Hans Hagen, 1991};
+        \draw
+            [thick,-{stealth}] 
+            (tex) -| (context.north);
+
+        % Others...
+        \pause
+        \node (others)
+            [below=\yOffs of tex,align=left,anchor=center] 
+            {weitere\ldots};
+        \draw
+            [thick,-{stealth}] 
+            (tex) -- (others.north);
+
+        % Auxiliary Coordinate
+        \pause
+        \coordinate [below=40mm of tex] (southAux);
+        % NOTE:
+        % http://tex.stackexchange.com/questions/57227
+        \node (contamination) at (southAux)
+            [text=solarized-base0,yshift=8mm,anchor=south,draw=none,fill=none]
+            {gegens. Kontaminierung};
+
+        \draw
+            [solarized-base0,dashed,thick,{stealth}-{stealth}] 
+            (others.west) -- (context.east);
+        \draw
+            [solarized-base0,dashed,thick,{stealth}-{stealth}] 
+            (others.east) -- (latex.west);
+        \draw
+            [solarized-base0,dashed,thick,{stealth}-] 
+            (context.south) |- (southAux);
+        \draw
+            [solarized-base0,dashed,thick,{stealth}-]
+            (latex.south) |- (southAux);
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}<handout:0> % ----------------------------------------------FRAME %
+    \frametitle{Warum nicht?}
+
+
+    \begin{itemize}
+        \item
+            Word \& Co. funktionieren heutzutage ja egtl. nicht schlecht \ldots
+        \item
+            \ldots und auch \TeX~hat seine T\"ucken:
+            \begin{itemize}
+                \item
+                    Floats
+                \item
+                    Inkompatibilit\"aten zwischen Packages
+                \item
+                    Schriftarten
+                \item
+                    Input Encoding, Output Encoding
+                \item
+                    \"Okosystem ist gross und etwas un\"ubersichtlich
+                \item
+                    umst\"andlicher    Workflow     (mehrere    Compiler    \&
+                    Compiler-Durchl\"aufe, verschiedene Optionen)
+                \item
+                    und so weiter, und so fort
+            \end{itemize}
+    \end{itemize}
+    \pause
+    \centering\alert{\tikzrarrow Ein gewisses Mass an Masochismus ist erforderlich.}
+\end{frame}
+
+\begin{frame}<handout:0>
+    \frametitle{Warum doch?}
+    \begin{itemize}
+        \item
+            Trennung von Inhalt und Form 
+            %(m\"oglich, aber h\"aufig nicht sauber befolgt)
+        \item
+            sehr m\"achtig: Packages f\"ur jeden Geschmack
+        \item
+            Referenzen: Fussnoten,    Randnotizen,   Abbildungen,    Tabellen,
+            Gleichungen, \ldots
+            % Word kann das auch. Aber in meiner Erfahrung mehr quirky behavior.
+        \item
+            robusteres Verhalten (wenn auch nicht immer so wie gewollt)
+        \item
+            nicht propriet\"ar
+        \item
+            Basiert auf Puretext-Dateien:
+            \begin{itemize}
+                \item
+                    Version Control: Git, SVN \& Co.
+                \item
+                    Modularit\"at
+                \item
+                    Archiv-sicher
+            \end{itemize}
+        \item
+            die feineren Aspekte von Typographie
+    \end{itemize}
+\end{frame}
+
+\section<handout:0>{Einrichtung \& Workflow} % ------------------------- FRAME %
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{\TeX~Distributionen}
+
+    Wie bekomme ich \LaTeX~ auf mein System?\\[2mm]
+
+    \begin{center}
+        \begin{tabular}{lll}
+            TeX Live                                                          & 
+            Win                                                               & 
+            \href{https://www.tug.org/texlive/}{https://www.tug.org/texlive/} \\
+
+                                                                              &
+            *nix                                                              &
+            Package Manager                                                   \\
+
+            Miktex                                                            &
+            Win                                                               & 
+            \href{https://miktex.org}{https://miktex.org}                     \\
+
+            MacTeX                                                            & 
+            OS X                                                              & 
+            \href{https://www.tug.org/mactex/}{https://www.tug.org/mactex/}   \\
+
+            \\
+
+            \textcolor{solarized-base0}{andere}                               & 
+            \multicolumn{2}{l}{%
+                \textcolor{solarized-base0}{(esoterisch und/oder obsolet)}}   \\
+        \end{tabular}
+
+    \pause
+    \vspace{1em}
+    \alert{\tikzrarrow siehe Anleitungen}
+    \end{center}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Workflow}
+    \centering
+    \begin{tikzpicture}[
+        draw=solarized-base02,
+        rounded corners=2mm,
+        text=solarized-base02,
+        every node/.append style={
+            draw,
+            thick,
+            fill=solarized-base2,
+            inner sep=2mm,
+            font=\fontsize{10}{11}\selectfont,
+            align=left,
+        },
+        signal/.append style={
+            text=solarized-base2,
+            fill=solarized-magenta,
+            rounded corners=1mm,
+        },
+    ]
+
+        \node (source) 
+            [align=left] 
+            at (0,0)
+            {Quellcode};
+
+        \node (pdflatex) 
+            [signal,shape=signal,signal from=west,signal to=east,right=20mm of source]
+            {pdflatex};
+
+        \node (pdf) 
+            [right=20mm of pdflatex]
+            {pdf};
+
+        \node (latex) 
+            [signal,shape = signal,signal from=west,signal to=east,
+            below=of source,yshift=-10mm,rotate=-90,anchor=center] 
+            {latex};
+
+        \node (dvi) 
+            [below=40 mm of source]
+            {DVI};
+
+        \node (dvips)
+            [signal,shape=signal,signal from=west,
+            signal to=east,below=40mm of pdflatex]
+            {dvips};
+
+        \node (postscript) 
+            [below=40mm of pdf,]
+            {PostScript};
+
+        \node (ps2pdf)
+            [signal,shape = signal,signal from=west,signal to=east,
+            below=of pdf,yshift=-10mm,rotate=90,anchor=center]
+            {ps2pdf};
+
+        \begin{scope}[thick,arrows={-{stealth[solarized-base02]}}]
+            \draw (source) -- (pdflatex);
+            \draw (source) -- (latex);
+            \draw ($(pdflatex.east) + (-0.5mm,0)$) -- (pdf);
+            \draw ($(latex.east) + (0,0.5mm)$) -- (dvi);
+            \draw (dvi) -- (dvips);
+            \draw ($(dvips.east) + (-0.5mm,0)$) -- (postscript);
+            \draw (postscript) -- (ps2pdf);
+            \draw ($(ps2pdf.east) + (0,-0.5mm)$) -- (pdf);
+        \end{scope}
+
+        \pause
+        \begin{scope}[
+            draw=solarized-base02!20!white,
+            very thick,
+            arrows={-{stealth[solarized-base02!20!white]}},
+            rounded corners=2mm,
+            text=solarized-base02!20!white,
+            every node/.append style={
+                draw,
+                thick,
+                fill=solarized-base2!50!white,
+                inner sep=2mm,
+                font=\fontsize{10}{11}\selectfont,
+                align=left,
+            },
+            signal/.append style={
+                text=solarized-base2!60!solarized-magenta,
+                fill=solarized-magenta!10!white,
+                rounded corners=1mm,
+            },
+        ]
+
+            \node (latex) 
+                [signal,shape = signal,signal from=west,signal to=east,
+                below=of source,yshift=-10mm,rotate=-90,anchor=center] 
+                {latex};
+
+            \node (dvi) 
+                [below=40 mm of source]
+                {DVI};
+
+            \node (dvips) 
+                [signal,shape = signal,signal from=west
+                ,signal to=east,below=40mm of pdflatex]
+                {dvips};
+
+            \node (postscript) 
+                [below=40mm of pdf,]
+                {PostScript};
+
+            \node (ps2pdf) 
+                [signal,shape=signal,signal from=west,signal to=east,
+                below=of pdf,yshift=-10mm,rotate=90,anchor=center]
+                {ps2pdf};
+
+        \end{scope}
+
+        \begin{scope}[
+                very thick,
+                draw=solarized-base02!20!white,
+                arrows={-{stealth[solarized-base02!20!white]}},
+        ]
+            \draw (source) -- (latex);
+            \draw ($(latex.east) + (0,0.5mm)$) -- (dvi);
+            \draw (dvi) -- (dvips);
+            \draw ($(dvips.east) + (-0.5mm,0)$) -- (postscript);
+            \draw (postscript) -- (ps2pdf);
+            \draw ($(ps2pdf.east) + (0,-0.5mm)$) -- (pdf);
+        \end{scope}
+
+        % Additional Compilers, for the fitting node
+        \node (xelatex) 
+            [signal,shape = signal,signal from=west,
+            signal to=east,below=1mm of pdflatex]
+            {xelatex};
+
+        \node (lualatex) 
+            [signal,shape=signal,signal from=west,
+            signal to=east,above=1mm of pdflatex] 
+            {lualatex};
+
+        \node (bibtex) 
+            [signal,shape = signal,signal from=east,
+            signal to=west,below=10mm of xelatex]
+            {bibtex};
+
+        % Using   the  'on   background  layer'  breaks  the
+        % pre-pause slide, so we don't.
+        \node (compilers) 
+            [draw,fill=solarized-base2,fit=(lualatex) (pdflatex) (xelatex),
+            inner sep=1em,xshift=-0.5em,align=right]
+            {};
+
+        % And  we  draw  this  stuff  twice,  so  that  it's
+        % actually visible.
+        \node (pdflatexTop) 
+            [signal,shape = signal,signal from=west,
+            signal to=east,right=20mm of source]
+            {pdflatex};
+
+        \node (xelatexTop) 
+            [signal,shape = signal,signal from=west,
+            signal to=east,below=1mm of pdflatex]
+            {xelatex};
+
+        \node (lualatexTop) 
+            [signal,shape = signal,signal from=west,
+            signal to=east,above=1mm of pdflatex]
+            {lualatex};
+
+        \node (bibtexTop) 
+            [signal,shape = signal,signal from=east,
+            signal to=west,below=10mm of xelatex]
+            {bibtex};
+
+        \draw ($(compilers.south east) + (-0.7mm,0.7mm)$)
+            edge[thick,arrows={-{stealth[solarized-base2]}},out=-45,in=0] 
+            ($(bibtex.east) + (0.3mm,0)$);
+        \draw ($(bibtex.west) + (0.5mm,0)$)
+            edge[thick,arrows={-{stealth[solarized-base2]}},out=180,in=225] 
+            ($(compilers.south west) + (0.7mm,0.7mm)$);
+
+        \begin{scope}[thick,arrows={-{stealth[solarized-base02]}}]
+            \draw (source) -- (compilers.west);
+            \draw (compilers.east) -- (pdf);
+        \end{scope}
+    \end{tikzpicture}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Editoren}
+    \begin{itemize}
+        \item
+            TeX Live: TeXworks Editor
+        \item
+            MikTeX: \ldots
+        \item
+            MacTeX: \ldots
+        \item
+            Others: TeXMacs, texmaker, gummi, LyX, Vim, Emacs, \ldots
+    \end{itemize}
+\end{frame}
+
+\section<handout:0>{Beispiel: Ein einfaches \LaTeX-Dokument} % --------- FRAME %
+
+
+\begin{frame}[fragile] % ----------------------------------------------- FRAME %
+    \frametitle{Einfachstes Grundger\"ust}
+
+    \begin{columns}
+        \column{0.5\textwidth}
+
+        \inputminted{tex}{code/simplest.tex}
+
+        \column{0.5\textwidth}
+        \begin{tikzpicture}[draw=solarized-base02]
+            \draw
+                [-{stealth},very thick] 
+                (0,0) -- (0.5,0);
+
+            \node
+                [anchor=west,draw] 
+                at (1,0) 
+                {\includegraphics[height=5.5cm]{code/simplest.pdf}};
+        \end{tikzpicture}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile] % ----------------------------------------------- FRAME %
+    \frametitle{Packages, Optionale Parameter, Environments}
+
+    \begin{columns}
+
+        \column{0.5\textwidth}
+        \inputminted{tex}{code/packages.tex}
+
+        \column{0.5\textwidth}
+        \begin{tikzpicture}[draw=solarized-base02]
+            \draw
+                [-{stealth},very thick]
+                (0,0) -- (0.5,0);
+            \node
+                [anchor=west,draw]
+                at (1,0)
+                {\includegraphics[height=5.5cm]{code/packages.pdf}};
+        \end{tikzpicture}
+    \end{columns}
+
+    \pause
+
+
+    \begin{center}
+        \vspace{-1em}
+        \alert{\tikzrarrow Stackexchange, Manuals}
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile] % ----------------------------------------------- FRAME %
+    \frametitle{Dokumentstruktur}
+
+    \inputminted{tex}{code/structure.tex}
+\end{frame}
+
+
+\section<handout:0>{N\"achste Schritte} % ------------------------------ FRAME %
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Disposition}
+
+    FHNW Report Klasse: 
+    \alert{%
+        \href{http://public.ime.fhnw.ch/LaTeX/}
+        {http://public.ime.fhnw.ch/LaTeX/}}\\
+
+    \dirtree{%
+        .1 fhnwreport\_with\_example\_v22.zip.
+        .2 beispiel\_fachbericht.pdf.
+        .2 beispiel\_fachbericht.tex.
+        .2 example.bib.
+        .2 fhnw\_ht\_logo\_de.pdf.
+        .2 fhnw\_ht\_logo\_en.pdf.
+        .2 fhnwlogo.pdf.
+        .2 fhnwreport.cls.
+        .2 IEEEabrv.bib.
+        .2 IEEEfull.bib.
+        .2 IEEEtran.bst.
+    }
+
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Weitere Ressourcen}
+
+    {\footnotesize\selectfont
+    \begin{tabular}{ll}
+        \href{http://tex.stackexchange.com/}{http://tex.stackexchange.com/} &
+        (\"ublicherweise via Suchmaschine)                                  \\[2mm]
+
+        \href{http://texample.net}{http://texample.net}                     &
+        (TikZ und PGF)                                                      \\[2mm]
+
+        \href{http://pgfplots.net}{http://pgfplots.net}                     &
+        (PGF Plots)                                                         \\[2mm]
+
+        \href{http://ctan.org/}{http://ctan.org}                            &
+        (Package Dokumentationen)                                           \\[2mm]
+
+        \href{https://www.overleaf.com}{https://www.overleaf.com}           &
+        (Collaborative Editing, Free \& Paid Plans)                         \\[2mm]
+
+        \multicolumn{2}{l}{%
+            \href{https://github.com/alpenwasser/latex-sandbox/}
+                {https://github.com/alpenwasser/latex-sandbox/}} \\
+    \end{tabular}}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Support}
+
+    email, Geb\"aude 4, Termin, \ldots
+\end{frame}
+
+\section<handout:0>*{Fragen?} % ---------------------------------------- FRAME %
+\end{document}
