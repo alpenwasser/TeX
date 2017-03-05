@@ -527,12 +527,39 @@
 
         \inputminted{tex}{code/simplest.tex}
 
+        \begin{tikzpicture}[
+            draw=solarized-base02,
+            rounded corners=2mm,
+            text=solarized-base02,
+            every node/.append style={
+                draw,
+                thick,
+                fill=solarized-base2,
+                inner sep=2mm,
+                font=\fontsize{10}{11}\selectfont,
+                align=left,
+            },
+            signal/.append style={
+                text=solarized-base2,
+                fill=solarized-magenta,
+                rounded corners=1mm,
+            },
+        ]
+            \useasboundingbox (-10mm,0) rectangle (50mm,-20mm);
+            \coordinate (source) at (0,0);
+            %\coordinate (target) at (40mm,-15mm);
+
+            \node (pdflatex) 
+                [signal,shape=signal,signal from=west,signal to=east,below right=of source]
+                {pdflatex};
+            \coordinate [right=of pdflatex] (target);
+
+            \draw [very thick,-{stealth}] (source) |- (pdflatex.west);
+            \draw [very thick,-{stealth}] ($(pdflatex.east) - (0.7mm,0mm)$) -- (target);
+        \end{tikzpicture}
+
         \column{0.5\textwidth}
         \begin{tikzpicture}[draw=solarized-base02]
-            \draw
-                [-{stealth},very thick] 
-                (0,0) -- (0.5,0);
-
             \node
                 [anchor=west,draw] 
                 at (1,0) 
@@ -543,27 +570,56 @@
 
 \begin{frame}<beamer:0>[fragile] % ------------------------------------- FRAME %
     \frametitle{Einfaches Dokument}
-    Optionale Parameter, Packages, Environments
     \begin{columns}
         \column{0.5\textwidth}
         \inputminted{tex}{code/packages.tex}
 
         \column{0.5\textwidth}
-        \begin{tikzpicture}[draw=solarized-base02]
-            \draw
-                [-{stealth},very thick]
-                (0,0) -- (0.5,0);
-            \node
-                [anchor=west,draw]
-                at (1,0)
-                {\includegraphics[height=5.5cm]{code/packages.pdf}};
+        \begin{tikzpicture}[
+            draw=solarized-base0,
+            rounded corners=2mm,
+            text=solarized-base02,
+            every node/.append style={
+                draw=solarized-base02,
+                thick,
+                fill=solarized-base2,
+                inner sep=2mm,
+                font=\fontsize{10}{11}\selectfont,
+                align=left,
+            },
+            signal/.append style={
+                text=solarized-base2,
+                fill=solarized-magenta,
+                rounded corners=1mm,
+            },
+        ]
+            \useasboundingbox(0,0) rectangle (50mm,-61mm);
+
+            \node (packages) [anchor=north east] at (20mm,-15mm) {Packages};
+            \coordinate [left=15mm of packages,-{stealth}] (packagesTarget);
+            \draw [very thick,-{stealth[solarized-base0]}] (packages.west) -- (packagesTarget);
+
+            \node (environments) [anchor=north east] at (20mm,-37mm) {Environment};
+            \coordinate [above left=2.2mm and 16mm of environments,-{stealth}] (environmentsTop);
+            \coordinate [below left=2.2mm and 21mm of environments,-{stealth}] (environmentsBot);
+            \draw [very thick,-{stealth[solarized-base0]}] (environments.north) |- (environmentsTop);
+            \draw [very thick,-{stealth[solarized-base0]}] (environments.south) |- (environmentsBot);
+
+            \node (optParams) [anchor=north east] at (50mm,-26mm) {Optionale Parameter};
+            \coordinate [left=43mm of optParams] (lipsum1);
+            \coordinate [below left=17.5mm and 48mm of optParams] (lipsum2);
+            \coordinate [above left=18.5mm and 30mm of optParams] (docClass);
+            \draw [very thick,-{stealth[solarized-base0]}] (optParams.west) -- (lipsum1);
+            \draw [very thick,-{stealth[solarized-base0]}] (optParams.south) |- (lipsum2);
+            \draw [very thick,-{stealth[solarized-base0]}] (optParams.north) |- (docClass);
         \end{tikzpicture}
+
     \end{columns}
 
-    \begin{center}
-        \vspace{-2em}
-        \alert{\tikzrarrow Stackexchange, Manuals}
-    \end{center}
+    %\begin{center}
+    %    \vspace{-2em}
+    %    \alert{\tikzrarrow Stackexchange, Manuals}
+    %\end{center}
 \end{frame}
 
 \begin{frame}<handout:0>[fragile] % ------------------------------------ FRAME %
