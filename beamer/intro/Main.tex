@@ -70,12 +70,14 @@
 \author{%
     Raphael Frey%
     \hfill%
-    \footnotesize\texttt{%
+    \scriptsize\texttt{%
         \href{mailto:raphael.frey@students.fhnw.ch}%
         {raphael.frey@students.fhnw.ch}}}
 
 %\institute{IME}
 \titlegraphic{\includegraphics[height=2em]{images/fhnwLogoDE-solarized-base02.eps}}
+\subject{LaTeX -- Kurze Einf\"uhrung}
+\keywords{LaTeX Introduction Primer FHNW Overview}
 %http://web.fhnw.ch/cd/corporate-design/logos-fur-die-hochschulen
 
 % **************************************************************************** %
@@ -116,60 +118,71 @@
         \setlength{\yOffs}{14mm}
         \setlength{\xOffs}{4mm}
 
-        % TeX Node
-        \node (tex) 
-            [align=left] 
-            at (0,0)
-            {\Large\textbf{\TeX}\\[2mm] Donald Knuth, 1978};
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<+->
+            % TeX Node
+            \node (tex) 
+                [align=left] 
+                at (0,0)
+                {\Large\textbf{\TeX}\\[2mm] Donald Knuth, 1978};
+        \end{overprint}
 
-        % LaTeX Node
-        \pause
-        \node (latex)
-            [below right=\yOffs and \xOffs of tex,align=left,anchor=west]
-            {\Large\textbf{\LaTeX}\\[2mm] Leslie Lamport, 1985};
-        \draw
-            [thick,-{stealth}] 
-            (tex) -| (latex.north);
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<+->
+            % LaTeX Node
+            \node (latex)
+                [below right=\yOffs and \xOffs of tex,align=left,anchor=west]
+                {\Large\textbf{\LaTeX}\\[2mm] Leslie Lamport, 1985};
+            \draw
+                [thick,-{stealth}] 
+                (tex) -| (latex.north);
+        \end{overprint}
 
-        % ConTeXt Node
-        \pause
-        \node (context) 
-            [below left=\yOffs and \xOffs of tex,align=left,anchor=east]
-            {\Large\textbf{ConTeXt}\\[2mm] Hans Hagen, 1991};
-        \draw
-            [thick,-{stealth}] 
-            (tex) -| (context.north);
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<+->
+            % ConTeXt Node
+            \node (context) 
+                [below left=\yOffs and \xOffs of tex,align=left,anchor=east]
+                {\Large\textbf{ConTeXt}\\[2mm] Hans Hagen, 1991};
+            \draw
+                [thick,-{stealth}] 
+                (tex) -| (context.north);
+        \end{overprint}
 
-        % Others...
-        \pause
-        \node (others)
-            [below=\yOffs of tex,align=left,anchor=center] 
-            {weitere\ldots};
-        \draw
-            [thick,-{stealth}] 
-            (tex) -- (others.north);
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<+->
+            % Others...
+            \node (others)
+                [below=\yOffs of tex,align=left,anchor=center] 
+                {weitere\ldots};
+            \draw
+                [thick,-{stealth}] 
+                (tex) -- (others.north);
+        \end{overprint}
 
-        % Auxiliary Coordinate
-        \pause
-        \coordinate [below=40mm of tex] (southAux);
-        % NOTE:
-        % http://tex.stackexchange.com/questions/57227
-        \node (contamination) at (southAux)
-            [text=solarized-base0,yshift=8mm,anchor=south,draw=none,fill=none]
-            {gegens. Kontaminierung};
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<+->
+            % Auxiliary Coordinate
+            \coordinate [below=40mm of tex] (southAux);
+            % NOTE:
+            % http://tex.stackexchange.com/questions/57227
+            \node (contamination) at (southAux)
+                [text=solarized-base0,yshift=8mm,anchor=south,draw=none,fill=none]
+                {gegens. Kontaminierung};
 
-        \draw
-            [solarized-base0,dashed,thick,{stealth}-{stealth}] 
-            (others.west) -- (context.east);
-        \draw
-            [solarized-base0,dashed,thick,{stealth}-{stealth}] 
-            (others.east) -- (latex.west);
-        \draw
-            [solarized-base0,dashed,thick,{stealth}-] 
-            (context.south) |- (southAux);
-        \draw
-            [solarized-base0,dashed,thick,{stealth}-]
-            (latex.south) |- (southAux);
+            \draw
+                [solarized-base0,dashed,thick,{stealth}-{stealth}] 
+                (others.west) -- (context.east);
+            \draw
+                [solarized-base0,dashed,thick,{stealth}-{stealth}] 
+                (others.east) -- (latex.west);
+            \draw
+                [solarized-base0,dashed,thick,{stealth}-] 
+                (context.south) |- (southAux);
+            \draw
+                [solarized-base0,dashed,thick,{stealth}-]
+                (latex.south) |- (southAux);
+        \end{overprint}
     \end{tikzpicture}
 \end{frame}
 
@@ -200,8 +213,8 @@
                     und so weiter, und so fort
             \end{itemize}
     \end{itemize}
-    \pause
-    \centering\alert{\tikzrarrow Ein gewisses Mass an Masochismus ist erforderlich.}
+    %\pause
+    %\centering\alert{\tikzrarrow Ein gewisses Mass an Masochismus ist erforderlich.}
 \end{frame}
 
 \begin{frame}<handout:0>
@@ -297,74 +310,20 @@
         },
     ]
 
-        \node (source) 
-            [align=left] 
-            at (0,0)
-            {Quellcode};
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<1-| handout:0>
+            \node (source) 
+                [align=left] 
+                at (0,0)
+                {Quellcode};
 
-        \node (pdflatex) 
-            [signal,shape=signal,signal from=west,signal to=east,right=20mm of source]
-            {pdflatex};
+            \node (pdflatex) 
+                [signal,shape=signal,signal from=west,signal to=east,right=20mm of source]
+                {pdflatex};
 
-        \node (pdf) 
-            [right=20mm of pdflatex]
-            {pdf};
-
-        \node (latex) 
-            [signal,shape = signal,signal from=west,signal to=east,
-            below=of source,yshift=-10mm,rotate=-90,anchor=center] 
-            {latex};
-
-        \node (dvi) 
-            [below=40 mm of source]
-            {DVI};
-
-        \node (dvips)
-            [signal,shape=signal,signal from=west,
-            signal to=east,below=40mm of pdflatex]
-            {dvips};
-
-        \node (postscript) 
-            [below=40mm of pdf,]
-            {PostScript};
-
-        \node (ps2pdf)
-            [signal,shape = signal,signal from=west,signal to=east,
-            below=of pdf,yshift=-10mm,rotate=90,anchor=center]
-            {ps2pdf};
-
-        \begin{scope}[thick,arrows={-{stealth[solarized-base02]}}]
-            \draw (source) -- (pdflatex);
-            \draw (source) -- (latex);
-            \draw ($(pdflatex.east) + (-0.5mm,0)$) -- (pdf);
-            \draw ($(latex.east) + (0,0.5mm)$) -- (dvi);
-            \draw (dvi) -- (dvips);
-            \draw ($(dvips.east) + (-0.5mm,0)$) -- (postscript);
-            \draw (postscript) -- (ps2pdf);
-            \draw ($(ps2pdf.east) + (0,-0.5mm)$) -- (pdf);
-        \end{scope}
-
-        \pause
-        \begin{scope}[
-            draw=solarized-base02!20!white,
-            very thick,
-            arrows={-{stealth[solarized-base02!20!white]}},
-            rounded corners=2mm,
-            text=solarized-base02!20!white,
-            every node/.append style={
-                draw,
-                thick,
-                fill=solarized-base2!50!white,
-                inner sep=2mm,
-                font=\fontsize{10}{11}\selectfont,
-                align=left,
-            },
-            signal/.append style={
-                text=solarized-base2!60!solarized-magenta,
-                fill=solarized-magenta!10!white,
-                rounded corners=1mm,
-            },
-        ]
+            \node (pdf) 
+                [right=20mm of pdflatex]
+                {pdf};
 
             \node (latex) 
                 [signal,shape = signal,signal from=west,signal to=east,
@@ -375,91 +334,151 @@
                 [below=40 mm of source]
                 {DVI};
 
-            \node (dvips) 
-                [signal,shape = signal,signal from=west
-                ,signal to=east,below=40mm of pdflatex]
+            \node (dvips)
+                [signal,shape=signal,signal from=west,
+                signal to=east,below=40mm of pdflatex]
                 {dvips};
 
             \node (postscript) 
                 [below=40mm of pdf,]
                 {PostScript};
 
-            \node (ps2pdf) 
-                [signal,shape=signal,signal from=west,signal to=east,
+            \node (ps2pdf)
+                [signal,shape = signal,signal from=west,signal to=east,
                 below=of pdf,yshift=-10mm,rotate=90,anchor=center]
                 {ps2pdf};
 
-        \end{scope}
+            \begin{scope}[thick,arrows={-{stealth[solarized-base02]}}]
+                \draw (source) -- (pdflatex);
+                \draw (source) -- (latex);
+                \draw ($(pdflatex.east) + (-0.5mm,0)$) -- (pdf);
+                \draw ($(latex.east) + (0,0.5mm)$) -- (dvi);
+                \draw (dvi) -- (dvips);
+                \draw ($(dvips.east) + (-0.5mm,0)$) -- (postscript);
+                \draw (postscript) -- (ps2pdf);
+                \draw ($(ps2pdf.east) + (0,-0.5mm)$) -- (pdf);
+            \end{scope}
+        \end{overprint}
 
-        \begin{scope}[
-                very thick,
+        %\pause
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<2-| handout:1>
+            \begin{scope}[
                 draw=solarized-base02!20!white,
+                very thick,
                 arrows={-{stealth[solarized-base02!20!white]}},
-        ]
-            \draw (source) -- (latex);
-            \draw ($(latex.east) + (0,0.5mm)$) -- (dvi);
-            \draw (dvi) -- (dvips);
-            \draw ($(dvips.east) + (-0.5mm,0)$) -- (postscript);
-            \draw (postscript) -- (ps2pdf);
-            \draw ($(ps2pdf.east) + (0,-0.5mm)$) -- (pdf);
-        \end{scope}
+                rounded corners=2mm,
+                text=solarized-base02!20!white,
+                every node/.append style={
+                    draw,
+                    thick,
+                    fill=solarized-base2!50!white,
+                    inner sep=2mm,
+                    font=\fontsize{10}{11}\selectfont,
+                    align=left,
+                },
+                signal/.append style={
+                    text=solarized-base2!60!solarized-magenta,
+                    fill=solarized-magenta!10!white,
+                    rounded corners=1mm,
+                },
+            ]
 
-        % Additional Compilers, for the fitting node
-        \node (xelatex) 
-            [signal,shape = signal,signal from=west,
-            signal to=east,below=1mm of pdflatex]
-            {xelatex};
+                \node (latex) 
+                    [signal,shape = signal,signal from=west,signal to=east,
+                    below=of source,yshift=-10mm,rotate=-90,anchor=center] 
+                    {latex};
 
-        \node (lualatex) 
-            [signal,shape=signal,signal from=west,
-            signal to=east,above=1mm of pdflatex] 
-            {lualatex};
+                \node (dvi) 
+                    [below=40 mm of source]
+                    {DVI};
 
-        \node (bibtex) 
-            [signal,shape = signal,signal from=east,
-            signal to=west,below=10mm of xelatex]
-            {bibtex};
+                \node (dvips) 
+                    [signal,shape = signal,signal from=west
+                    ,signal to=east,below=40mm of pdflatex]
+                    {dvips};
 
-        % Using   the  'on   background  layer'  breaks  the
-        % pre-pause slide, so we don't.
-        \node (compilers) 
-            [draw,fill=solarized-base2,fit=(lualatex) (pdflatex) (xelatex),
-            inner sep=1em,xshift=-0.5em,align=right]
-            {};
+                \node (postscript) 
+                    [below=40mm of pdf,]
+                    {PostScript};
 
-        % And  we  draw  this  stuff  twice,  so  that  it's
-        % actually visible.
-        \node (pdflatexTop) 
-            [signal,shape = signal,signal from=west,
-            signal to=east,right=20mm of source]
-            {pdflatex};
+                \node (ps2pdf) 
+                    [signal,shape=signal,signal from=west,signal to=east,
+                    below=of pdf,yshift=-10mm,rotate=90,anchor=center]
+                    {ps2pdf};
 
-        \node (xelatexTop) 
-            [signal,shape = signal,signal from=west,
-            signal to=east,below=1mm of pdflatex]
-            {xelatex};
+            \end{scope}
 
-        \node (lualatexTop) 
-            [signal,shape = signal,signal from=west,
-            signal to=east,above=1mm of pdflatex]
-            {lualatex};
+            \begin{scope}[
+                    very thick,
+                    draw=solarized-base02!20!white,
+                    arrows={-{stealth[solarized-base02!20!white]}},
+            ]
+                \draw (source) -- (latex);
+                \draw ($(latex.east) + (0,0.5mm)$) -- (dvi);
+                \draw (dvi) -- (dvips);
+                \draw ($(dvips.east) + (-0.5mm,0)$) -- (postscript);
+                \draw (postscript) -- (ps2pdf);
+                \draw ($(ps2pdf.east) + (0,-0.5mm)$) -- (pdf);
+            \end{scope}
 
-        \node (bibtexTop) 
-            [signal,shape = signal,signal from=east,
-            signal to=west,below=10mm of xelatex]
-            {bibtex};
+            % Additional Compilers, for the fitting node
+            \node (xelatex) 
+                [signal,shape = signal,signal from=west,
+                signal to=east,below=1mm of pdflatex]
+                {xelatex};
 
-        \draw ($(compilers.south east) + (-0.7mm,0.7mm)$)
-            edge[thick,arrows={-{stealth[solarized-base2]}},out=-45,in=0] 
-            ($(bibtex.east) + (0.3mm,0)$);
-        \draw ($(bibtex.west) + (0.5mm,0)$)
-            edge[thick,arrows={-{stealth[solarized-base2]}},out=180,in=225] 
-            ($(compilers.south west) + (0.7mm,0.7mm)$);
+            \node (lualatex) 
+                [signal,shape=signal,signal from=west,
+                signal to=east,above=1mm of pdflatex] 
+                {lualatex};
 
-        \begin{scope}[thick,arrows={-{stealth[solarized-base02]}}]
-            \draw (source) -- (compilers.west);
-            \draw (compilers.east) -- (pdf);
-        \end{scope}
+            \node (bibtex) 
+                [signal,shape = signal,signal from=east,
+                signal to=west,below=10mm of xelatex]
+                {bibtex};
+
+            % Using   the  'on   background  layer'  breaks  the
+            % pre-pause slide, so we don't.
+            \node (compilers) 
+                [draw,fill=solarized-base2,fit=(lualatex) (pdflatex) (xelatex),
+                inner sep=1em,xshift=-0.5em,align=right]
+                {};
+
+            % And  we  draw  this  stuff  twice,  so  that  it's
+            % actually visible.
+            \node (pdflatexTop) 
+                [signal,shape = signal,signal from=west,
+                signal to=east,right=20mm of source]
+                {pdflatex};
+
+            \node (xelatexTop) 
+                [signal,shape = signal,signal from=west,
+                signal to=east,below=1mm of pdflatex]
+                {xelatex};
+
+            \node (lualatexTop) 
+                [signal,shape = signal,signal from=west,
+                signal to=east,above=1mm of pdflatex]
+                {lualatex};
+
+            \node (bibtexTop) 
+                [signal,shape = signal,signal from=east,
+                signal to=west,below=10mm of xelatex]
+                {bibtex};
+
+            \draw ($(compilers.south east) + (-0.7mm,0.7mm)$)
+                edge[thick,arrows={-{stealth[solarized-base2]}},out=-45,in=0] 
+                ($(bibtex.east) + (0.3mm,0)$);
+            \draw ($(bibtex.west) + (0.5mm,0)$)
+                edge[thick,arrows={-{stealth[solarized-base2]}},out=180,in=225] 
+                ($(compilers.south west) + (0.7mm,0.7mm)$);
+
+            \begin{scope}[thick,arrows={-{stealth[solarized-base02]}}]
+                \draw (source) -- (compilers.west);
+                \draw (compilers.east) -- (pdf);
+            \end{scope}
+        \end{overprint}
     \end{tikzpicture}
 \end{frame}
 
@@ -501,7 +520,7 @@
 
 
 \begin{frame}<handout:0>[fragile] % ------------------------------------ FRAME %
-    \frametitle{Einfachstes Grundger\"ust}
+    \frametitle{Hello, world!}
 
     \begin{columns}
         \column{0.5\textwidth}
