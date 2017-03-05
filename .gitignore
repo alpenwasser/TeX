@@ -7,3 +7,10 @@
 *.toc
 *.out
 *.auxlock
+example--simple-document/
+fhnwreport_with_example_v22/
+guides/
+ltxprimer-1.0.pdf
+ltxprimer-1.0.txt
+math--iso-31/
+tables/
