@@ -5,6 +5,18 @@ A short  introduction and overview  for people  unfamiliar with LaTeX  on just
 what the  heck it is,  and the *very*  basics of how  it can be  installed and
 used.
 
+Can be compiled into a handout and a presentation version.
+
+
+Dependencies
+------------
+
+- a reasoably up-to-date TeX  distribution 
+- the metropolis theme for beamer (might be included in your TeX distribution)
+- Pygmentize  (Python  syntax highlighter)
+- the `make` utility if you wish to compile via the Makefile.
+
+
 Compiling
 ---------
 
@@ -19,8 +31,12 @@ Non-comprehensive documentation of the Makefile:
   both output files.
 - `make clean`: Remove all output files (including cache and auxiliary files)
 
+
+
+
 TODO
 ----
 
-Prevent `make  clean` from  removing committed milestone  versions of  the pdf
-documents.
+- Prevent `make clean` from removing committed milestone versions of the pdf
+  documents.
+- Frame numbers on handout version are incorrect.

@@ -28,7 +28,8 @@
 
 % Beamer Setup --------------------------------------------------------------- %
 %\addtobeamertemplate{background canvas}{\transdissolve[duration=1]}{}
-\usetheme[titleformat=smallcaps,numbering=none]{metropolis}
+%\usetheme[titleformat=smallcaps,numbering=none]{metropolis}
+\usetheme[titleformat=smallcaps]{metropolis}
 
 % Packages ------------------------------------------------------------------- %
 \usepackage[ngerman]{babel}
@@ -64,6 +65,7 @@
 
 % Title Setup ---------------------------------------------------------------- %
 \title{\vspace*{4em}\Huge\LaTeX}
+\subtitle{\hfill First Contact}
 \date{\today}
 \author{%
     Raphael Frey%
@@ -72,13 +74,15 @@
         \href{mailto:raphael.frey@students.fhnw.ch}%
         {raphael.frey@students.fhnw.ch}}}
 
-\institute{\vspace*{7em}\hfill\includegraphics[height=2em]{images/fhnw.eps}}
+%\institute{IME}
+\titlegraphic{\includegraphics[height=2em]{images/fhnwLogoDE-solarized-base02.eps}}
+%http://web.fhnw.ch/cd/corporate-design/logos-fur-die-hochschulen
 
 % **************************************************************************** %
 \begin{document}                                                              
 % **************************************************************************** %
 
-\maketitle % ----------------------------------------------------------- FRAME %
+\frame[plain]{\titlepage} % -------------------------------------------- FRAME %
 
 
 \begin{frame}<handout:0> % --------------------------------------------- FRAME %
@@ -97,8 +101,8 @@
 
     \begin{tikzpicture}[
         draw=solarized-base02,
-        rounded corners=2mm,
         text=solarized-base02,
+        rounded corners=2mm,
         every node/.append style={
             draw,
             thick,
@@ -113,16 +117,16 @@
         \setlength{\xOffs}{4mm}
 
         % TeX Node
-        \node (tex) [align=left] at (0,0) {%
-            \Large\textbf{\alert{\TeX}}\\[2mm]
-            Donald Knuth, 1978\\
-        };
+        \node (tex) 
+            [align=left] 
+            at (0,0)
+            {\Large\textbf{\TeX}\\[2mm] Donald Knuth, 1978};
 
         % LaTeX Node
         \pause
         \node (latex)
             [below right=\yOffs and \xOffs of tex,align=left,anchor=west]
-            {\Large\textbf{\alert{\LaTeX}}\\[2mm] Leslie Lamport, 1985};
+            {\Large\textbf{\LaTeX}\\[2mm] Leslie Lamport, 1985};
         \draw
             [thick,-{stealth}] 
             (tex) -| (latex.north);
@@ -131,7 +135,7 @@
         \pause
         \node (context) 
             [below left=\yOffs and \xOffs of tex,align=left,anchor=east]
-            {\Large\textbf{\alert{ConTeXt}}\\[2mm] Hans Hagen, 1991};
+            {\Large\textbf{ConTeXt}\\[2mm] Hans Hagen, 1991};
         \draw
             [thick,-{stealth}] 
             (tex) -| (context.north);
@@ -561,11 +565,11 @@
     {article}
 \usepackage{lipsum}
 \begin{document}
-\lipsum[1-2]
+\lipsum|\alert{[1-2]}|
 \begin{equation}
     a = 5
 \end{equation}
-\lipsum[3]
+\lipsum|\alert{[3]}|
 \end{document}
             \end{minted} 
             % ------------------------------------------------------ %
@@ -612,11 +616,11 @@
     {article}
 |\alert{\textbf{\textbackslash\!\,usepackage\{lipsum\}}}|
 \begin{document}
-\lipsum[1-2]
+\lipsum|\alert{[1-2]}|
 |\alert{\textbf{\textbackslash\!\,begin\{equation\}}}|
     a = 5
 |\alert{\textbf{\textbackslash\!\,end\{equation\}}}|
-\lipsum[3]
+\lipsum|\alert{[3]}|
 \end{document}
             \end{minted}
             % ------------------------------------------------------ %
@@ -737,7 +741,7 @@
             \href{https://github.com/alpenwasser/latex-sandbox/}
                  {https://github.com/alpenwasser/latex-sandbox/}
         \item
-            Weiteres Programm: 26. April: Spezifische Probleme
+            Weiteres Programm: 26. April
             \begin{itemize}
                 \item
                     modulare Dokumentstruktur
