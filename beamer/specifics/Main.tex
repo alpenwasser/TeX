@@ -1,0 +1,157 @@
+% ******************************************************** %
+% DOCUMENT INFORMATION                                     %
+% ******************************************************** %
+%                                                          %
+% Purpose of Document                                      %
+% -------------------                                      %
+% Introductory Presentation on LaTeX                       %
+%                                                          %
+% Institution                                              %
+% -----------                                              %
+% University of Applied Sciences and Arts Northwestern     %
+% Switzerland, School of Engineering                       %
+%                                                          %
+% Degree Program                                           %
+% --------------                                           %
+% Electrical Engineering and Information Technology, BSc.  %
+%                                                          %
+% Author & Copyright                                       %
+% ------------------                                       %
+% Raphael Frey, raphael.frey@students.fhnw.ch              %
+%               rmfrey@runbox.com                          %
+%                                                          %
+% Date: 2017-APR-26                                        %
+% ******************************************************** %
+
+\documentclass{beamer}                % Presentation Version
+%\documentclass[handout]{beamer}      % Handout Version
+
+% Beamer Setup --------------------------------------------------------------- %
+%\addtobeamertemplate{background canvas}{\transdissolve[duration=1]}{}
+%\usetheme[titleformat=smallcaps,numbering=none]{metropolis}
+\usetheme[titleformat=smallcaps]{metropolis}
+
+% Packages ------------------------------------------------------------------- %
+\usepackage[ngerman]{babel}
+\usepackage{xcolor-solarized}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{shapes.symbols}
+\usepackage{hyperref}
+\usepackage{dirtree}
+\usepackage{minted}
+\setminted{%
+    %style=xcode,
+    %style=trac,
+    %style=paraiso-light,
+    %style=lovelace,
+    style=murphy,
+    bgcolor=solarized-base3,
+    linenos=true,
+}
+%\setbeamercolor{alerted text}{fg=solarized-red}
+
+
+% Macros --------------------------------------------------------------------- %
+% Arrow for use in text
+\def\tikzrarrow{%
+    \tikz[baseline=-0.67ex]\draw[double,very thick,-{stealth}](0,0)--(0.5,0);}
+\newlength{\yOffs}
+\newlength{\xOffs}
+\def\TikZ{Ti\emph{k}Z}
+
+% Title Setup ---------------------------------------------------------------- %
+\title{\vspace*{4em}\Huge\LaTeX}
+\subtitle{\hfill Fallbeispiele}
+\date{\today}
+\author{%
+    Raphael Frey%
+    \hfill%
+    \scriptsize\texttt{%
+        \href{mailto:raphael.frey@students.fhnw.ch}%
+        {raphael.frey@students.fhnw.ch}}}
+
+%\institute{IME}
+\titlegraphic{\includegraphics[height=2em]{images/fhnwLogoDE-solarized-base02.eps}}
+\subject{LaTeX -- Fallbeispiele}
+\keywords{LaTeX Snippets Examples Primer FHNW}
+%http://web.fhnw.ch/cd/corporate-design/logos-fur-die-hochschulen
+
+% **************************************************************************** %
+\begin{document}                                                              
+% **************************************************************************** %
+
+\frame[plain]{\titlepage} % -------------------------------------------- FRAME %
+
+
+\begin{frame}<handout:0> % --------------------------------------------- FRAME %
+    \frametitle{Programm}
+    \tableofcontents
+\end{frame}
+
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{PGF \& \TikZ} % ------------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Circui\TikZ} % ------------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{PGFPlots} % ---------------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Farben} % ------------------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Python} % ------------------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Matlab} % ------------------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Code Listings} % ----------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Tabellen} % ---------------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Minipages} % --------------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Bilder} % ------------------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Floats \& Captions} % ------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Formeln: ISO 80000} % ------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{PDF-Dateien integrieren} % ------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>{Modulare Dokumente} % ------------------------------ FRAME %
+% ---------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------- %
+\section<handout:0>*{Fragen?} % ---------------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+
+\end{document}
