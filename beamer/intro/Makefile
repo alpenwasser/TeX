@@ -57,14 +57,20 @@ view: simple
 
 handout: simplest packages structure compiletest
 	cp Main.tex Main.tex.bak
-	cat Main.tex.bak | sed 's/^\\documentclass{/\\documentclass[handout]{/' > Main.tex
+	cat Main.tex.bak | \
+		sed 's/^\\documentclass{/\\documentclass[handout]{/' | \
+		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/%\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/' > Main.tex
 	xelatex -shell-escape Main
 	cp Main.pdf handout.pdf
 	mv Main.tex.bak Main.tex
 
 presentation: simple
+	cp Main.tex Main.tex.bak
+	cat Main.tex.bak | \
+		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/' > Main.tex
 	xelatex -shell-escape Main # Table of Contents
 	cp Main.pdf presentation.pdf
+	mv Main.tex.bak Main.tex
 
 all: handout presentation
 	cp Main.pdf presentation.pdf
