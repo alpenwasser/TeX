@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{bytefield}
+\usepackage{xcolor-solarized}
+\newcommand{\colorbitbox}[4]{%
+    \rlap{\bitbox{#3}{\color{#1}\rule{\width}{\height}}}%
+    \bitbox{#3}{\sffamily\textcolor{#2}{#4}}}
+\begin{document}
+  \begin{bytefield}[bitwidth=2em]{8}
+    \bitheader{0,7} \\
+        \colorbitbox{gray!50}{black}{8}{Indikatorbyte}\\
+    \begin{rightwordgroup}{\sffamily Adresse}
+        \colorbitbox{solarized-base2}{solarized-base02}{8}{Adressbyte 0} \\
+        \colorbitbox{solarized-base2}{solarized-base02}{8}{Adressbyte 1} \\
+        \colorbitbox{solarized-base2}{solarized-base02}{8}{Adressbyte 2} \\
+        \colorbitbox{solarized-base2}{solarized-base02}{8}{Adressbyte 3}
+    \end{rightwordgroup} \\
+    \begin{rightwordgroup}{\sffamily Messdaten}
+        \colorbitbox{solarized-magenta}{solarized-base3}{8}{Spannungsbyte 0}\\
+        \colorbitbox{solarized-magenta}{solarized-base3}{8}{Spannungsbyte 1}
+    \end{rightwordgroup} \\
+    \begin{rightwordgroup}{\sffamily CRC}
+        \colorbitbox{solarized-blue}{solarized-base3}{8}{CRCbyte 0}\\
+        \colorbitbox{solarized-blue}{solarized-base3}{8}{CRCbyte 1}\\
+        \colorbitbox{solarized-blue}{solarized-base3}{8}{CRCbyte 2}\\
+        \colorbitbox{solarized-blue}{solarized-base3}{8}{CRCbyte 3}
+    \end{rightwordgroup} \\
+  \end{bytefield}
+\end{document}
