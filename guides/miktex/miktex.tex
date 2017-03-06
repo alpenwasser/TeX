@@ -1,0 +1,134 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=30mm,right=30mm,top=30mm,bottom=30mm]{geometry}
+\usepackage[ngerman]{babel}
+\usepackage{kpfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+\def\mt{MiKTeX}
+\newcommand{\screenshot}[1]{%
+    \begin{minipage}{\textwidth}
+        \vspace{1em}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/#1}
+        \vspace{1em}
+    \end{minipage}}
+\title{\mt~Installation Guide}
+\author{Raphael Frey}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+% ---------------------------------------------------------------------------- %
+\section{Download}
+\label{sec:download}
+% ---------------------------------------------------------------------------- %
+
+Die Installer k\"onnen heruntergeladen werden von: \href{https://miktex.org/download}{https://miktex.org/download}
+
+\mt~kann dynamisch Packages installieren,  welche f\"ur ein Projekt ben\"otigt
+werden  und noch  nicht auf  dem System  installiert sind. Es  ist also  nicht
+unbedingt notwendig, zu Beginn den  gesamten ``Garten zu pflanzen''. In diesem
+Falle w\"ahle man auf der \mt-Website die Option \emph{Masic \mt~Installer} in
+der ben\"otigten Bit-Version (normalerweise 64 dieser Tage).
+
+Andererseits  kann  es  damit  nat\"urlich leicht  geschehen,  dass  man  beim
+Arbeiten  an einem  Dokument noch  auf  das Installieren  von Packages  warten
+muss;  ebenfalls  wird in  diesem  Falle  logischerweise eine  funktionierende
+Internet-Verbindung ben\"otigt, um das fehlende Package noch zu installieren.
+
+Zur  Installation der  gesamten Distribution  w\"ahle man  den \emph{\mt~  Net
+Installer}. Dies ist die Variante, die in dieser Anleitung befolgt wird.
+
+Schlussendlich  ist es  aber eine  Frage der  pers\"onlichen Vorliebe. 
+
+Nach  dem Download  f\"uhre man  den Installer  aus, und  folge den  Schritten
+gem\"ass den Screenshots.
+
+Der \"ubliche Lizenzbrei, den wir sicher alle brav lesen und verstehen:
+
+\screenshot{miktex00.png}
+
+Die Installation besteht aus  zwei Schritten: Zuerst werden alle gew\"unschten
+Pakete in  ein Verzeichnis  heruntergeladen (obere Option),  und anschliessend
+wird \mt~ aus diesem installiert (untere Option). Zumindest bei meinem Versuch
+resultierte die untere Option nicht im automatischen Ausf\"uhren der ersten.
+
+Also: Zuerst mal runterladen.
+
+\screenshot{miktex01.png}
+
+Auch hier kann man nochmals w\"ahlen, ob man eine Gesamtinstallation oder eine
+teilweise Installation m\"ochte.
+
+\screenshot{miktex02.png}
+
+Einen Server ausw\"ahlen, von dem die Daten heruntergeladen werden sollen:
+
+\screenshot{miktex03.png}
+
+\screenshot{miktex04.png}
+
+\newpage
+Lokales Zielverzeichnis:
+
+\screenshot{miktex05.png}
+
+Blablabla:
+
+\screenshot{miktex06.png}
+
+\newpage
+Und Kaffee trinken gehen\ldots
+
+\screenshot{miktex07.png}
+
+Nach Beendigung des Download-Prozesses, ist es nicht auszuschliessen, dass der
+Installer sich beim Klicken anf \emph{Next} gem\"ass untenstehendem Screenshot
+beended\footnotemark. In  dem  Falle  nochmals  ausf\"uhren  und  durchklicken
+zu\ldots
+\footnotetext{Zumindest war dies die Erfahrung es Autors.}
+
+\screenshot{miktex08.png}
+
+\newpage
+\ldots  diesem  Dialog. Jetzt also  die  untere  Option ausw\"ahlen,  und  das
+Verzeichnis angeben, wohin vorher die Daten gespeichert worden sind.
+
+\screenshot{miktex09.png}
+
+Ein paar Mal durchklicken:
+
+\screenshot{miktex10.png}
+
+\screenshot{miktex11.png}
+
+\screenshot{miktex12.png}
+
+\screenshot{miktex13.png}
+
+Falls  man  zu  den  armen   Seelen  geh\"ort,  die  h\"aufig  nicht-metrische
+Papierformate verwenden m\"ussen, kann  man hier noch die Standard-Einstellung
+\"andern:
+
+\screenshot{miktex14.png}
+
+\screenshot{miktex15.png}
+
+Mehr Kaffee trinken\ldots
+
+\screenshot{miktex16.png}
+
+\screenshot{miktex17.png}
+
+\screenshot{miktex18.png}
+
+Und fertig!
+
+F\"ur  diejenigen,  welche  ihre  neue  \mt-Installation  gleich  ausprobieren
+wollen: Der  standardm\"assig  installierte   Editor  ist  TeXWorks. Ebenfalls
+sind  noch einige  Administrations-Tools  installiert worden,  um Packages  zu
+aktualisieren etc. Sollte alles ziemlich selbsterkl\"arend sein.
+
+\end{document}
