@@ -35,8 +35,7 @@ Include  the `a3pages.tex`  file  in your  preamble via  `\input{a3pages.tex}`
 Compiling the Examples
 ----------------------
 
-`make`  compiles both  versions. `make  clean` removes  the log,  pdf and  aux
-files.
+`make` compiles both versions. `make clean` removes the log and aux files.
 
 
 Limitations/TODOs
