@@ -1,0 +1,58 @@
+% -------------------------------------------------------- %
+% Provides  a   new  environment  a3pages   for  inserting %
+% landscape a3pages at arbitrary points in your document.  %
+%                                                          %
+% NOTE: This environment needs to be enclosed in braces to %
+% work  correctly.  Unfortunately,  I  haven't managed  to %
+% integrate  those into  the commands  directly yet  (they %
+% obviously mess up the bracing of the command itself).    %
+%                                                          %
+% EXAMPLE:                                                 %
+%                                                          %
+% {\begin{a3pages}                                         %
+%     your content                                         %
+%     goes here                                            %
+%     and will be put on                                   %
+%     landscape A3 pages                                   %
+% \end{a3pages}}                                           %
+%                                                          %
+% Note the  opening brace  before \begin{a3pages}  and the %
+% additional closing brace after \end{a3pages}             %
+% -------------------------------------------------------- %
+% See also:
+% http://tex.stackexchange.com/questions/16942/difference-between-textwidth-linewidth-and-hsize
+
+% Memoir class version:
+% NOTE: Relies on the spefic margins as set in my memoir.tex file
+\newenvironment{a3pagesMem}
+    {%
+        \clearpage
+        \setlength{\pdfpagewidth}{2\pdfpagewidth}
+        \setlength{\hsize}{\pdfpagewidth} % for text paragraphs
+        \addtolength{\hsize}{-\spinemargin}
+        \addtolength{\hsize}{-\foremargin}
+        \setlength{\textwidth}{\hsize}                             % headers, footers
+        \setlength{\stockwidth}{2\stockwidth}
+        \setlength{\paperwidth}{2\paperwidth}
+        \checkandfixthelayout%
+    }
+    {%
+        \clearpage
+    }
+
+% Version for Non-memoir classes (article etc.)
+% https://en.wikibooks.org/wiki/LaTeX/Page_Layout
+\newenvironment{a3pages}
+    {%
+        \clearpage
+        \setlength{\pdfpagewidth}{2\pdfpagewidth}
+        \setlength{\hsize}{\pdfpagewidth}
+        \addtolength{\hsize}{-2\oddsidemargin}
+        \addtolength{\hsize}{-2\marginparwidth}
+        \addtolength{\hsize}{-2\marginparsep}
+        \setlength{\textwidth}{\hsize}
+        \setlength{\paperwidth}{2\paperwidth}
+    }
+    {%
+        \clearpage
+    }

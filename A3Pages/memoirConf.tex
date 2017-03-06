@@ -1,0 +1,53 @@
+% -------------------------------------------------------- %
+% This file contains various options for the memoir class  %
+% itself.                                                  %
+% -------------------------------------------------------- %
+
+
+% -------------------------------------------------------- %
+% Choose a page layout                                     %
+% -------------------------------------------------------- %
+%                                                          %
+% The  layout  is based  on isopage,  with  the  following %
+% changes:                                                 %
+% - The spine margin is 30 mm. This is so that binding the %
+% document with  a ringbinder does  not come too  close to %
+% the text.                                                %
+% - The edge  margin is  1.5 times the spine  margin, i.e. %
+% 45 mm.                                                   %
+% - The top margin is 1/9  of the paper height, same as in %
+% \isopage                                                 %
+% - The bottom margin is decreased from isopage's value to %
+% 1.5 times the top margin, i.e. about 50 mm.              %
+% -------------------------------------------------------- %
+
+%    +----------^--------------------+
+%    |          | 33mm               |
+%    |     +----v------------+       |
+%    |30mm |                 | 45mm  |
+%    |<--->|                 |<----->|
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     +----^------------+       |
+%    |          | 49.5mm             |
+%    |          |                    |
+%    +----------v--------------------+
+\isopage%
+\setlrmarginsandblock{0.142857111\paperwidth}{0.190476190\paperwidth}{*}
+\setulmarginsandblock{0.111111111\paperheight}{*}{1.5}%
+\checkandfixthelayout%
+
+% -------------------------------------------------------- %
+% Pagestyle (Headers, Footers)                             %
+% -------------------------------------------------------- %
+\pagestyle{ruled}
