@@ -7,9 +7,15 @@
 *.toc
 *.out
 *.auxlock
+guides/texlive
+guides/mactex
+bibliography
+microtype
+dsp
+resources
+links.txt
 example--simple-document/
 fhnwreport_with_example_v22/
-guides/
 ltxprimer-1.0.pdf
 ltxprimer-1.0.txt
 math--iso-31/

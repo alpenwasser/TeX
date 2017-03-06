@@ -39,6 +39,7 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{calc}
 \usetikzlibrary{fit}
+\usetikzlibrary{spy}
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{shapes.symbols}
 \usepackage{hyperref}
@@ -527,45 +528,77 @@
     \begin{columns}
         \column{0.5\textwidth}
 
-        \inputminted{tex}{code/simplest.tex}
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<+->
+            \inputminted{tex}{code/simplest.tex}
+        \end{overprint}
 
-        \begin{tikzpicture}[
-            draw=solarized-base02,
-            rounded corners=2mm,
-            text=solarized-base02,
-            every node/.append style={
-                draw,
-                thick,
-                fill=solarized-base2,
-                inner sep=2mm,
-                font=\fontsize{10}{11}\selectfont,
-                align=left,
-            },
-            signal/.append style={
-                text=solarized-base2,
-                fill=solarized-magenta,
-                rounded corners=1mm,
-            },
-        ]
-            \useasboundingbox (-10mm,0) rectangle (50mm,-20mm);
-            \coordinate (source) at (0,0);
-            %\coordinate (target) at (40mm,-15mm);
+        \begin{overprint} % ---------------------------------- OVERPRINT %
+            \onslide<+->
+            \begin{tikzpicture}[
+                draw=solarized-base02,
+                rounded corners=2mm,
+                text=solarized-base02,
+                every node/.append style={
+                    draw,
+                    thick,
+                    fill=solarized-base2,
+                    inner sep=2mm,
+                    font=\fontsize{10}{11}\selectfont,
+                    align=left,
+                },
+                signal/.append style={
+                    text=solarized-base2,
+                    fill=solarized-magenta,
+                    rounded corners=1mm,
+                },
+            ]
+                \useasboundingbox (-10mm,0) rectangle (50mm,-20mm);
+                \coordinate (source) at (0,0);
+                %\coordinate (target) at (40mm,-15mm);
 
-            \node (pdflatex) 
-                [signal,shape=signal,signal from=west,signal to=east,below right=of source]
-                {pdflatex};
-            \coordinate [right=of pdflatex] (target);
+                \node (pdflatex) 
+                    [signal,shape=signal,signal from=west,signal to=east,below right=of source]
+                    {pdflatex};
+                \coordinate [right=of pdflatex] (target);
 
-            \draw [very thick,-{stealth}] (source) |- (pdflatex.west);
-            \draw [very thick,-{stealth}] ($(pdflatex.east) - (0.7mm,0mm)$) -- (target);
-        \end{tikzpicture}
+                \draw [very thick,-{stealth}] (source) |- (pdflatex.west);
+                \draw [very thick,-{stealth}] ($(pdflatex.east) - (0.7mm,0mm)$) -- (target);
+            \end{tikzpicture}
+        \end{overprint}
 
         \column{0.5\textwidth}
-        \begin{tikzpicture}[draw=solarized-base02]
-            \node
-                [anchor=west,draw] 
-                at (1,0) 
-                {\includegraphics[height=5.5cm]{code/simplest.pdf}};
+        \begin{tikzpicture}[
+                draw=solarized-base02,
+            ]
+            \begin{overprint} % ------------------------------ OVERPRINT %
+                \onslide<+>
+                \node
+                    (inclPage)
+                    [anchor=west,draw] 
+                    at (1,0) 
+                    {\includegraphics[height=5.5cm]{code/simplest.pdf}};
+            \end{overprint}
+            \begin{overprint} % ------------------------------ OVERPRINT %
+                \onslide<+->
+                \begin{scope}[
+                    spy scope = {magnification=9,size=100,connect spies},
+                    every spy on node/.style={circle,solarized-red,draw},
+                    every spy in node/.style = {circle,fill=white, fill opacity=1, draw},
+                ]
+                    % ------------------------------------------------------ %
+                    % No, including this twice is nog elegant, but otherwise %
+                    % either  the spy  glass  gets drawn  too  early or  the %
+                    % magnification does not work. Can't have everything...  %
+                    % ------------------------------------------------------ %
+                    \node
+                        (inclPage)
+                        [anchor=west,draw] 
+                        at (1,0) 
+                        {\includegraphics[height=5.5cm]{code/simplest.pdf}};
+                    \spy[red] on ($(inclPage.north west)+(9.15mm,-6.5mm)$) in node at (3,-1);
+                \end{scope}
+            \end{overprint}
         \end{tikzpicture}
     \end{columns}
 \end{frame}
@@ -639,7 +672,7 @@
             \begin{minted}[escapeinside=||]{tex}
 \documentclass
     |\alert{[a4paper,12pt]}|
-    {article}
+    {proc}
 \usepackage{lipsum}
 \begin{document}
 \lipsum|\alert{[1-2]}|
@@ -656,7 +689,7 @@
             \begin{minted}[escapeinside=||]{tex}
 \documentclass
     [a4paper,12pt]
-    {article}
+    {proc}
 |\alert{\textbf{\textbackslash{}usepackage\{lipsum\}}}|
 \begin{document}
 \lipsum[1-2]
@@ -673,7 +706,7 @@
             \begin{minted}[escapeinside=||]{tex}
 \documentclass
     [a4paper,12pt]
-    {article}
+    {proc}
 \usepackage{lipsum}
 \begin{document}
 \lipsum[1-2]
@@ -690,7 +723,7 @@
             \begin{minted}[escapeinside=||]{tex}
 \documentclass
     |\alert{[a4paper,12pt]}|
-    {article}
+    {proc}
 |\alert{\textbf{\textbackslash{}usepackage\{lipsum\}}}|
 \begin{document}
 \lipsum|\alert{[1-2]}|
