@@ -41,8 +41,8 @@ Compiling the Examples
 Limitations/TODOs
 -----------------
 
-Currently,  an   opening  and  closing   brace  must  be  placed   before  the
+-  Currently,  an  opening  and  closing  brace  must  be  placed  before  the
 invocation of the  `\begin{a3pages}` command, and after the  invocation of the
-`\end{a3pages}` command (see example above).
-
-If anyone knows a fix for this, feel free to let me know.
+`\end{a3pages}` command (see example above).  If  anyone knows a fix for this,
+feel free to let me know.
+- Convert into a package.
