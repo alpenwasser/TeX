@@ -371,7 +371,7 @@
                 very thick,
                 arrows={-{stealth[solarized-base02!20!white]}},
                 rounded corners=2mm,
-                text=solarized-base02!20!white,
+                text=solarized-base02!30!white,
                 every node/.append style={
                     draw,
                     thick,
@@ -402,7 +402,7 @@
                     {dvips};
 
                 \node (postscript) 
-                    [below=40mm of pdf,]
+                    [below=40mm of pdf]
                     {PostScript};
 
                 \node (ps2pdf) 
@@ -557,13 +557,13 @@
                 \coordinate (source) at (0,0);
                 %\coordinate (target) at (40mm,-15mm);
 
-                \node (pdflatex) 
+                \node (engine) 
                     [signal,shape=signal,signal from=west,signal to=east,below right=of source]
-                    {pdflatex};
-                \coordinate [right=of pdflatex] (target);
+                    {\TeX{} engine};
+                \coordinate [right=of engine] (target);
 
-                \draw [very thick,-{stealth}] (source) |- (pdflatex.west);
-                \draw [very thick,-{stealth}] ($(pdflatex.east) - (0.7mm,0mm)$) -- (target);
+                \draw [very thick,*-{stealth}] (source) |- (engine.west);
+                \draw [very thick,-{stealth}] ($(engine.east) - (0.7mm,0mm)$) -- (target);
             \end{tikzpicture}
         \end{overprint}
 
@@ -582,9 +582,10 @@
             \begin{overprint} % ------------------------------ OVERPRINT %
                 \onslide<+->
                 \begin{scope}[
+                    %spy scope = {draw=mLightBrown,thick,magnification=9,size=100,connect spies},
                     spy scope = {magnification=9,size=100,connect spies},
-                    every spy on node/.style={circle,solarized-red,draw},
-                    every spy in node/.style = {circle,fill=white, fill opacity=1, draw},
+                    every spy on node/.style = {thick,circle,mLightBrown,draw},
+                    every spy in node/.style = {draw,mLightBrown,thick,circle,fill=white, fill opacity=1},
                 ]
                     % ------------------------------------------------------ %
                     % No, including this twice is nog elegant, but otherwise %
@@ -596,14 +597,18 @@
                         [anchor=west,draw] 
                         at (1,0) 
                         {\includegraphics[height=5.5cm]{code/simplest.pdf}};
-                    \spy[red] on ($(inclPage.north west)+(9.15mm,-6.5mm)$) in node at (3,-1);
+                    \spy 
+                        [
+                            spy connection path = {%
+                                \draw[mLightBrown,thick] (tikzspyonnode) -- (tikzspyinnode);}]
+                        on ($(inclPage.north west)+(9.15mm,-6.5mm)$) in node at (3,-1);
                 \end{scope}
             \end{overprint}
         \end{tikzpicture}
     \end{columns}
 \end{frame}
 
-\begin{frame}<beamer:0>[fragile] % ------------------------------------- FRAME %
+\begin{frame}<beamer:0| trans:1>[fragile] % ---------------------------- FRAME %
     \frametitle{Einfaches Dokument}
     \begin{columns}
         \column{0.5\textwidth}
@@ -657,7 +662,7 @@
     %\end{center}
 \end{frame}
 
-\begin{frame}<handout:0>[fragile] % ------------------------------------ FRAME %
+\begin{frame}<handout:0| trans: 0>[fragile] % -------------------------- FRAME %
     \frametitle{Optionale Parameter, Packages, Environments}
 
     \begin{columns}
@@ -746,7 +751,7 @@
                 \node
                     [anchor=west,draw]
                     at (1,0)
-                    {\includegraphics[height=5.5cm]{code/packages.pdf}};
+                    {\includegraphics[height=5.8cm]{code/packages.pdf}};
             \end{tikzpicture}
         \end{overprint} % ---------------------------------------------- %
     \end{columns}
