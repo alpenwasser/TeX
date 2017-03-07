@@ -1,6 +1,6 @@
 \documentclass{memoir}
 \usepackage{lipsum}    % dummy text
-\input{memoirConf.tex}
+%\input{memoirConf.tex}
 \input{a3pages.tex}
 
 % ------------------------------------------------ %
@@ -23,6 +23,12 @@
         \put(0.3,4){$F=\sqrt{s(s-a)(s-b)(s-c)}$}
         \put(3.5,0.4){$\displaystyle s:=\frac{a+b+c}{2}$}
     \end{picture}}
+
+\isopage%
+\setlrmarginsandblock{0.142857111\paperwidth}{0.190476190\paperwidth}{*}
+\setulmarginsandblock{0.111111111\paperheight}{*}{1.5}%
+\checkandfixthelayout%
+\pagestyle{ruled}
 
 \begin{document}
 \lipsum[1-3]
