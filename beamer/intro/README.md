@@ -5,7 +5,7 @@ A short  introduction and overview  for people  unfamiliar with LaTeX  on just
 what the  heck it is,  and the *very*  basics of how  it can be  installed and
 used.
 
-Can be compiled into a handout, a presentation and a transparencies version.
+Can be compiled into a handout, a presentation and a transparency version.
 
 
 Dependencies
@@ -37,24 +37,21 @@ Non-comprehensive documentation of the Makefile:
   it  does not  yet  exist), and  moves  all output  `*.pdf`  files into  that
   directory with timestamped file  names. Example: `presentation.pdf` is moved
   to  `milestones/2017-01-23--19-23-07--presentation.pdf` if  the compile  run
-  was executed at 19:23:07h on January 23, 2017.
-
-
-TODO
-----
-
-- Prevent `make clean` from removing committed milestone versions of the pdf
-  documents.
-- Frame numbers on handout version are incorrect.
+  was executed at  19:23:07h on January 23, 2017. These files  are not removed
+  by `make clean`, as stated above.
 
 
 Links
 -----
 
-- [Default beamer theme matrix](https://hartwork.org/beamer-theme-matrix/)
-- [A subdued beamer theme by Cameron Bracken](http://cameron.bracken.bz/beamer-template)
-- [Cuerna (another theme)](http://ctan.org/pkg/beamertheme-cuerna)
 - Metropolis (the theme used in this presentation): 
-  * [Github](https://github.com/matze/mtheme), 
-  * [Blog post](http://bloerg.net/2014/09/20/a-modern-beamer-theme.html),
+  * [Github](https://github.com/matze/mtheme)
+  * [Blog post](http://bloerg.net/2014/09/20/a-modern-beamer-theme.html)
   * [CTAN (with manual)](http://ctan.org/pkg/beamertheme-metropolis)
+- [Cuerna (another theme)](http://ctan.org/pkg/beamertheme-cuerna)
+- Seth Brown's beamer theme:
+  * [Blog post](http://www.drbunsen.org/designing-a-beamer-template-theme/)
+  * [Github](https://github.com/drbunsen/drbunsen-beamer)
+- [a list of some non-stock beamer themes](https://latex.simon04.net)
+- [a subdued beamer theme by Cameron Bracken](http://cameron.bracken.bz/beamer-template)
+- [stock beamer theme matrix](https://hartwork.org/beamer-theme-matrix/)
