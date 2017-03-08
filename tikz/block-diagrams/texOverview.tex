@@ -1,0 +1,87 @@
+\documentclass{standalone}
+\usepackage{xcolor-solarized}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{fit}
+\usetikzlibrary{spy}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{shapes.symbols}
+
+\def\tikzrarrow{%
+    \tikz[baseline=-0.67ex]\draw[double,very thick,-{stealth}](0,0)--(0.5,0);}
+\newlength{\yOffs}
+\newlength{\xOffs}
+
+\begin{document}
+\begin{tikzpicture}[
+    draw=solarized-base02,
+    text=solarized-base02,
+    rounded corners=2mm,
+    every node/.append style={
+        draw,
+        thick,
+        fill=solarized-base2,
+        % technically not necessary with the global rounded corners option:
+        rounded corners=2mm, 
+        inner sep=2mm,
+        font=\fontsize{10}{11}\selectfont,
+    },
+]
+    \sffamily
+    \setlength{\yOffs}{14mm}
+    \setlength{\xOffs}{4mm}
+
+    % TeX Node
+    \node (tex) 
+        [align=left] 
+        at (0,0)
+        {\Large\textbf{\TeX}\\[2mm] Donald Knuth, 1978};
+
+    \node (latex)
+        [below right=\yOffs and \xOffs of tex,align=left,anchor=west]
+        {\Large\textbf{\LaTeX}\\[2mm] Leslie Lamport, 1985};
+    \draw
+        [thick,-{stealth}] 
+        (tex) -| (latex.north);
+
+    % ConTeXt Node
+    \node (context) 
+        [below left=\yOffs and \xOffs of tex,align=left,anchor=east]
+        {\Large\textbf{ConTeXt}\\[2mm] Hans Hagen, 1991};
+    \draw
+        [thick,-{stealth}] 
+        (tex) -| (context.north);
+
+    % Others...
+    \node (others)
+        [below=\yOffs of tex,align=left,anchor=center] 
+        {weitere\ldots};
+    \draw
+        [thick,-{stealth}] 
+        (tex) -- (others.north);
+
+    % Auxiliary Coordinate
+    \coordinate [below=40mm of tex] (southAux);
+    % NOTE:
+    % http://tex.stackexchange.com/questions/57227
+    \node (contamination) at (southAux)
+        [text=solarized-base0,yshift=8mm,anchor=south,draw=none,fill=none]
+        {gegens. Kontaminierung};
+
+    \draw
+        [solarized-base0,dashed,thick,{stealth}-{stealth}] 
+        (others.west) -- (context.east);
+    \draw
+        [solarized-base0,dashed,thick,{stealth}-{stealth}] 
+        (others.east) -- (latex.west);
+    \draw
+        [solarized-base0,dashed,thick,{stealth}-] 
+        (context.south) |- (southAux);
+    \draw
+        [solarized-base0,dashed,thick,{stealth}-]
+        (latex.south) |- (southAux);
+\end{tikzpicture}
+\end{document}
