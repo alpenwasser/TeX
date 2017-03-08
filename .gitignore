@@ -7,7 +7,6 @@
 *.toc
 *.out
 *.auxlock
-guides/mactex
 bibliography
 microtype
 dsp
@@ -19,3 +18,5 @@ ltxprimer-1.0.pdf
 ltxprimer-1.0.txt
 math--iso-31/
 tables/
+latex-intro.txt
+circuits
