@@ -1,0 +1,76 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=30mm,right=30mm,top=30mm,bottom=30mm]{geometry}
+\usepackage[ngerman]{babel}
+\usepackage{kpfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+\def\tl{\TeX{} Live}
+\newcommand{\screenshot}[1]{%
+    \noindent\begin{minipage}{\textwidth}
+        \vspace{1em}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/#1}
+        \vspace{1em}
+    \end{minipage}}
+\title{\tl{} Installation Guide}
+\author{Raphael Frey}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+Der Installer (\texttt{install-tl-windows.exe}) kann heruntergeladen werden von \\
+\href{https://www.tug.org/texlive/acquire-netinstall.html}
+     {https://www.tug.org/texlive/acquire-netinstall.html}
+
+Der  Installer  beinhaltet   keine  Installationsdateien. Hat  man  gen\"ugend
+Speicherplatz  auf  dem Rechner  (etwa  5  Gigabyte),  empfielt es  sich,  die
+volle Installation auszuf\"uhren  (``Simple install (big)''). Die Installation
+erfordert keine grosse Konfiguration.
+
+\vspace{1em}
+Installer starten\ldots
+
+\screenshot{texlive00.png}
+
+\newpage
+Brav durchklichen\ldots
+
+\screenshot{texlive01.png}
+\screenshot{texlive02.png}
+
+\newpage
+
+Anschliessend sollte das Setup-Programm starten:
+
+\screenshot{texlive03.png}
+\screenshot{texlive04.png}
+\screenshot{texlive05.png}
+\screenshot{texlive06.png}
+\screenshot{texlive07.png}
+
+Der n\"achste Schritt dauert eine Weile. Es empfielt sich eine Kaffeepause\footnotemark
+
+\footnotetext{%
+    Oder was auch immer der geneigte Benutzer/die geneigte Benutzering bevorzugt.%
+}
+
+\screenshot{texlive08.png}
+\screenshot{texlive09.png}
+\screenshot{texlive10.png}
+
+\newpage
+Nach  der  Installation sollte  einige  neue  Programme  auf dem  Rechner  zur
+Verf\"ugung stehen. Der  \emph{TeX Live Manager} dient  zur Administration der
+installierten (und noch nicht installierten) Packages. Es lassen sich Packages
+installieren, deinstallieren und aktualisieren.
+
+\screenshot{texlive13.png}
+
+Der     standardm\"assig     Installierte      Editor     ist     \TeX{}works:
+
+\screenshot{texworks0.png}
+
+Die Installation wurde ausgef\"uhrt auf einem Windows 8.1-System.
+\end{document}

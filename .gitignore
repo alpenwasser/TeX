@@ -7,7 +7,6 @@
 *.toc
 *.out
 *.auxlock
-guides/texlive
 guides/mactex
 bibliography
 microtype
