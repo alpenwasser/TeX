@@ -1,0 +1,102 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=30mm,right=30mm,top=30mm,bottom=30mm]{geometry}
+\usepackage[ngerman]{babel}
+\usepackage{kpfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+\def\mt{Mac\TeX}
+\newcommand{\screenshot}[1]{%
+    \noindent\begin{minipage}{\textwidth}
+        \vspace{1em}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/#1}
+        \vspace{1em}
+    \end{minipage}}
+\title{\mt{} Installation Guide}
+\author{Raphael Frey}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+Der Installer kann heruntergeladen werden von
+\href{https://www.tug.org/mactex/}{https://www.tug.org/mactex/}
+(\emph{MacTeX Download}).
+
+
+%\screenshot{mactex00.png}
+
+Ausser man ist direkt an einem Internet-Backbone, wird dies eine Weile dauern.
+
+\screenshot{mactex01.png}
+
+Anschliessend  den   Installer  ausf\"uhren  und   durchklicken. Sollte  alles
+ziemlich selbsterkl\"arend sein.
+
+\screenshot{mactex02.png}
+\screenshot{mactex03.png}
+\screenshot{mactex04.png}
+\screenshot{mactex05.png}
+\screenshot{mactex06.png}
+\screenshot{mactex07.png}
+\screenshot{mactex08.png}
+
+\newpage
+Allenfalls  m\"ussen noch  die  Entwicklertools  installiert werden. Hat  beim
+Autor alles reibungslos funktioniert. Immer sch\"on weiterklicken.
+
+\screenshot{mactex09.png}
+\screenshot{mactex10.png}
+\screenshot{mactex11.png}
+\screenshot{mactex12.png}
+
+\newpage
+Und voil\`a!
+
+\screenshot{mactex13.png}
+
+Unter  anderem beinhaltet  \mt{}  ein Administrations-Tool,  mit dem  Packages
+installiert, deinstalliert und aktualisiert werden k\"onnen. Im Folgenden wird
+ein Update-Durchlauf gezeigt.
+
+\vspace{1em}
+Beim Starten wird man allenfalls von dieser Sicherheitsmeldung begr\"usst.
+
+\screenshot{mactex14.png}
+
+\newpage
+Updates verf\"ugbar!
+
+\screenshot{mactex15.png}
+
+Zuerst wird  die Datenbank mit dem  Server synchronisiert und mit  der lokalen
+Installation verglichen. Ist  dieser Vorgang erfolgreich, sieht  das wie folgt
+aus:
+
+\screenshot{mactex16.png}
+
+\newpage
+Anschliessend den Befehl erteilen, alle Packages zu aktualisieren.
+
+\screenshot{mactex17.png}
+
+Durchklicken\ldots
+
+\screenshot{mactex18.png}
+%\screenshot{mactex19.png}
+%\screenshot{mactex20.png}
+
+\newpage
+Das geht dann allenfalls eine Weile.
+
+\screenshot{mactex21.png}
+
+\vspace{1em}
+Wenn alles nach Plan gelaufen ist, sollte man hier landen:
+
+\screenshot{mactex22.png}
+
+%\screenshot{mactex23.png}
+
+\end{document}
