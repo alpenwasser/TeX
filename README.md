@@ -27,6 +27,13 @@ Contents
   * **mactex**: MacTeX installation and administration guide
   * **miktex**: MikTeX installation guide
   * **texlive**: TeX Live installation and administration guide for Windows.
+* **listings**: Various means of integrating and formatting code and verbatim
+  text into a document.
+  * **fancyvrb**
+  * **listings**
+  * **listingsutf8**
+  * **matlab-prettifier**
+  * **verbments**
 * **minipages**: A descent  into  the  abyss which  is  the  dark  sorcery  of
   minipages.
 * **pgfplots**: How to import and plot tabular data from external files.
