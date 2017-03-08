@@ -1,0 +1,315 @@
+\documentclass{article}
+\usepackage[a4paper,margin=30mm,landscape]{geometry}
+\usepackage{xcolor}
+
+% Define Folder Shapes
+\setlength{\unitlength}{0.5mm}
+\newsavebox{\foldera}
+\savebox{\foldera} (40,32)[bl]{% definition
+    \multiput(0,0)(0,28){2}
+    {\line(1,0){40}}
+    \multiput(0,0)(40,0){2}
+    {\line(0,1){28}}
+    \put(1,28){\oval(2,2)[tl]}
+    \put(1,29){\line(1,0){5}}
+    \put(9,29){\oval(6,6)[tl]}
+    \put(9,32){\line(1,0){8}}
+    \put(17,29){\oval(6,6)[tr]}
+    \put(20,29){\line(1,0){19}}
+    \put(39,28){\oval(2,2)[tr]}
+}
+
+\newsavebox{\folderb}
+\savebox{\folderb} (40,32)[l]{% definition
+    \put(0,14){\line(1,0){8}}
+    \put(8,0){\usebox{\foldera}}
+}
+    
+\def\folders{%
+    \begin{picture}(120,168)
+        \put(34,26){\line(0,1){102}}
+        \put(14,128){\usebox{\foldera}}
+        \multiput(34,86)(0,-37){3}
+        {\usebox{\folderb}}
+    \end{picture}%
+}
+
+\def\arrows{%
+    \setlength{\unitlength}{0.75mm}
+    \begin{picture}(60,40)
+        \put(30,20){\vector(1,0){30}}
+        \put(30,20){\vector(4,1){20}}
+        \put(30,20){\vector(3,1){25}}
+        \put(30,20){\vector(2,1){30}}
+        \put(30,20){\vector(1,2){10}}
+        \thicklines
+        \put(30,20){\vector(-4,1){30}}
+        \put(30,20){\vector(-1,4){5}}
+        \thinlines
+        \put(30,20){\vector(-1,-1){5}}
+        \put(30,20){\vector(-1,-4){5}}
+    \end{picture}%
+}
+\usepackage{lipsum}
+
+% **************************************************************************** %
+\begin{document}
+% **************************************************************************** %
+
+
+Source for picture examples: \texttt{https://en.wikibooks.org/wiki/LaTeX/Picture}
+
+For understanding how minipages behave, it  is helpful to have some additional
+text in a document, such as  this. The tricky thing about minipages is usually
+to get them to align nicely in  the vertical dimension. So, let us create some
+minipages, and see what they do.
+%An optional  first argument of  t (for  top) or b  (bottom) aligns the  top or
+%bottom line  of the parbox  with the  text line. More precisely,  the optional
+%argument causes the  reference point of the  box to be the  reference point of
+%the top or bottom line of its contents.
+
+\newlength{\parindentBackup}
+\setlength{\parindentBackup}{\parindent}
+\fbox{%
+    \begin{minipage}{0.45\textwidth}
+        We are now inside a minipage which was created by
+        \texttt{\textbackslash{}begin\{minipage\}\{0.33\textbackslash{}textwidth\}}.
+
+        As you perhaps suspect, the content  of the two minipages on this page
+        is  vertically centered  with respect  to the  minipages.
+
+        Also        note        that       inside        minipages,        the
+        \texttt{\textbackslash{}parindent}  dimention   is  set  to   zero  by
+        default. You can still set it to anything you like by using the usual
+        \texttt{\textbackslash{}setlength\{\textbackslash{}parindent\}\{<length>\}}
+        syntax\dots
+
+        \setlength{\parindent}{\parindentBackup}
+        \ldots as was done right  before starting this paragraph. In fact, the
+        \texttt{\textbackslash{}parindent}  length  is  now (i.e.  right  from
+        the  start of  this paragraph)  set  to its  original value. This  was
+        accomplished by first creating a new length:
+        \texttt{\textbackslash{}newlength\{\textbackslash{}parindentBackup\}}, 
+        and then  storing the  value of  \texttt{\textbackslash{}parindent} in
+        that length \emph{before} the minipage was opened, via:
+        \texttt{\textbackslash{}setlength\{\textbackslash{}parindentBackup\}\{\textbackslash{}parindent\}}
+        Then \texttt{\textbackslash{}parindent}  was restored to  its original
+        value before the start of this paragraph.
+
+        Lastly,  you may  have noticed  that the  minipage itself  is indented
+        with  respect  to  regular  text  on  the  page. That  is  because  it
+        is  basically  the  starting  element  of a  paragraph,  and  as  such
+        \texttt{\textbackslash{}parindent}  was  applied   to  it  before  the
+        minipage was started. We will fix this on the next page.
+    \end{minipage}}
+\hspace{0.1\textwidth}
+\fbox{%
+    \noindent\begin{minipage}{0.33\textwidth}
+        \arrows
+    \end{minipage}}
+
+\fbox{%
+    \noindent\begin{minipage}{0.33\textwidth}
+        As  can  be seen  when  comparing  the  alignment of  this  minipage's
+        content  with  the  dummy  text  right  above,  the  minipage  is  now
+        not  indented   with  respect  to  the   rest  of  the  text   of  the
+        page. This  was  achieved  by  preceding  the  minipage  command  with
+        \texttt{\textbackslash{}noindent}. This will  also work for  any other
+        paragraph, should you so wish (though usually it is not recommended).
+
+        Anyway, enough  about indentation: Maybe  you think that  aligning the
+        picture on the right in reference  to the vertical center lines of the
+        minipages  is not  what you  want. Maybe you  want the  picture to  be
+        aligned with the top of the first minipage?
+
+        Easier said than done! But alright: First things first. Have a look at
+        the minipage  on the right. Notice  anything? The picture seems  to be
+        more  aligned like  a letter  than  a picture,  or not? The  picture's
+        bottom is on the same height as the bottom of the letters on the first
+        line. That actually  has little to  do with the  minipage environment,
+        but it  is important to know  for getting things aligned  as we (okay,
+        <em>I</em>) want later on.
+
+        Now, if I may direct your attention  to that red reference line in the
+        middle  of the  page. The  reference line  is  outside the  minipages,
+        meaning it is  part of the regular  text flow. Note that it  is in the
+        vertical center of the two minipages.
+    \end{minipage}}
+\hspace{0.05\textwidth}
+\textcolor{red}{This is the reference line!}
+\hfill
+\fbox{%
+    \noindent\begin{minipage}{0.33\textwidth}
+        \arrows
+        \lipsum[2]
+    \end{minipage}}
+
+\fbox{%
+    \noindent\begin{minipage}[t]{0.33\textwidth}
+        This is  what happens  when you create  a minipage  environment (well,
+        two, to be precise) with the optional argument for top alignment, like
+        so:
+        \texttt{\textbackslash{}begin\{minipage\}[t]\{0.33\textbackslash{}textwidth\}}
+
+        Note that  each minipage's  first line is  aligned with  the reference
+        line now. However,  because the picture's  bottom is aligned  with the
+        bottom of the  minipage's first line, and thus with  the bottom of the
+        reference line, this is not exactly what I'd call a desirable outcome.
+
+        We  can  also  call  a  minipage with  the  \texttt{[c]}  (for  center
+        alignment, which is also the default  which gets called when you don't
+        specify an  optional alignment parameter) or  \texttt{[b]} (for bottom
+        alignment).
+    \end{minipage}}
+\hspace{0.05\textwidth}
+{This is the reference line!
+\hfill
+\fbox{%
+    \begin{minipage}[t]{0.33\textwidth}
+        \arrows
+        \lipsum[2]
+    \end{minipage}}
+
+\fbox{%
+    \noindent\begin{minipage}[t]{0.33\textwidth}
+        This   can  actually   be   used  for   some   rather  odd   placement
+        configurations, like on this page, where the left minipage was created
+        by calling
+        \texttt{\textbackslash{}begin\{minipage\}[t]\{0.33\textbackslash{}textwidth\}}
+        for top alignment, and the right one was created by
+        \texttt{\textbackslash{}begin\{minipage\}[b]\{0.33\textbackslash{}textwidth\}}
+        for bottom alignment.
+    \end{minipage}}
+\hspace{0.05\textwidth}
+This is the reference line!
+\hfill
+\fbox{%
+    \begin{minipage}[b]{0.33\textwidth}
+        \arrows
+        \lipsum[2]
+    \end{minipage}}
+
+\noindent\fbox{%
+    \begin{minipage}[t][][b]{0.33\textwidth}
+        But enough about  that. What about getting that picture to  align in a
+        sane manner?  That  requires some more optional  arguments. To be more
+        precise:
+
+        \texttt{\textbackslash{}begin\{minipage\}[t][][b]\{0.33\textbackslash{}textwidth\}}
+
+        Okay,   don't   panic. The   first  argument   \texttt{[t]}   is   the
+        top-alignment one  from before. Nothing  new there. The middle  one is
+        the minipage's height. Note  that while it is empty in  this case (and
+        in  most  other cases,  because  usually  we  don't care  to  manually
+        calculate how high our minipage is going  to be), but it must be there
+        if you want to have  the last option, \texttt{[b]}. That last optional
+        argument tells  the minipage to align  the top of the  first line with
+        the bottom of the baseline.
+
+        Personally,   I   still   find   this   to   be   a   bit   off   from
+        perfection. Ideally, the top of the picture should be aligned with the
+        top of the reference line, in my humble opinion.
+\end{minipage}}
+\hspace{0.05\textwidth}
+This is the reference line!
+\hfill
+\fbox{%
+    \begin{minipage}[t][][b]{0.33\textwidth}
+        \begin{center}
+        \arrows
+        \end{center}
+        \lipsum[2]
+\end{minipage}}
+
+\newpage
+\noindent\rule{237mm}{0.5pt}
+
+\vspace{-0.21em} % aligned to 1em negative vspate for the figure
+%\vspace{-0.75em} % aligned to 1ex negative vspace for the figure
+\noindent\fbox{%
+    \begin{minipage}[t][][t]{0.33\textwidth}
+        So let's try that then. First, we create the left minipage with
+
+        \texttt{\textbackslash{}begin\{minipage\}[t][][t]\{0.33\textbackslash{}textwidth\}}
+
+        Thus aligning its top line perfectly to the reference line.
+
+        The   second  minipage's   content  (not   the  minipage   itself,  as
+        you  can   see  by  the  frame)   is  shifted  by  negative   1em  via
+        \texttt{\textbackslash{}vspace\{-1em\}}. This  means that  its content
+        slightly protrudes above  the minipage. Whether or not  you care about
+        that is up to you.
+        
+        Note  that the  top of  the picture  is aligned  with the  top of  the
+        reference \emph{line},  not its letters. In  the end, how you  wish to
+        align this is up to you.
+        
+        The next page is  the same as this one, but without  all the lines, so
+        that it  is easier to  get an  impression of how  it would look  in an
+        actual document.
+    \end{minipage}}
+\hspace{0.05\textwidth}
+This is the reference line!
+\hfill
+\fbox{%
+    \begin{minipage}[t][][b]{0.33\textwidth}
+        %\vspace{-1ex}
+        \vspace{-1em}
+        \begin{center}
+        \arrows
+        \end{center}
+        \lipsum[2]
+    \end{minipage}}
+
+\newpage
+
+\begin{minipage}[t][][t]{0.33\textwidth}
+    And as promised, these are the same alignment options as on the previous
+    page, but without the visual clutter. Created, again, by using
+
+    \texttt{\textbackslash{}begin\{minipage\}[t][][t]\{0.33\textbackslash{}textwidth\}}
+
+    and  by shifting  the right  minipage's content  upwards by  1em with  the
+    \texttt{\textbackslash{}vspace\{-1em\}} command.
+
+    I did  try out shifting  the entire  minipage upwards, but  somehow \LaTeX
+    refused  to cooperate. Maybe  somebody more  versed than  me in  the inner
+    workings of \LaTeX can figure that one out.
+\end{minipage}
+\hspace{0.05\textwidth}
+This is the reference line!
+\hfill
+\begin{minipage}[t][][b]{0.33\textwidth}
+    %\vspace{-1ex}
+    \vspace{-1em}
+    \begin{center}
+    \arrows
+    \end{center}
+    \lipsum[2]
+\end{minipage}
+
+\newpage
+\noindent\fbox{%
+    \begin{minipage}[t][][t]{0.33\textwidth}
+        If the  minipages on both  sides open with  text, the command  as used
+        earlier produces  the more pleasing  result I'd say, by  aligning both
+        top lines  of the minipages  with the reference line. The  commands as
+        used on this page are:
+
+        \texttt{\textbackslash{}begin\{minipage\}[t][][t]\{0.33\textbackslash{}textwidth\}}
+\end{minipage}}
+\hspace{0.05\textwidth}
+This is the reference line!
+\hfill
+\noindent\fbox{%
+    \begin{minipage}[t][][t]{0.33\textwidth}
+        \lipsum[4]
+        \begin{center}
+        \arrows
+        \end{center}
+        \lipsum[4]
+\end{minipage}}
+
+% **************************************************************************** %
+\end{document}
+% **************************************************************************** %
