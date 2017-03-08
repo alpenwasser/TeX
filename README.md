@@ -37,7 +37,9 @@ Contents
 * **minipages**: A descent  into  the  abyss which  is  the  dark  sorcery  of
   minipages.
 * **pgfplots**: How to import and plot tabular data from external files.
-* **tikz-faded-hexagons**: Some messing around with Ti*k*Z.
+* **tikz**:
+  * **faded-hexagons**: some messing around with Ti*k*Z
+  * **block-diagrams**: block diagrams with Ti*k*Z
 
 License
 -------
