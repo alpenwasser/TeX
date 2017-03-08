@@ -1,8 +1,40 @@
-LaTeX Sandbox
-=============
+TeX Sandbox
+===========
 
-This  is  a collection  of  various  LaTeX  snippets,  proofs of  concept  and
-such. Unless otherwise noted, the contents  in this repository which have been
+A collection of various TeX snippets (mostly LaTeX so far), proofs of concept,
+tutorials, and so on and so forth.
+
+Unless  otherwise noted,  the  contents  in this  repository  which have  been
 authored by myself are BSD-licensed  (see LICENSE). Content sourced from other
 parties falls under their respective licenses.
-http://www.tug.org.in/tutorials.html
+
+Contents
+--------
+
+* **A3Pages**:  Inserting landscape  A3  pages in  documents  which are  otherwise
+  portrait A4.
+* **beamer**:
+  * **intro**: introductory presentation to LaTeX
+  * **specifics**:  presentation on  some specific examples  one is  likely to
+  encounter while writing reports during one's academic career.
+* **bytefield**: an example for a customized usage of the *bytefield* package.
+* **example-documents**:
+  * **simple-document**: A very simple LaTeX document.
+  * **report**: TODO
+* **guides**: Some screenshot-laden guides for installing MacTeX, TeX Live and
+  MikTeX, respectively. Target  audience: newcomers. Linux  and BSD  users are
+  presumed to be using their respective system package managers.
+  * **mactex**: MacTeX installation and administration guide
+  * **miktex**: MikTeX installation guide
+  * **texlive**: TeX Live installation and administration guide for Windows.
+* **minipages**: A descent  into  the  abyss which  is  the  dark  sorcery  of
+  minipages.
+* **pgfplots**: How to import and plot tabular data from external files.
+* **tikz-faded-hexagons**: Some messing around with Ti*k*Z.
+
+License
+-------
+
+Unless   otherwise    noted,   the    contents   of   this    repository   are
+BSD-licensed. Content  not  created by  me  falls  under  the license  of  its
+respective creator.
