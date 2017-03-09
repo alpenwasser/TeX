@@ -1,0 +1,38 @@
+\documentclass[a4paper]{minimal}
+\usepackage[margin=10mm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{spy}
+\begin{document}
+
+% -------------------------------------------------------------------------- %
+% Yes, I know the colors are ridiculous. Just making an instructive example. %
+% -------------------------------------------------------------------------- %
+
+\begin{tikzpicture}[%
+    spy scope = {magnification=5,connect spies},
+    every spy on node/.style = {thick,red,draw = pink},
+    every spy in node/.style = {thick,fill=white, fill opacity=1, draw},
+]
+    \node[inner sep = 0pt,anchor=south west] {%
+        \includegraphics[width=0.9\textwidth]{images/jacModule.eps}
+    };
+    
+    \coordinate (spyOn1) at (1.35,1.4);
+    \coordinate (spyIn1) at (9,8);
+    \coordinate (spyOn2) at (8.6,1.05);
+    \coordinate (spyIn2) at (9,3);
+
+    \spy[
+        width=330,
+        height=190,
+        rectangle,
+        orange,
+        spy connection path = {%
+            \draw[magenta,thick] (tikzspyonnode) -- (tikzspyinnode);}
+    ]
+        on (spyOn1) 
+        in node at (spyIn1);
+
+    \spy[circle,size=75,red] on (spyOn2) in node at (spyIn2);
+\end{tikzpicture}
+\end{document}
