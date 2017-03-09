@@ -41,6 +41,8 @@ Contents
   * **faded-hexagons**: some messing around with Ti*k*Z
   * **block-diagrams**: block diagrams with Ti*k*Z
   * **spy**: an example for using the spy functionality in Ti*k*Z
+  * **full-page-picture**: a way to get pictures to cover an entire page using
+    Ti*k*Z
 
 License
 -------
