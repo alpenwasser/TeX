@@ -1,0 +1,47 @@
+\begin{tikzpicture}
+    \begin{scope}[x={(0mm,100mm)},y={(0mm,80mm)}]
+        \begin{axis}[
+            title = Strom{,} Spannung und Leistung eines PV-Moduls mit einer degradierten Zelle,
+            %colormap/hot2,
+            %colormap/cool,
+            %colormap/viridis,
+            colormap/temp,
+            %height=80mm,
+            width=110mm,
+            grid=both,
+            zmin=0,
+            thick,
+            xlabel=Spannung,
+            ylabel=Strom,
+            zlabel=Leistung,
+            legend style={at={(0,-0.15)},anchor=north west},
+            legend cell align=left,
+        ]
+            % 10A
+            \addplot3[
+                draw=blue,
+                scatter src = \thisrow{I(R3)},
+            ] table[y expr=9] {data/iv-generic--9a.dat};
+            \addplot3[
+                draw=blue,
+                scatter src = \thisrow{power},
+            ] table[x expr=47] {data/iv-generic--9a.dat};
+            \addplot3[
+                draw=blue,
+                scatter src = \thisrow{power},
+            ] table[x expr=0] {data/iv-generic--9a.dat};
+            \addplot3[
+                draw=blue,
+                scatter src = \thisrow{I(R3)},
+            ] table[z expr=0] {data/iv-generic--9a.dat};
+            \addplot3[
+                surf,
+                shader=interp,
+            ] table {data/iv-generic--full-dataset.dat};
+            \addplot3[
+                draw=blue,
+                very thick,
+            ] table {data/iv-generic--full-dataset.dat};
+        \end{axis}
+    \end{scope}
+\end{tikzpicture}
