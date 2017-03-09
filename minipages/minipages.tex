@@ -167,7 +167,7 @@ minipages, and see what they do.
         bottom is on the same height as the bottom of the letters on the first
         line. That actually  has little to  do with the  minipage environment,
         but it  is important to know  for getting things aligned  as we (okay,
-        <em>I</em>) want later on.
+        \emph{I}) want later on.
 
         Now, if I may direct your attention  to that red reference line in the
         middle  of the  page. The  reference line  is  outside the  minipages,
@@ -191,9 +191,12 @@ minipages, and see what they do.
         \texttt{\textbackslash{}begin\{minipage\}[t]\{0.33\textbackslash{}textwidth\}}
 
         Note that  each minipage's  first line is  aligned with  the reference
-        line now. However,  because the picture's  bottom is aligned  with the
-        bottom of the  minipage's first line, and thus with  the bottom of the
-        reference line, this is not exactly what I'd call a desirable outcome.
+        line now  (to be more accurate:  the baselines of the  two first lines
+        in  the minipages  are  aligned  with the  baseline  of the  reference
+        line). However,  because  the picture's  bottom  is  aligned with  the
+        baseline of the  minipage's first line, and thus with  the baseline of
+        the  reference  line, this  is  not  exactly  what  one might  call  a
+        desirable outcome.
 
         We  can  also  call  a  minipage with  the  \texttt{[c]}  (for  center
         alignment, which is also the default  which gets called when you don't
@@ -240,10 +243,10 @@ This is the reference line!
         top-alignment one  from before. Nothing  new there. The middle  one is
         the minipage's height. Note  that while it is empty in  this case (and
         in  most  other cases,  because  usually  we  don't care  to  manually
-        calculate how high our minipage is going  to be), but it must be there
-        if you want to have  the last option, \texttt{[b]}. That last optional
+        calculate how high our  minipage is going to be), it  must be there if
+        you want  to have  the last  option, \texttt{[b]}. That  last optional
         argument tells  the minipage to align  the top of the  first line with
-        the bottom of the baseline.
+        the baseline of the reference line.
 
         Personally,   I   still   find   this   to   be   a   bit   off   from
         perfection. Ideally, the top of the picture should be aligned with the
@@ -284,9 +287,9 @@ This is the reference line!
         reference \emph{line},  not its letters. In  the end, how you  wish to
         align this is up to you.
         
-        The next page is  the same as this one, but without  all the lines, so
-        that it  is easier to  get an  impression of how  it would look  in an
-        actual document.
+        Further down,  you can see a  version of this page  without the frames
+        and the horizontal line, to get an  impression on how it would look in
+        an actual document.
     \end{minipage}}
 \hspace{0.05\textwidth}
 This is the reference line!
@@ -316,7 +319,8 @@ This is the reference line!
     drawing, but not with the top of the right minipage.
 
     If we leave out the rules and frameboxes, we can see on the next two pages
-    that the result is the same.
+    that the  result for the two  approaches, when leaving out  the frames and
+    the horizontal line, is the same.
 \end{minipage}}}
 \hspace{0.05\textwidth}
 This is the reference line!
@@ -360,9 +364,8 @@ This is the reference line!
 \newpage
 
 \noindent\begin{minipage}[t][][t]{0.33\textwidth}
-    Alternatively to inserting  a negative \texttt{vshift}, we can  also use a
-    \texttt{\textbackslash{}raisebox}  command to  raise  the entire  minipage
-    upwards.
+    And the  same thing, but with  a \texttt{\textbackslash{}raisebox} instead
+    of a \texttt{vshift}.
 
     The right minipage in this case works as follows:
 
@@ -376,10 +379,12 @@ This is the reference line!
 \end{minipage}}
     \end{verbatim}
 
-    If you  overlay this page  and the previous  one, they should  be visually
-    indistinguishable. So which approach you prefer is up to you. The usage of
-    the \texttt{\textbackslash{}raisebox}  command is the cleaner  approach in
-    the author's opinion, but whether the reader holds the author's opinion in
+    If  you  overlay   this  page  and  the  previous  one,   they  should  be
+    visually  indistinguishable  (well,  at   least  the  reference  line  and
+    the  right minipage;  obviously  the  text in  the  left  minipage is  not
+    identical). So which  approach you prefer is  up to you. The usage  of the
+    \texttt{\textbackslash{}raisebox} command  is the cleaner approach  in the
+    author's opinion,  but whether  the reader holds  the author's  opinion in
     sufficiently  high  regard to  agree  with  that  argument  is yet  to  be
     determined.
 \end{minipage}
@@ -423,7 +428,7 @@ This is the reference line!
 \hspace{0.01\textwidth}
 \noindent\begin{minipage}[t][][t]{0.32\textwidth}
         A  minipage will  never be  broken  across different  pages, and  will
-        therefore happily flow beyond page  margins in both the horizontal and
+        therefore happily  flow into page  margins in both the  horizontal and
         vertical direction, or even wander right off the page itself.
 \end{minipage}
 \hspace{0.01\textwidth}
@@ -434,8 +439,8 @@ This is the reference line!
 
 \newpage
 
-In theory,  minipages can be  used at arbitrary  places inside text,  like on.
-this  page.
+In theory, minipages can be used at arbitrary places inside text, like on this
+page.
 \fbox{\begin{minipage}{0.1\textwidth}
     This minipage is center-positioned, without any optional arguments.
     \end{minipage}}
@@ -454,13 +459,13 @@ with which to fill this page so that we can see more minipage behavior.
     not.
     \end{minipage}}
 \fbox{\begin{minipage}[t][][b]{0.1\textwidth}
-    And let's make another one right next to it.
+    And let's  make another one right  next to it, with  the \texttt{[t][][b]}
+    syntax.
     \end{minipage}}
 Though it might show  up on a different place due to line  breaks and all that
-stuff. Also,  that one  was aligned  via  \texttt{[t][][b]}, as  you may  have
-guessed if you've been paying attention.
+stuff.
 \fbox{\begin{minipage}[t][][t]{0.1\textwidth}
-    Whereas this one has been positioned via \texttt{[t][][t]}.
+    This minipage has been positioned via \texttt{[t][][t]}.
     \end{minipage}}
 The difference should not be too difficult to spot.
 
