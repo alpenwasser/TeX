@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[a4paper,margin=30mm,landscape]{geometry}
 \usepackage{xcolor}
+\usepackage{hyperref}
 
 % Define Folder Shapes
 \setlength{\unitlength}{0.5mm}
@@ -52,12 +53,15 @@
 }
 \usepackage{lipsum}
 
+\title{The Dark Sorcery of Minipages}
+\author{Raphael Frey}
+\date{\today}
 % **************************************************************************** %
 \begin{document}
 % **************************************************************************** %
 
+\maketitle
 
-Source for picture examples: \texttt{https://en.wikibooks.org/wiki/LaTeX/Picture}
 
 For understanding how minipages behave, it  is helpful to have some additional
 text in a document, such as  this. The tricky thing about minipages is usually
@@ -106,10 +110,45 @@ minipages, and see what they do.
 \fbox{%
     \noindent\begin{minipage}{0.33\textwidth}
         \arrows
+        \footnote{%
+            Source              for             picture              examples:
+            \href{https://en.wikibooks.org/wiki/LaTeX/Picture}
+                 {https://en.wikibooks.org/wiki/LaTeX/Picture}%
+        }
+        \footnote{%
+            Footnotes   inside    minipages   can    be   created    via   the
+            \texttt{\textbackslash{}footnote} command.%
+        }
+        \footnote{%
+            Note  the two  different  counters for  the  footnotes inside  the
+            minipage and outside. This  can be at least  somewhat adjusted, if
+            so desired, see for example here:
+            \href{http://tex.stackexchange.com/questions/18499/how-to-change-symbol-for-footnote-in-minipage}
+                 {http://tex.stackexchange.com/questions/18499/how-to-change-symbol-for-footnote-in-minipage}%
+        }
+        \footnotemark[1]
+        \footnotemark[2]
     \end{minipage}}
 
-\fbox{%
-    \noindent\begin{minipage}{0.33\textwidth}
+\footnotetext[1]{%
+    We       can       also        put       footnotes       outside       the
+    minipage     via      the     \texttt{\textbackslash{}footnotemark}     --
+    \texttt{\textbackslash{}footnotetext}    syntax,   optionally    with   an
+    additional  numeric  index:  \texttt{\textbackslash{}footnotemark[1]}  and
+    \texttt{\textbackslash{}footnotetext[1]\{text\}}. Using this syntax inside
+    the  minipages   has  not  produced   reliable  results  for   the  author
+    though. Beware of dragons. %
+}
+
+
+\footnotetext[2]{%
+    Also note that hyperlinks to footnotes outside the minipage are broken.%
+}
+
+\newpage
+\textcolor{gray}{\lipsum[1]}
+\noindent\fbox{%
+    \begin{minipage}{0.33\textwidth}
         As  can  be seen  when  comparing  the  alignment of  this  minipage's
         content  with  the  dummy  text  right  above,  the  minipage  is  now
         not  indented   with  respect  to  the   rest  of  the  text   of  the
@@ -138,14 +177,14 @@ minipages, and see what they do.
 \hspace{0.05\textwidth}
 \textcolor{red}{This is the reference line!}
 \hfill
-\fbox{%
-    \noindent\begin{minipage}{0.33\textwidth}
+\noindent\fbox{%
+    \begin{minipage}{0.33\textwidth}
         \arrows
         \lipsum[2]
     \end{minipage}}
 
-\fbox{%
-    \noindent\begin{minipage}[t]{0.33\textwidth}
+\noindent\fbox{%
+    \begin{minipage}[t]{0.33\textwidth}
         This is  what happens  when you create  a minipage  environment (well,
         two, to be precise) with the optional argument for top alignment, like
         so:
@@ -170,8 +209,8 @@ minipages, and see what they do.
         \lipsum[2]
     \end{minipage}}
 
-\fbox{%
-    \noindent\begin{minipage}[t]{0.33\textwidth}
+\noindent\fbox{%
+    \begin{minipage}[t]{0.33\textwidth}
         This   can  actually   be   used  for   some   rather  odd   placement
         configurations, like on this page, where the left minipage was created
         by calling
@@ -236,9 +275,10 @@ This is the reference line!
 
         The   second  minipage's   content  (not   the  minipage   itself,  as
         you  can   see  by  the  frame)   is  shifted  by  negative   1em  via
-        \texttt{\textbackslash{}vspace\{-1em\}}. This  means that  its content
-        slightly protrudes above  the minipage. Whether or not  you care about
-        that is up to you.
+        \texttt{\textbackslash{}vspace\{-1em\}} by placing that command inside
+        the  minipage (see  the  example without  the frameboxes  below). This
+        means that its content  slightly protrudes above the minipage. Whether
+        or not you care about that is up to you.
         
         Note  that the  top of  the picture  is aligned  with the  top of  the
         reference \emph{line},  not its letters. In  the end, how you  wish to
@@ -261,20 +301,49 @@ This is the reference line!
         \lipsum[2]
     \end{minipage}}
 
+
+\newpage
+\noindent\rule{237mm}{0.5pt}
+
+\vspace{-0.45em} % aligned to 1em negative vspate for the figure
+
+\noindent\fbox{\begin{minipage}[t][][t]{0.33\textwidth}
+    Alternatively  to  inserting  a  negative   vshift,  we  can  also  use  a
+    \texttt{\textbackslash{}raisebox}  command to  raise  the entire  minipage
+    upwards.
+
+    Note that  the top  of the  left minibox is  aligned with  the top  of the
+    drawing, but not with the top of the right minipage.
+
+    If we leave out the rules and frameboxes, we can see on the next two pages
+    that the result is the same.
+\end{minipage}}}
+\hspace{0.05\textwidth}
+This is the reference line!
+\hfill
+\fbox{\raisebox{1em}{\begin{minipage}[t][][b]{0.33\textwidth}
+    \begin{center}
+    \arrows
+    \end{center}
+    \lipsum[2]
+\end{minipage}}}
+
 \newpage
 
-\begin{minipage}[t][][t]{0.33\textwidth}
-    And as promised, these are the same alignment options as on the previous
-    page, but without the visual clutter. Created, again, by using
+\noindent\begin{minipage}[t][][t]{0.33\textwidth}
+    As  promised,  the   same  alignment  options,  but   without  the  visual
+    clutter.
 
-    \texttt{\textbackslash{}begin\{minipage\}[t][][t]\{0.33\textbackslash{}textwidth\}}
-
-    and  by shifting  the right  minipage's content  upwards by  1em with  the
-    \texttt{\textbackslash{}vspace\{-1em\}} command.
-
-    I did  try out shifting  the entire  minipage upwards, but  somehow \LaTeX
-    refused  to cooperate. Maybe  somebody more  versed than  me in  the inner
-    workings of \LaTeX can figure that one out.
+    The right minipage on this page is created by:
+    \begin{verbatim}
+\begin{minipage}[t][][b]{0.33\textwidth}
+    \vspace{-1em}
+    \begin{center}
+        \arrows
+    \end{center}
+    \lipsum[2]
+\end{minipage}
+    \end{verbatim}
 \end{minipage}
 \hspace{0.05\textwidth}
 This is the reference line!
@@ -287,6 +356,42 @@ This is the reference line!
     \end{center}
     \lipsum[2]
 \end{minipage}
+
+\newpage
+
+\noindent\begin{minipage}[t][][t]{0.33\textwidth}
+    Alternatively to inserting  a negative \texttt{vshift}, we can  also use a
+    \texttt{\textbackslash{}raisebox}  command to  raise  the entire  minipage
+    upwards.
+
+    The right minipage in this case works as follows:
+
+    \begin{verbatim}
+\raisebox{1em}{%
+    \begin{minipage}[t][][b]{0.33\textwidth}
+        \begin{center}
+            \arrows
+        \end{center}
+    \lipsum[2]
+\end{minipage}}
+    \end{verbatim}
+
+    If you  overlay this page  and the previous  one, they should  be visually
+    indistinguishable. So which approach you prefer is up to you. The usage of
+    the \texttt{\textbackslash{}raisebox}  command is the cleaner  approach in
+    the author's opinion, but whether the reader holds the author's opinion in
+    sufficiently  high  regard to  agree  with  that  argument  is yet  to  be
+    determined.
+\end{minipage}
+\hspace{0.05\textwidth}
+This is the reference line!
+\hfill
+\raisebox{1em}{\begin{minipage}[t][][b]{0.33\textwidth}
+    \begin{center}
+    \arrows
+    \end{center}
+    \lipsum[2]
+\end{minipage}}
 
 \newpage
 \noindent\fbox{%
@@ -309,6 +414,55 @@ This is the reference line!
         \end{center}
         \lipsum[4]
 \end{minipage}}
+
+\newpage
+\noindent\fbox{%
+    \begin{minipage}[t][][t]{0.32\textwidth}
+        \lipsum[1-6]
+    \end{minipage}}
+\hspace{0.01\textwidth}
+\noindent\begin{minipage}[t][][t]{0.32\textwidth}
+        A  minipage will  never be  broken  across different  pages, and  will
+        therefore happily flow beyond page  margins in both the horizontal and
+        vertical direction, or even wander right off the page itself.
+\end{minipage}
+\hspace{0.01\textwidth}
+\noindent\fbox{%
+    \begin{minipage}[t][][t]{0.52\textwidth}
+        \lipsum[1-6]
+    \end{minipage}}
+
+\newpage
+
+In theory,  minipages can be  used at arbitrary  places inside text,  like on.
+this  page.
+\fbox{\begin{minipage}{0.1\textwidth}
+    This minipage is center-positioned, without any optional arguments.
+    \end{minipage}}
+Whether or not this  yields a desirable outcome is left as  an exercise to the
+reader.  Placing minipages randomly inside  flowing text can yield some rather
+odd results, after all, as can easily be seen here.
+\fbox{\begin{minipage}[t]{0.1\textwidth}
+    This minipage is top-positioned, via a single \texttt{[t]} argument.
+    \end{minipage}}
+Now let us  continue to write some  random text in order to  create some words
+with which to fill this page so that we can see more minipage behavior.
+\fbox{\begin{minipage}[b]{0.15\textwidth}
+    This   minipage   is   bottom-positioned  by   the   single   \texttt{[b]}
+    argument. Also, it has more text in it than the two previous ones, so that
+    it grows  a bit taller. But  it's also a bit  wider, because why  the hell
+    not.
+    \end{minipage}}
+\fbox{\begin{minipage}[t][][b]{0.1\textwidth}
+    And let's make another one right next to it.
+    \end{minipage}}
+Though it might show  up on a different place due to line  breaks and all that
+stuff. Also,  that one  was aligned  via  \texttt{[t][][b]}, as  you may  have
+guessed if you've been paying attention.
+\fbox{\begin{minipage}[t][][t]{0.1\textwidth}
+    Whereas this one has been positioned via \texttt{[t][][t]}.
+    \end{minipage}}
+The difference should not be too difficult to spot.
 
 % **************************************************************************** %
 \end{document}

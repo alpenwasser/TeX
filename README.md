@@ -40,6 +40,7 @@ Contents
 * **tikz**:
   * **faded-hexagons**: some messing around with Ti*k*Z
   * **block-diagrams**: block diagrams with Ti*k*Z
+  * **spy**: an example for using the spy functionality in Ti*k*Z
 
 License
 -------
