@@ -1,0 +1,24 @@
+\documentclass[a4paper]{minimal}
+\usepackage{tikz}
+
+% NOTE: This only works with pdflatex. XeTeX, even after multiple
+%       runs, refuses to position the picture correctly, at least
+%       on my machine.
+%       pdflatex  must  be  run  twice  to  position  the picture 
+%       correctly.
+
+% Picture source:
+% https://en.wikipedia.org/wiki/File:Photovoltaik_Dachanlage_Hannover_-_Schwarze_Heide_-_1_MW.jpg
+
+\begin{document}
+% These lengths are defined, but set to zero.
+\setlength{\paperwidth}{210mm}
+\setlength{\paperheight}{297mm}
+
+ % The picture.
+\begin{tikzpicture}[remember picture, overlay]
+    \node[inner sep=0pt] at (current page.center) {%
+        \includegraphics[width=\paperwidth,height=\paperheight]{images/titlepic.jpg}%
+    };
+\end{tikzpicture}
+\end{document}
