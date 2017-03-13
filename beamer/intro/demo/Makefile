@@ -8,3 +8,4 @@ clean:
 	@rm -f $(DEMOFILE).log
 	@rm -f $(DEMOFILE).aux
 	@rm -f $(DEMOFILE).pdf
+	@rm -f $(DEMOFILE).tex
