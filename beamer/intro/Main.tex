@@ -198,20 +198,13 @@
             \ldots und auch \TeX~hat seine T\"ucken:
             \begin{itemize}
                 \item
+                    Qual der Wahl
+                \item
                     Floats
                 \item
-                    Inkompatibilit\"aten zwischen Packages
+                    indirekter Workflow
                 \item
-                    Schriftarten
-                \item
-                    Input Encoding, Output Encoding
-                \item
-                    \"Okosystem ist gross und etwas un\"ubersichtlich
-                \item
-                    umst\"andlicher    Workflow     (mehrere    Compiler    \&
-                    Compiler-Durchl\"aufe, verschiedene Optionen)
-                \item
-                    und so weiter, und so fort
+                    etc.
             \end{itemize}
     \end{itemize}
     %\pause
@@ -223,29 +216,28 @@
     \begin{itemize}
         \item
             Trennung von Inhalt und Form 
-            %(m\"oglich, aber h\"aufig nicht sauber befolgt)
         \item
-            sehr m\"achtig: Packages f\"ur jeden Geschmack
-        \item
-            Referenzen: Fussnoten,    Randnotizen,   Abbildungen,    Tabellen,
-            Gleichungen, \ldots
-            % Word kann das auch. Aber in meiner Erfahrung mehr quirky behavior.
+            Packages f\"ur jeden Geschmack
         \item
             robusteres Verhalten (wenn auch nicht immer so wie gewollt)
+        %\item
+        %    Referenzen: Fussnoten,    Randnotizen,   Abbildungen,    Tabellen,
+        %    Gleichungen, \ldots
+            % Word kann das auch. Aber in meiner Erfahrung mehr quirky behavior.
+        %\item
+        %    nicht propriet\"ar
+        %\item
+        %    Portabilit\"at \& Stabilit\"at
         \item
-            nicht propriet\"ar
-        \item
-            Portabilit\"at \& Stabilit\"at
-        \item
-            Basiert auf Puretext-Dateien:
-            \begin{itemize}
-                \item
-                    Version Control: Git, SVN \& Co.
-                \item
-                    Modularit\"at
-                \item
-                    zukunftssicher (Archivierbarkeit)
-            \end{itemize}
+            Puretext-Dateien
+            %\begin{itemize}
+            %    \item
+            %        Version Control: Git, SVN \& Co.
+            %    \item
+            %        Modularit\"at
+            %    \item
+            %        zukunftssicher (Archivierbarkeit)
+            %\end{itemize}
         \item
             die feineren Aspekte von Typographie
     \end{itemize}
@@ -490,15 +482,13 @@
     \frametitle{Editoren}
     \begin{itemize}
         \item
-            TeX Live \& MikTeX: TeXworks
+            Split Pane: TeXworks, TeXShop, Texmaker, TeXstudio, \alert{Gummi}
         \item
-            macOS: z.B. TeXShop
-        \item
-            Texmaker, TeXstudio, Gummi, \ldots
-        \item
-            WYSIWYM: LyX
+            WYSIWYM: \alert{LyX}
             %(What you see is what you mean)
-
+        \item
+            Text  editor (\alert{Vim},  Emacs,  Sublime,  \ldots) \&  Terminal
+            (allenfalls mit \alert{Makefile} o.\"a.)
         \item
         Vergleichstabelle: 
             \href
@@ -514,7 +504,7 @@
 
     \pause
     \centering\alert
-        {abh\"angig von pers\"onlichen Vorlieben \tikzrarrow Ausprobieren}
+        {ausprobieren}
 \end{frame}
 
 % ---------------------------------------------------------------------------- %
@@ -786,7 +776,8 @@
             Alle \texttt{*.pdf}-Dateien, die aus \LaTeX~kompiliert werden.
     \end{itemize}
 
-    \emph{Empfehlung}: Diese Dateien zu \texttt{.gitignore} hinzuf\"ugen. 
+    \emph{Empfehlung}: Diese  Dateien  zu  \texttt{.gitignore}  oder  Analogon
+    hinzuf\"ugen.
 
     Nicht  zu empfehlen  f\"ur  Bilder  und andere  bin\"are  Dateien, die  im
     \LaTeX-Dokument eingebunden sind.
