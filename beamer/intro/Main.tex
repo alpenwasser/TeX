@@ -24,7 +24,8 @@
 % ******************************************************** %
 
 \documentclass{beamer}                % Presentation Version
-%\documentclass[handout]{beamer}      % Handout Version
+%\documentclass[trans]{beamer}         % Transparency Version
+%\documentclass[handout]{beamer}       % Handout Version
 
 % Beamer Setup --------------------------------------------------------------- %
 %\addtobeamertemplate{background canvas}{\transdissolve[duration=1]}{}
@@ -159,10 +160,10 @@
             \draw
                 [thick,-{stealth}] 
                 (tex) -- (others.north);
-        \end{overprint}
+        %\end{overprint}
 
-        \begin{overprint} % ---------------------------------- OVERPRINT %
-            \onslide<+->
+        %\begin{overprint} % ---------------------------------- OVERPRINT %
+            %\onslide<+->
             % Auxiliary Coordinate
             \coordinate [below=40mm of tex] (southAux);
             % NOTE:
@@ -481,14 +482,18 @@
 \begin{frame} % -------------------------------------------------------- FRAME %
     \frametitle{Editoren}
     \begin{itemize}
-        \item
-            Split Pane: TeXworks, TeXShop, Texmaker, TeXstudio, \alert{Gummi}
-        \item
-            WYSIWYM: \alert{LyX}
-            %(What you see is what you mean)
-        \item
-            Text  editor (\alert{Vim},  Emacs,  Sublime,  \ldots) \&  Terminal
-            (allenfalls mit \alert{Makefile} o.\"a.)
+        \mode<beamer| trans>{\item
+            Split Pane}
+        \mode<handout>{\item
+            Split Panes: z.B. TeXworks, TeXShop, Texmaker, TeXstudio, Gummy}
+        \mode<beamer| trans>{\item
+            \emph{What You See Is What You Mean}}
+        \mode<handout>{\item
+            \emph{What You See Is What You Mean}, z.B. LyX}
+        \mode<beamer| trans>{\item
+            Text editor \& Terminal (allenfalls mit Makefile o.\"a.)}
+        \mode<handout>{\item
+            Text  editor (Vim,  Emacs,  Sublime,  etc.) \&  Terminal}
         \item
         Vergleichstabelle: 
             \href
@@ -561,14 +566,14 @@
         \begin{tikzpicture}[
                 draw=solarized-base02,
             ]
-            \begin{overprint} % ------------------------------ OVERPRINT %
-                \onslide<+>
-                \node
-                    (inclPage)
-                    [anchor=west,draw] 
-                    at (1,0) 
-                    {\includegraphics[height=5.5cm]{code/simplest.pdf}};
-            \end{overprint}
+            %\begin{overprint} % ------------------------------ OVERPRINT %
+            %    \onslide<+>
+            %    \node
+            %        (inclPage)
+            %        [anchor=west,draw] 
+            %        at (1,0) 
+            %        {\includegraphics[height=5.5cm]{code/simplest.pdf}};
+            %\end{overprint}
             \begin{overprint} % ------------------------------ OVERPRINT %
                 \onslide<+->
                 \begin{scope}[
@@ -670,11 +675,11 @@
     {proc}
 \usepackage{lipsum}
 \begin{document}
-\lipsum|\alert{[1-2]}|
+\lipsum|\alert{[1-4]}|
 \begin{equation}
     a = 5
 \end{equation}
-\lipsum|\alert{[3]}|
+\lipsum|\alert{[5]}|
 \end{document}
             \end{minted} 
             % ------------------------------------------------------ %
@@ -687,11 +692,11 @@
     {proc}
 |\alert{\textbf{\textbackslash{}usepackage\{lipsum\}}}|
 \begin{document}
-\lipsum[1-2]
+\lipsum[1-4]
 \begin{equation}
     a = 5
 \end{equation}
-\lipsum[3]
+\lipsum[5]
 \end{document}
             \end{minted}
             % ------------------------------------------------------ %
@@ -704,11 +709,11 @@
     {proc}
 \usepackage{lipsum}
 \begin{document}
-\lipsum[1-2]
+\lipsum[1-4]
 |\alert{\textbf{\textbackslash{}begin\{equation\}}}|
     a = 5
 |\alert{\textbf{\textbackslash{}end\{equation\}}}|
-\lipsum[3]
+\lipsum[5]
 \end{document}
             \end{minted}
             % ------------------------------------------------------ %
@@ -721,11 +726,11 @@
     {proc}
 |\alert{\textbf{\textbackslash{}usepackage\{lipsum\}}}|
 \begin{document}
-\lipsum|\alert{[1-2]}|
+\lipsum|\alert{[1-4]}|
 |\alert{\textbf{\textbackslash{}begin\{equation\}}}|
     a = 5
 |\alert{\textbf{\textbackslash{}end\{equation\}}}|
-\lipsum|\alert{[3]}|
+\lipsum|\alert{[5]}|
 \end{document}
             \end{minted}
             % ------------------------------------------------------ %
