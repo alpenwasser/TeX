@@ -48,5 +48,5 @@ License
 -------
 
 Unless   otherwise    noted,   the    contents   of   this    repository   are
-BSD-licensed. Content  not  created by  me  falls  under  the license  of  its
+MIT-licensed. Content  not  created by  me  falls  under  the license  of  its
 respective creator.

@@ -2,7 +2,6 @@ DEMOFILE := demo
 
 default:
 	@pdflatex $(DEMOFILE)
-	@evince $(DEMOFILE).pdf
 
 clean:
 	@rm -f $(DEMOFILE).log

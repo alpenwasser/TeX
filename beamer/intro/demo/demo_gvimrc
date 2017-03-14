@@ -1,10 +1,9 @@
 if has("gui_running")
     if has("gui_gtk2")
-        set guifont=Source\ Code\ Pro\ for\ Powerline\ Regular\ 24
+        set guifont=Source\ Code\ Pro\ for\ Powerline\ Regular\ 36
     elseif has("gui_gtk3")
-        set guifont=Source\ Code\ Pro\ for\ Powerline\ Regular\ 24
+        set guifont=Source\ Code\ Pro\ for\ Powerline\ Regular\ 36
   endif
 endif
 
-colorscheme solarized
-set background=light
+colorscheme corporation

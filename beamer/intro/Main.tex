@@ -278,9 +278,10 @@
                 \textcolor{solarized-base0}{(esoterisch und/oder obsolet)}}   \\
         \end{tabular}
 
-    %\pause
-    %\vspace{1em}
-    %\alert{\tikzrarrow siehe Anleitungen}
+    \vspace{1em}
+        \alert{Anleitungen: \\
+            \href{https://github.com/alpenwasser/TeX/tree/master/guides}
+                 {https://github.com/alpenwasser/TeX/tree/master/guides}}
     \end{center}
 \end{frame}
 
@@ -485,7 +486,7 @@
         \mode<beamer| trans>{\item
             Split Pane}
         \mode<handout>{\item
-            Split Panes: z.B. TeXworks, TeXShop, Texmaker, TeXstudio, Gummy}
+            Split Panes: z.B. TeXworks, TeXShop, Texmaker, TeXstudio, Gummi}
         \mode<beamer| trans>{\item
             \emph{What You See Is What You Mean}}
         \mode<handout>{\item
@@ -507,7 +508,6 @@
                 {http://tex.stackexchange.com/questions/339/}
     \end{itemize}
 
-    \pause
     \centering\alert
         {ausprobieren}
 \end{frame}
@@ -523,44 +523,38 @@
     \begin{columns}
         \column{0.5\textwidth}
 
-        \begin{overprint} % ---------------------------------- OVERPRINT %
-            \onslide<+->
-            \inputminted{tex}{code/simplest.tex}
-        \end{overprint}
+        \inputminted{tex}{code/simplest.tex}
 
-        \begin{overprint} % ---------------------------------- OVERPRINT %
-            \onslide<+->
-            \begin{tikzpicture}[
-                draw=solarized-base02,
-                rounded corners=2mm,
-                text=solarized-base02,
-                every node/.append style={
-                    draw,
-                    thick,
-                    fill=solarized-base2,
-                    inner sep=2mm,
-                    font=\fontsize{10}{11}\selectfont,
-                    align=left,
-                },
-                signal/.append style={
-                    text=solarized-base2,
-                    fill=solarized-magenta,
-                    rounded corners=1mm,
-                },
-            ]
-                \useasboundingbox (-10mm,0) rectangle (50mm,-20mm);
-                \coordinate (source) at (0,0);
-                %\coordinate (target) at (40mm,-15mm);
+        \begin{tikzpicture}[
+            draw=solarized-base02,
+            rounded corners=2mm,
+            text=solarized-base02,
+            every node/.append style={
+                draw,
+                thick,
+                fill=solarized-base2,
+                inner sep=2mm,
+                font=\fontsize{10}{11}\selectfont,
+                align=left,
+            },
+            signal/.append style={
+                text=solarized-base2,
+                fill=solarized-magenta,
+                rounded corners=1mm,
+            },
+        ]
+            \useasboundingbox (-10mm,0) rectangle (50mm,-20mm);
+            \coordinate (source) at (0,0);
+            %\coordinate (target) at (40mm,-15mm);
 
-                \node (engine) 
-                    [signal,shape=signal,signal from=west,signal to=east,below right=of source]
-                    {\TeX{} engine};
-                \coordinate [right=of engine] (target);
+            \node (engine) 
+                [signal,shape=signal,signal from=west,signal to=east,below right=of source]
+                {\TeX{} engine};
+            \coordinate [right=of engine] (target);
 
-                \draw [very thick,*-{stealth}] (source) |- (engine.west);
-                \draw [very thick,-{stealth}] ($(engine.east) - (0.7mm,0mm)$) -- (target);
-            \end{tikzpicture}
-        \end{overprint}
+            \draw [very thick,*-{stealth}] (source) |- (engine.west);
+            \draw [very thick,-{stealth}] ($(engine.east) - (0.7mm,0mm)$) -- (target);
+        \end{tikzpicture}
 
         \column{0.5\textwidth}
         \begin{tikzpicture}[
@@ -574,31 +568,28 @@
             %        at (1,0) 
             %        {\includegraphics[height=5.5cm]{code/simplest.pdf}};
             %\end{overprint}
-            \begin{overprint} % ------------------------------ OVERPRINT %
-                \onslide<+->
-                \begin{scope}[
-                    %spy scope = {draw=mLightBrown,thick,magnification=9,size=100,connect spies},
-                    spy scope = {magnification=9,size=100,connect spies},
-                    every spy on node/.style = {thick,circle,mLightBrown,draw},
-                    every spy in node/.style = {draw,mLightBrown,thick,circle,fill=white, fill opacity=1},
-                ]
-                    % ------------------------------------------------------ %
-                    % No, including this twice is nog elegant, but otherwise %
-                    % either  the spy  glass  gets drawn  too  early or  the %
-                    % magnification does not work. Can't have everything...  %
-                    % ------------------------------------------------------ %
-                    \node
-                        (inclPage)
-                        [anchor=west,draw] 
-                        at (1,0) 
-                        {\includegraphics[height=5.5cm]{code/simplest.pdf}};
-                    \spy 
-                        [
-                            spy connection path = {%
-                                \draw[mLightBrown,thick] (tikzspyonnode) -- (tikzspyinnode);}]
-                        on ($(inclPage.north west)+(9.15mm,-6.5mm)$) in node at (3,-1);
-                \end{scope}
-            \end{overprint}
+            \begin{scope}[
+                %spy scope = {draw=mLightBrown,thick,magnification=9,size=100,connect spies},
+                spy scope = {magnification=9,size=100,connect spies},
+                every spy on node/.style = {thick,circle,mLightBrown,draw},
+                every spy in node/.style = {draw,mLightBrown,thick,circle,fill=white, fill opacity=1},
+            ]
+                % ------------------------------------------------------ %
+                % No, including this twice is nog elegant, but otherwise %
+                % either  the spy  glass  gets drawn  too  early or  the %
+                % magnification does not work. Can't have everything...  %
+                % ------------------------------------------------------ %
+                \node
+                    (inclPage)
+                    [anchor=west,draw] 
+                    at (1,0) 
+                    {\includegraphics[height=5.5cm]{code/simplest.pdf}};
+                \spy 
+                    [
+                        spy connection path = {%
+                            \draw[mLightBrown,thick] (tikzspyonnode) -- (tikzspyinnode);}]
+                    on ($(inclPage.north west)+(9.15mm,-6.5mm)$) in node at (3,-1);
+            \end{scope}
         \end{tikzpicture}
     \end{columns}
 \end{frame}
@@ -640,7 +631,7 @@
             \draw [very thick,-{stealth[solarized-base0]}] (environments.north) |- (environmentsTop);
             \draw [very thick,-{stealth[solarized-base0]}] (environments.south) |- (environmentsBot);
 
-            \node (optParams) [anchor=north east] at (50mm,-26mm) {Optionale Parameter};
+            \node (optParams) [anchor=north east] at (50mm,-26mm) {[]: Optionale Parameter};
             \coordinate [left=43mm of optParams] (lipsum1);
             \coordinate [below left=17.5mm and 48mm of optParams] (lipsum2);
             \coordinate [above left=18.5mm and 30mm of optParams] (docClass);
@@ -663,62 +654,6 @@
     \begin{columns}
 
         \column{0.5\textwidth}
-        \begin{overprint} % ---------------------------------- OVERPRINT %
-            \onslide<1|handout:0>
-            \inputminted{tex}{code/packages.tex}
-
-            \onslide<2|handout:0>
-            % ----------------------------------------------- MINTED %
-            \begin{minted}[escapeinside=||]{tex}
-\documentclass
-    |\alert{[a4paper,12pt]}|
-    {proc}
-\usepackage{lipsum}
-\begin{document}
-\lipsum|\alert{[1-4]}|
-\begin{equation}
-    a = 5
-\end{equation}
-\lipsum|\alert{[5]}|
-\end{document}
-            \end{minted} 
-            % ------------------------------------------------------ %
-
-            \onslide<3|handout:0>
-            % ----------------------------------------------- MINTED %
-            \begin{minted}[escapeinside=||]{tex}
-\documentclass
-    [a4paper,12pt]
-    {proc}
-|\alert{\textbf{\textbackslash{}usepackage\{lipsum\}}}|
-\begin{document}
-\lipsum[1-4]
-\begin{equation}
-    a = 5
-\end{equation}
-\lipsum[5]
-\end{document}
-            \end{minted}
-            % ------------------------------------------------------ %
-
-            \onslide<4|handout:0>
-            % ----------------------------------------------- MINTED %
-            \begin{minted}[escapeinside=||]{tex}
-\documentclass
-    [a4paper,12pt]
-    {proc}
-\usepackage{lipsum}
-\begin{document}
-\lipsum[1-4]
-|\alert{\textbf{\textbackslash{}begin\{equation\}}}|
-    a = 5
-|\alert{\textbf{\textbackslash{}end\{equation\}}}|
-\lipsum[5]
-\end{document}
-            \end{minted}
-            % ------------------------------------------------------ %
-
-            \onslide<5->
             % ----------------------------------------------- MINTED %
             \begin{minted}[escapeinside=||]{tex}
 \documentclass
@@ -734,29 +669,25 @@
 \end{document}
             \end{minted}
             % ------------------------------------------------------ %
-        \end{overprint} % ---------------------------------------------- %
 
         \column{0.5\textwidth}
-        \begin{overprint} % ---------------------------------- OVERPRINT %
-            \onslide<5->
-            \begin{tikzpicture}[draw=solarized-base02]
-                \draw
-                    [-{stealth},very thick]
-                    (0,0) -- (0.5,0);
-                \node
-                    [anchor=west,draw]
-                    at (1,0)
-                    {\includegraphics[height=5.8cm]{code/packages.pdf}};
-            \end{tikzpicture}
-        \end{overprint} % ---------------------------------------------- %
+        \begin{tikzpicture}[draw=solarized-base02]
+            \draw
+                [-{stealth},very thick]
+                (0,0) -- (0.5,0);
+            \node
+                [anchor=west,draw]
+                at (1,0)
+                {\includegraphics[height=5.8cm]{code/packages.pdf}};
+        \end{tikzpicture}
     \end{columns}
 
     \pause
     \begin{overprint}
-        \onslide<6>
+        \onslide<+->
         \begin{center}
-            \vspace{-1em}
-            \alert{\tikzrarrow Stackexchange, Manuals}
+            %\vspace{-1em}
+            \alert{Stackexchange, Manuals}
         \end{center}
     \end{overprint}
 \end{frame}
@@ -849,8 +780,8 @@
         \item
             Raum 4.223
         \item
-            \href{https://github.com/alpenwasser/TeX/}
-                 {https://github.com/alpenwasser/TeX/}
+            \alert{\href{https://github.com/alpenwasser/TeX/}
+                        {https://github.com/alpenwasser/TeX/}}
         \item
             Weiteres Programm: 26. April
             \begin{itemize}
@@ -861,11 +792,11 @@
                 \item
                     Floats (Tabellen, Bilder, \ldots )
                 \item
-                    PGF/TikZ
-                \item
-                    minipages
-                \item
-                    ISO-31
+                    PGF/Ti\emph{k}Z
+                %\item
+                %    minipages
+                %\item
+                %    ISO-31
                 \item
                     Listings, minted, \ldots
                 \item
@@ -875,6 +806,6 @@
 \end{frame}
 
 % ---------------------------------------------------------------------------- %
-\section<handout:0>*{Fragen?} % ---------------------------------------- FRAME %
+\section<handout:0| trans:0>*{Fragen?} % ------------------------------- FRAME %
 % ---------------------------------------------------------------------------- %
 \end{document}
