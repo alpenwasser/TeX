@@ -1,4 +1,6 @@
 TIMESTAMP := $(shell date '+%Y-%m-%d--%H-%M-%S')
+PRES_REGEX_TO_REPLACE  := '^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}'
+PRES_REGEX_REPLACEMENT := '\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}'
 
 .DEFAULT_GOAL := simple
 
@@ -57,7 +59,7 @@ trans: simplest packages structure
 	@cp Main.tex Main.tex.bak
 	@cat Main.tex.bak | \
 		sed 's/^\\documentclass{/\\documentclass[trans]{/' | \
-		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/%\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/' > Main.tex
+		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}/%\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}/' > Main.tex
 	@xelatex -shell-escape Main
 	@xelatex -shell-escape Main # For correct progress bar
 	@cp Main.pdf transparencies.pdf
@@ -67,17 +69,19 @@ handout: simplest packages structure
 	@cp Main.tex Main.tex.bak
 	@cat Main.tex.bak | \
 		sed 's/^\\documentclass{/\\documentclass[handout]{/' | \
-		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/%\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/' > Main.tex
+		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}/%\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}/' > Main.tex
 	@xelatex -shell-escape Main
 	@xelatex -shell-escape Main # For correct progress bar
 	@cp Main.pdf handout.pdf
 	@mv Main.tex.bak Main.tex
 
-presentation: simple
+presentation: simplest packages structure
 	@cp Main.tex Main.tex.bak
 	@cat Main.tex.bak | \
-		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]}{}/' > Main.tex
-	@xelatex -shell-escape Main # Table of Contents
+		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}/\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}/' > Main.tex
+	#@cat Main.tex.bak | sed 's/'$(PRES_REGEX_TO_REPLACE)'/'$(PRES_REGEX_REPLACEMENT)'/' > Main.tex
+	@xelatex -shell-escape Main
+	@xelatex -shell-escape Main
 	@cp Main.pdf presentation.pdf
 	@mv Main.tex.bak Main.tex
 
