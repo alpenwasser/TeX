@@ -1,12 +1,12 @@
-A3 Pages
-========
+The a3pages Package
+===================
 
-A LaTeX environment used for inserting A3  pages at arbitrary points into an 4
-A(portait orientation) document.
+A LaTeX package for inserting A3 pages at arbitrary points into an 4 A(portait
+orientation) document.
 
-There is  a version for the  memoir class (`a3pagesMem`), and  for the article
-class (`a3pages`). The two differ in the  way in which they calculate the text
-width due the different lengths memoir uses/provides for laying out its page. 
+The package  is compatible with the  memoir and the article  class for now. If
+you need compatibility with other  packages (or even implement them yourself),
+feel free to open an issue or a pull request.
 
 For more information, see Chapter Two in the 
 [manual for the memoir class](http://mirrors.ctan.org/macros/latex/contrib/memoir/memman.pdf)
@@ -23,14 +23,21 @@ an A3 page, if you must (e.g. via minipages). See also the provided examples.
 Using a3pages in your document
 ------------------------------
 
-Include  the `a3pages.tex`  file  in your  preamble via  `\input{a3pages.tex}`
-(relative path to your main TeX file), then invoke via:
+Put the file in the directory of your LaTeX project, and add
 
 ```
-{\begin{a3pages}
-    Stuff on A3 pages
-\end{a3pages}}
+\usepackage{a3pages}
 ```
+to the preamble. No options are available, and no further configuration should
+be needed (for the supported document classes).
+
+Then invoke via:
+
+```
+\begin{a3pages}
+    Content which is to go on A3 pages.
+\end{a3pages}
+
 
 Compiling the Examples
 ----------------------
@@ -41,8 +48,5 @@ Compiling the Examples
 Limitations/TODOs
 -----------------
 
--  Currently,  an  opening  and  closing  brace  must  be  placed  before  the
-invocation of the  `\begin{a3pages}` command, and after the  invocation of the
-`\end{a3pages}` command (see example above).  If  anyone knows a fix for this,
-feel free to let me know.
-- Convert into a package.
+- Support more document classes.
+- Allow page layout configuration?

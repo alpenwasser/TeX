@@ -1,7 +1,6 @@
 \documentclass{memoir}
-\usepackage{lipsum}    % dummy text
-%\input{memoirConf.tex}
-\input{a3pages.tex}
+\usepackage{lipsum}
+\usepackage{a3pages}
 
 % ------------------------------------------------ %
 % Picture example source:                          %
@@ -34,7 +33,7 @@
 \lipsum[1-3]
 
 
-{\begin{a3pagesMem} % The opening brace is needed (see also a3pagesMem.tex)
+\begin{a3pages} % The opening brace is needed (see also a3pages.tex)
     % ---------------------------------------------------- %
     % Fill up an A3 page  with lots and lots of text. This %
     % will also flow caross several pages correctly.       %
@@ -42,10 +41,11 @@
     \lipsum[4-27]
 
     % ---------------------------------------------------- %
-    % The  \newpage prevents  the paragraphs  on the  last %
-    % page before  the page with the  minipages from being %
-    % spread over the entire  page vertically, which would %
-    % look terrible.                                       %
+    % In the memoir class, the paragraphs on the last page %
+    % before  the  pages  with  the  minipages  is  spread %
+    % over  the entire  vertical space  of the  page. This %
+    % obviously  looks  terrible. \newpage  prevents  this %
+    % from happening.                                      %
     % ---------------------------------------------------- %
     \newpage
 
@@ -82,12 +82,12 @@
 
         \lipsum[26-28]
     \end{minipage}
-\end{a3pagesMem}} % Mind the closing brace
+\end{a3pages}
 
 % Inserting some random A4 pages, because why not.
 \lipsum[20-24]
 
-{\begin{a3pagesMem}
+\begin{a3pages}
 
     \noindent\begin{minipage}[t]{0.45\textwidth}
         \lipsum[18-23]
@@ -96,6 +96,6 @@
         \lipsum[26-28]
     \end{minipage}
 
-\end{a3pagesMem}} % Mind the closing brace
+\end{a3pages}
 \lipsum[10-12]
 \end{document}
