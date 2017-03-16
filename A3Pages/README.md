@@ -23,7 +23,7 @@ an A3 page, if you must (e.g. via minipages). See also the provided examples.
 Using a3pages in your document
 ------------------------------
 
-Put the file in the directory of your LaTeX project, and add
+Put the `a3pages.sty` file in the directory of your LaTeX project, and add
 
 ```
 \usepackage{a3pages}
@@ -43,7 +43,8 @@ Then invoke via:
 Compiling the Examples
 ----------------------
 
-`make` compiles both versions. `make clean` removes the log and aux files.
+`make` compiles  both examples,  one for  the memoir and  one for  the article
+document class . `make clean` removes the log and aux files.
 
 
 Limitations/TODOs
