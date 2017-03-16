@@ -37,6 +37,7 @@ Then invoke via:
 \begin{a3pages}
     Content which is to go on A3 pages.
 \end{a3pages}
+```
 
 
 Compiling the Examples
