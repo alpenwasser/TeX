@@ -50,5 +50,8 @@ document class . `make clean` removes the log and aux files.
 Limitations/TODOs
 -----------------
 
+- Currently only works for pdflatex
+  - Add support for xelatex and lualatex
 - Support more document classes.
 - Allow page layout configuration?
+- Support
