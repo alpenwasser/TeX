@@ -1,0 +1,271 @@
+\documentclass[a4paper,oneside,11pt]{article}
+
+\usepackage{lipsum}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{hologo}
+\usepackage[light,nott]{kpfonts}
+
+\newcommand\compar[2]{\texttt{\textbackslash #1\{#2\}}}
+\newcommand\comm[1]{\texttt{\textbackslash#1}}
+\newcommand\code[1]{\texttt{#1}}
+\newcommand\XeLaTeX{\hologo{XeLaTeX}}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\title{Changing Fonts in \LaTeX}
+\author{Raphael Frey  <\texttt{webmaster@alpenwasser.net}>}
+
+
+% ************************************************************************** %
+\begin{document}
+% ************************************************************************** %
+
+\maketitle
+
+\tableofcontents
+
+% -------------------------------------------------------------------------- %
+\section{Font Families, Fonts and Glyphs}
+\label{sec:font-families}
+% -------------------------------------------------------------------------- %
+
+A \emph{font family},  also referred to as  a \emph{typeface}, is a  font or a
+set  of fonts  with common  features and  characteristics, comprising  all the
+needed \emph{glyphs}. A glyph, in this  context, is a graphical representation
+of a character,  which can be a  letter, a logogram, a  mathematical symbol or
+other things\footnotemark.
+
+\footnotetext{%
+    Obviously typography is a vast and complex topic and there is no way I can
+    do it  true justice  here. Even if  I wanted  to, I  am most  certainly no
+    scholar  on  the  topic. But  for  the  purposes  of  this  document  this
+    information shall suffice. The curious reader  shall feel free to research
+    the topic in more depth, if so desired.}
+
+For example, the following are all different glyphs (called allographs) of the
+letter Q:
+
+\begin{center}
+\begin{tabular}{llr}
+    \toprule
+    Font                               & \TeX{} Abbreviation & Glyph \\
+    \midrule
+    Computer Modern (\LaTeX{} default) & \code{cmr}  & \fontfamily{cmr}\selectfont Q \\
+    Latin Modern                       & \code{lmr}  & \fontfamily{lmr}\selectfont Q \\
+    Johannes Kepler Roman              & \code{jkp}  & \fontfamily{jkp}\selectfont Q\\
+    Johannes Kepler Roman Light        & \code{jkpl} & \fontfamily{jkpl}\selectfont Q\\
+    Latin Modern Sans Serif            & \code{lmss} & \fontfamily{lmss}\selectfont Q \\
+    Avant Garde                        & \code{pag}  & \fontfamily{pag}\selectfont Q \\
+    Computer Modern Typewriter         & \code{cmtt} & \fontfamily{cmtt}\selectfont Q \\
+    Zapf Chancery                      & \code{pzc}  & \fontfamily{pzc}\selectfont Q \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+In general,  font families  which one  tends to use  in a  reasonable document
+these days tend to be grouped into three main categories\footnotemark:
+
+\footnotetext{%
+    There are  more, but  these are  unlikely to be  useful in  most practical
+    applications these days. For more, see \cite{wikipedia:typeface}.}
+
+\begin{itemize}
+    \item {\fontfamily{ppl}\selectfont roman fonts (with serifs), for example Palatino}
+    \item {\fontfamily{phv}\selectfont sans-serif fonts, for example Helvetica}
+    \item {\fontfamily{pcr}\selectfont monospace fonts, for example Courier}
+\end{itemize}
+
+Often, font families  provide fonts for roman, sans-serif  and monospace fonts
+(also called  typewriter fonts,  particularly in  the \TeX{}  world). In those
+cases, the  metrics and aesthetics of  these different fonts in  the same font
+family have  been tuned to look  pleasing when used together. It  is therefore
+often tricky to  mix and match fonts from different  font families without the
+result looking odd\footnotemark.
+
+\footnotetext{%
+    Of course it  can be done, but it  is helpful to be aware  of this general
+    issue and to  be careful when picking fonts from  different families to be
+    used together in the same document.}
+
+In \LaTeX, there are three macros which contain the default fonts families for
+the three font groups:
+
+\begin{itemize}
+    \item \comm{rmdefault}
+    \item \comm{sfdefault}
+    \item \comm{ttdefault}
+\end{itemize}
+
+Furthermore,  there  is  a  command \comm{familydefault}  which  contains  the
+currently configured default font family (one of the above three).
+
+% -------------------------------------------------------------------------- %
+\section{Selecting Fonts}
+\label{sec:setting-fonts}
+% -------------------------------------------------------------------------- %
+
+There  are  various  ways  which  can  be used  to  change  fonts  at  various
+places. Some of them will be described here.
+
+
+% -------------------------------------------------------------------------- %
+\subsection{Font Packages}
+\label{subsec:font-packages}
+% -------------------------------------------------------------------------- %
+
+The easiest way to change from the  default Computer Modern to a different set
+of fonts  is to use  a corresponding package. Good  places to peruse  are CTAN
+\cite{ctan:fonts} and the \LaTeX{} font catalogue \cite{tug:font-catalog}.
+
+For  example, if  we  wish to  typeset  our  document in  DejaVu,  we can  put
+\compar{usepackage}{dejavu}{} in the preamble. This will set \comm{rmdefault},
+\comm{sfdefault}  and  \comm{ttdefault}  to the  corresponding  values,  while
+\comm{familydefault} will continue to point to the one of those three to which
+it was set previously (\comm{rmdefault} by default).
+
+Not all font packages provide all kinds of font families, or all font families
+in all  weights and  shapes. Consult the documentation  for the  package which
+you're  intending to  use. In  the cases  where a  package  does only  provide
+some  type of  font,  the  others will  be  left  unchanged. For example,  the
+\code{FiraSans} package,  which is obviously  a sans-serif typeface,  does not
+provide a roman font. Therefore, the serif fonts are left untouched by loading
+that package.
+
+The same  goes for mathematics: Not all  fonts provide the needed  symbols for
+typesetting that either.
+
+A personal favorite of mine is  the Johannes Kepler font family. It has roman,
+sans-serif  and typewriter  font  choices (although  personally  I prefer  the
+Computer  Modern typewriter  font and  usually keep  that intact),  along with
+mathematics and many symbols. This is the setup which has been chosen for this
+document. But this is a matter of personal preference; one's mileage may vary.
+
+
+% -------------------------------------------------------------------------- %
+\subsection{Global Font Selection For a Document}
+\label{subsec:fontsel:global}
+% -------------------------------------------------------------------------- %
+
+%\fontfamily{\sfdefault}\selectfont
+
+In the preamble, we can change the  default document font from roman (which is
+the default) to sans-serif or typewriter with
+
+\begin{verbatim}
+\renewcommand{\familydefault}{\sfdefault}
+\end{verbatim}
+and
+\begin{verbatim}
+\renewcommand{\familydefault}{\ttdefault}
+\end{verbatim}
+respectively.
+
+\emph{Note:} Typewriter  fonts  differ in  what  kinds  of adjustments  \TeX{}
+usually make when it comes to spacing in order to achieve a justified block of
+text. More on the topic can be found in \cite{texblog:typewriter}.
+
+Combining different  font families  can be  done on  the same  principle.  For
+example,  selecting Palatino  as  the  roman default  font,  Helvetica as  the
+default sans-serif font and Latin Modern  as the typewriter font could be done
+by putting these commands in the preamble:
+
+\begin{verbatim}
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+\end{verbatim}
+
+Changing  math  fonts is  rather  more  complex. I  recommend not  doing  this
+manually,   but  instead   relying  on   packages  instead. See   for  example
+\cite{stackexch:math-fonts} and \cite{practex:fonts}).
+
+
+% -------------------------------------------------------------------------- %
+\subsection{Local Font Selection Within a Document}
+\label{subsec:fontsel:local}
+% -------------------------------------------------------------------------- %
+
+Besides  global  font selection,  one  might  wish  to select  fonts  manually
+somewhere in a document (as opposed to global settings in the preamble).
+
+
+% -------------------------------------------------------------------------- %
+\subsection{pdf\LaTeX{} vs. \XeLaTeX{} vs. Lua\LaTeX}
+\label{subsec:fontsel:pdf:xe:lua}
+% -------------------------------------------------------------------------- %
+
+
+% -------------------------------------------------------------------------- %
+\section{List of Typefaces}
+\label{sec:tflist}
+% -------------------------------------------------------------------------- %
+
+\begin{itemize}
+    \item Computer Modern: The \LaTeX{} default
+    \item  
+        Latin  Modern: Basically  Computer  Modern with  some  amendments  for
+        non-English languages.
+\end{itemize}
+
+
+% -------------------------------------------------------------------------- %
+\begin{thebibliography}{1}
+% -------------------------------------------------------------------------- %
+        
+    \bibitem{wikipedia:typeface}
+        Wikipedia,
+        \emph{Typeface},
+        [Online],
+        \href{https://en.wikipedia.org/wiki/Typeface}
+             {\nolinkurl{https://en.wikipedia.org/wiki/Typeface}},
+        [Accessed: 2017-MAR-20].
+
+    \bibitem{texblog:typewriter}
+        Stefan,
+        \emph{Full justification with typewriter font},
+        [Online],
+        \href{http://texblog.net/latex-archive/plaintex/full-justification-with-typewriter-font/}
+             {\nolinkurl{http://texblog.net/latex-archive/plaintex/full-justification-with-typewriter-font/}},
+        2008-MAY-08,
+        [Accessed: 2017-MAR-20].
+
+    \bibitem{ctan:fonts}
+        Comprehensive \TeX{} Archive Network,
+        \emph{Topic Font: Fonts Themselves},
+        [Online],
+        \href{http://ctan.org/topic/font}
+             {\nolinkurl{http://ctan.org/topic/font}},
+        [Accessed: 2017-MAR-20].
+
+    \bibitem{tug:font-catalog}
+        \TeX{} Users Group,
+        \emph{The \LaTeX{} Font Catalogue},
+        [Online],
+        \href{http://www.tug.dk/FontCatalogue/}
+             {\nolinkurl{http://www.tug.dk/FontCatalogue/}},
+        [Accessed: 2017-MAR-20].
+
+    \bibitem{stackexch:math-fonts}
+        tex.stackexchange.com,
+        \emph{how to select math font in document},
+        [Online],
+        \href{http://tex.stackexchange.com/questions/30049/how-to-select-math-font-in-document}
+             {\nolinkurl{http://tex.stackexchange.com/questions/30049/how-to-select-math-font-in-document}},
+        [Accessed: 2017-MAR-20].
+        
+    \bibitem{practex:fonts}
+        Walter Schmidt,
+        \emph{Font selection in \LaTeX{}: The most frequently asked questions},
+        The Prac\TeX{} Journal,
+        [Online],
+        \href{https://www.tug.org/pracjourn/2006-1/schmidt/schmidt.pdf}
+             {\nolinkurl{https://www.tug.org/pracjourn/2006-1/schmidt/schmidt.pdf}},
+        2006-FEB-01,
+        [Accessed: 2017-MAR-20].
+
+
+\end{thebibliography}
+
+\end{document}
