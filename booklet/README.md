@@ -19,3 +19,9 @@ The `pdfpages` package is quite handy for this predicament.
 
 For   a   complete    list   of   options,   check    its   documentation   on
 [CTAN](http://ctan.org/pkg/pdfpages).
+
+TODO
+----
+
+- how to actually print
+- landscape vs. portrait

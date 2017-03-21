@@ -2,7 +2,14 @@
 
 \usepackage{lipsum}
 \usepackage{booktabs}
-\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage[%
+        bookmarksnumbered=true,
+        colorlinks=true,
+        linkcolor=cyan!50!blue,
+        citecolor=violet,
+        urlcolor=purple,
+    ]{hyperref}
 \usepackage{hologo}
 \usepackage[left=30mm,right=30mm,top=30mm,bottom=40mm]{geometry}
 \usepackage[light,nott]{kpfonts}
@@ -102,6 +109,7 @@ the three font groups:
 Furthermore,  there  is  a  command \comm{familydefault}  which  contains  the
 currently configured default font family (one of the above three).
 
+
 % -------------------------------------------------------------------------- %
 \section{Selecting Fonts}
 \label{sec:setting-fonts}
@@ -163,8 +171,8 @@ and
 \end{verbatim}
 respectively.
 
-\emph{Note:} Typewriter  fonts  differ in  what  kinds  of adjustments  \TeX{}
-usually make when it comes to spacing in order to achieve a justified block of
+Note that typewriter fonts differ in  what kinds of adjustments \TeX{} usually
+makes  when it  comes to  spacing in  order to  achieve a  justified block  of
 text. More on the topic can be found in \cite{texblog:typewriter}.
 
 Combining different  font families  can be  done on  the same  principle.  For
@@ -189,13 +197,62 @@ manually,   but  instead   relying  on   packages  instead. See   for  example
 % -------------------------------------------------------------------------- %
 
 Besides  global  font selection,  one  might  wish  to select  fonts  manually
-somewhere in a document (as opposed to global settings in the preamble).
+somewhere in a document (as opposed  to global settings in the preamble). This
+is   done  by   selecting  the   desired   fontfamily  and   then  using   the
+\comm{selectfont} command. For example, if we wish to switch to Helvetica:
+
+\begin{verbatim}
+\fontfamily{phv}\selectfont
+\end{verbatim}
 
 
-% -------------------------------------------------------------------------- %
-\subsection{pdf\LaTeX{} vs. \XeLaTeX{} vs. Lua\LaTeX}
-\label{subsec:fontsel:pdf:xe:lua}
-% -------------------------------------------------------------------------- %
+\fontfamily{phv}\selectfont And now we should have Helvetica for this text. The
+font family will stay switched until it is switched back:
+
+\begin{verbatim}
+\fontfamily{\familydefault}\selectfont
+\end{verbatim}
+or:
+
+\begin{verbatim}
+\normalfont
+\end{verbatim}
+
+\normalfont And now we're back to Kepler serif.
+
+In order to keep the font change local,  we can enclose a portion of text in a
+group:
+
+\begin{verbatim}
+{\fontfamily{phv}\selectfont This text is in Helvetica!} While this text is not!
+\end{verbatim}
+
+{\fontfamily{phv}\selectfont This text is in Helvetica!} While this text is not!
+
+Locally   switching    to   a   different   style    among   \comm{sfdefault},
+\comm{rmdefault} and \comm{ttdefault} can be done either via:
+
+\begin{verbatim}
+{\rmfamily This is roman text!}
+{\sffamily This is sans-serif text!}
+{\ttfamily This is sans-serif text!}
+\end{verbatim}
+
+{\rmfamily This is roman text!}
+{\sffamily This is sans-serif text!}
+{\ttfamily This is typewriter text!}
+
+Or alternatively:
+
+\begin{verbatim}
+\textrm{This is roman text!}
+\textsf{This is sans-serif text!}
+\texttt{This is typewriter text!}
+\end{verbatim}
+
+Leaving out the braces (\code{\{} and  \code{\}}) in the first version results
+in the font  being switched until it is switched  to something else again. The
+second version is usually recommended for local changes.
 
 
 % -------------------------------------------------------------------------- %
@@ -203,15 +260,58 @@ somewhere in a document (as opposed to global settings in the preamble).
 \label{sec:font-props}
 % -------------------------------------------------------------------------- %
 
+We  will  now look  at  changing  various  properties  for a  font: Its  size,
+its  series (weight)  and  its  shape. For a  nice  explanation  of this,  see
+\cite{stackexch:bfseries-textbf}.
+
+
 % -------------------------------------------------------------------------- %
 \subsection{Font Sizes}
 \label{subsec:font-sizes}
 % -------------------------------------------------------------------------- %
 
+By  default, \LaTeX{}  offers the  following font  sizes, which,  depending on
+which global  document font size  has been set  in the preamble  (for example,
+with \code{\textbackslash{}documentclass[11pt]\{article\}}):
+
+\begin{center}
+    \begin{tabular}{lrrrrrr}
+        \toprule
+        \textsc{Size} & 
+        \multicolumn{3}{l}{\textsc{Standard Classes and beamer}} &
+        \multicolumn{3}{l}{\textsc{AMS Classes and memoir}} \\
+        \midrule
+        \comm{tiny}         &  5    &  6     & 6     & 6     & 7     & 8     \\
+        \comm{scriptsize}   &  7    &  8     & 8     & 7     & 8     & 9     \\
+        \comm{footnotesize} &  8    &  9     & 10    & 8     & 9     & 10    \\
+        \comm{small}        &  9    &  10    & 10.95 & 9     & 10    & 10.95 \\
+        \comm{normalsize}   & 10    &  10.95 & 12    & 10    & 10.95 & 12    \\
+        \comm{large}        & 12    &  12    & 14.4  & 10.95 & 12    & 14.4  \\
+        \comm{Large}        & 14.4  &  14.4  & 17.28 & 12    & 14.4  & 17.28 \\
+        \comm{LARGE}        & 17.28 &  17.28 & 20.74 & 14.4  & 17.28 & 20.74 \\
+        \comm{huge}         & 20.74 &  20.74 & 24.88 & 17.28 & 20.74 & 24.88 \\
+        \comm{Huge}         & 24.88 &  24.88 & 24.88 & 20.74 & 24.88 & 24.88 \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+The table has been copied from \cite{wikibooks:fonts}.
+
+Yet again, these commands change the font size within the current scope, so should
+usually be enclosed in braces:
+
+\begin{verbatim}
+{\LARGE This is a piece of large text.} And this is of normal size again.
+\end{verbatim}
+
+{\LARGE This is a piece of large text.} And this is of normal size again.
+
 % -------------------------------------------------------------------------- %
 \subsection{Font Series}
 \label{subsec:font-series}
 % -------------------------------------------------------------------------- %
+
+% TODO: Check kepler sty file for jkplight or whatever it is called
 
 % -------------------------------------------------------------------------- %
 \subsection{Font Shapes}
@@ -232,12 +332,18 @@ somewhere in a document (as opposed to global settings in the preamble).
 
 
 % -------------------------------------------------------------------------- %
+\section{pdf\LaTeX{} vs. \XeLaTeX{} vs. Lua\LaTeX}
+\label{sec:fontsel:pdf:xe:lua}
+% -------------------------------------------------------------------------- %
+
+
+% -------------------------------------------------------------------------- %
 \begin{thebibliography}{1}
 % -------------------------------------------------------------------------- %
         
     \bibitem{wikipedia:typeface}
         Wikipedia,
-        \emph{Typeface},
+        ``\emph{Typeface}'',
         [Online],
         \href{https://en.wikipedia.org/wiki/Typeface}
              {\nolinkurl{https://en.wikipedia.org/wiki/Typeface}},
@@ -245,7 +351,7 @@ somewhere in a document (as opposed to global settings in the preamble).
 
     \bibitem{texblog:typewriter}
         Stefan,
-        \emph{Full justification with typewriter font},
+        ``\emph{Full justification with typewriter font}'',
         [Online],
         \href{http://texblog.net/latex-archive/plaintex/full-justification-with-typewriter-font/}
              {\nolinkurl{http://texblog.net/latex-archive/plaintex/full-justification-with-typewriter-font/}},
@@ -254,7 +360,7 @@ somewhere in a document (as opposed to global settings in the preamble).
 
     \bibitem{ctan:fonts}
         Comprehensive \TeX{} Archive Network,
-        \emph{Topic Font: Fonts Themselves},
+        ``\emph{Topic Font: Fonts Themselves}'',
         [Online],
         \href{http://ctan.org/topic/font}
              {\nolinkurl{http://ctan.org/topic/font}},
@@ -262,7 +368,7 @@ somewhere in a document (as opposed to global settings in the preamble).
 
     \bibitem{tug:font-catalog}
         \TeX{} Users Group,
-        \emph{The \LaTeX{} Font Catalogue},
+        ``\emph{The \LaTeX{} Font Catalogue}'',
         [Online],
         \href{http://www.tug.dk/FontCatalogue/}
              {\nolinkurl{http://www.tug.dk/FontCatalogue/}},
@@ -270,7 +376,7 @@ somewhere in a document (as opposed to global settings in the preamble).
 
     \bibitem{stackexch:math-fonts}
         tex.stackexchange.com,
-        \emph{how to select math font in document},
+        ``\emph{how to select math font in document}'',
         [Online],
         \href{http://tex.stackexchange.com/questions/30049/how-to-select-math-font-in-document}
              {\nolinkurl{http://tex.stackexchange.com/questions/30049/how-to-select-math-font-in-document}},
@@ -278,7 +384,7 @@ somewhere in a document (as opposed to global settings in the preamble).
         
     \bibitem{practex:fonts}
         Walter Schmidt,
-        \emph{Font selection in \LaTeX{}: The most frequently asked questions},
+        ``\emph{Font selection in \LaTeX{}: The most frequently asked questions}'',
         The Prac\TeX{} Journal,
         [Online],
         \href{https://www.tug.org/pracjourn/2006-1/schmidt/schmidt.pdf}
@@ -288,12 +394,29 @@ somewhere in a document (as opposed to global settings in the preamble).
 
     \bibitem{wright:font-commands}
         David Wright,
-        \emph{\LaTeX{} Font Commands},
+        ``\emph{\LaTeX{} Font Commands}'',
         [Online],
         \href{http://www.cl.cam.ac.uk/~rf10/pstex/latexcommands.htm}
              {\nolinkurl{http://www.cl.cam.ac.uk/~rf10/pstex/latexcommands.htm}},
         1998,
         [Accessed: 2017-MAR-20].
+
+    \bibitem{stackexch:bfseries-textbf}
+        Tobi,
+        ``\emph{\comm{bfseries} is to \comm{textbf} as WHAT is to \comm{textsf}}'',
+        [Online],
+        \href{http://tex.stackexchange.com/a/139592}
+             {\nolinkurl{http://tex.stackexchange.com/a/139592}},
+        2013-OCT-19,
+        [Accessed: 2017-MAR-21].
+
+    \bibitem{wikibooks:fonts}
+        wikibooks,
+        ``\emph{\LaTeX/Fonts}'',
+        [Online],
+        \href{https://en.wikibooks.org/wiki/LaTeX/Fonts}
+             {\nolinkurl{https://en.wikibooks.org/wiki/LaTeX/Fonts}},
+        [Accessed: 2017-MAR-21].
 
 \end{thebibliography}
 
