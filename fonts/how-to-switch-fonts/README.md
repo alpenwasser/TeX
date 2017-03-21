@@ -11,3 +11,4 @@ TODOs
 - pdfLaTeX, XeLaTeX, LuaLaTeX
 - hyperref color configuration
 - page layout
+- font sizes

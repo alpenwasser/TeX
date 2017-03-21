@@ -4,7 +4,7 @@ default:
 	@pdflatex $(DOCUMENT)
 
 clean:
-	@rm -f how-to-select-fonts.aux
-	@rm -f how-to-select-fonts.log
-	@rm -f how-to-select-fonts.out
-	@rm -f how-to-select-fonts.toc
+	@rm -f $(DOCUMENT).aux
+	@rm -f $(DOCUMENT).log
+	@rm -f $(DOCUMENT).out
+	@rm -f $(DOCUMENT).toc

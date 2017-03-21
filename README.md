@@ -50,3 +50,8 @@ License
 Unless   otherwise    noted,   the    contents   of   this    repository   are
 MIT-licensed. Content  not  created by  me  falls  under  the license  of  its
 respective creator.
+
+TODO
+----
+
+Labels need to come after the caption they're supposed to refer to.
