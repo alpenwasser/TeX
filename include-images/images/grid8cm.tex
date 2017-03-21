@@ -1,0 +1,21 @@
+\documentclass[tikz]{standalone}
+\newcount\i
+\i 0\relax
+\def\gridsize{8}
+\pgfmathsetmacro{\gridsizeIndex}{\gridsize - 1}
+
+% http://www.texdev.net/2009/11/17/tex-counts-and-latex-counters/
+% http://tex.stackexchange.com/questions/38514/tikz-foreach-index-in-variable-name
+
+\begin{document}
+\begin{tikzpicture}
+    \draw (0,0) grid (\gridsize,\gridsize);
+    
+    \foreach \y in {0,...,\gridsizeIndex} {%
+        \foreach \x in {0,...,\gridsizeIndex} {%
+            \node[blue] at (\x + 0.5,\y+0.5) {\the\i};
+            \global\advance\i by1\relax;
+        }
+     }
+\end{tikzpicture}
+\end{document}
