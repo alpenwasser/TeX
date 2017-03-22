@@ -1,0 +1,6 @@
+*.aux
+*.log
+*.out
+*.toc
+*.listing
+_minted-listings

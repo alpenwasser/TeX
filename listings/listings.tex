@@ -1,0 +1,337 @@
+\documentclass[article,a4paper,oneside,10pt]{memoir}
+
+% -------------------------------------------------------------------------- %
+% Page Layout                                                                %
+% -------------------------------------------------------------------------- %
+\isopage
+\setlrmarginsandblock{0.142857111\paperwidth}{0.142857111\paperwidth}{*}
+\setulmarginsandblock{0.111111111\paperheight}{*}{1.25}
+\checkandfixthelayout
+\newfixedcaption{\figcaption}{figure}
+\newfixedcaption{\tabcaption}{table}
+\captiontitlefont{\small}
+\captionnamefont{\bfseries\small}
+\captiondelim{: }
+
+% -------------------------------------------------------------------------- %
+% Bibliography                                                               %
+% -------------------------------------------------------------------------- %
+\renewcommand{\bibsection}{%
+    \chapter{References}%
+    \prebibhook}
+\bibintoc
+\renewcommand{\cftdot}{\textcolor{gray}{.}}
+\renewcommand{\cftchapterdotsep}{\cftdotsep} % Chapters have dots in ToC
+\renewcommand{\cftsectiondotsep}{\cftnodots} % Sections have no dots in ToC
+
+
+% -------------------------------------------------------------------------- %
+% Chapter and Section Headings                                               %
+% -------------------------------------------------------------------------- %
+\makeatletter
+\makechapterstyle{alpensec}{%
+  \chapterstyle{default}
+  \setlength{\beforechapskip}{3.5ex \@plus 1ex \@minus .2ex}
+  \renewcommand*{\chapterheadstart}{\vspace{\beforechapskip}}
+  \setlength{\afterchapskip}{2.3ex \@plus .2ex}
+  \renewcommand{\printchaptername}{}
+  \renewcommand{\chapternamenum}{}
+  \renewcommand{\chaptitlefont}{\sffamily\LARGE\bfseries}
+  \renewcommand{\chapnumfont}{\chaptitlefont}
+  \renewcommand{\printchapternum}{\chapnumfont \thechapter\quad}
+  \renewcommand{\afterchapternum}{}}
+
+\renewcommand{\section}{%
+  \sechook%
+  \@startsection{section}{1}%  level 1
+      {\secindent}%            heading indent
+      {\beforesecskip}%        skip before the heading
+      {\aftersecskip}%         skip after the heading
+      {\sffamily\secheadstyle}} % font
+
+\makeatother
+
+\chapterstyle{alpensec}
+
+
+% -------------------------------------------------------------------------- %
+% Packages                                                                   %
+% -------------------------------------------------------------------------- %
+\usepackage[%
+        bookmarksnumbered=true,
+        colorlinks=true,
+        linkcolor=cyan!50!blue,
+        citecolor=violet,
+        urlcolor=purple,
+        %hidelinks=false,
+    ]{hyperref}
+\usepackage[light,nott]{kpfonts}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor-solarized}
+\usepackage{minted}
+\usepackage{tcolorbox}
+\tcbuselibrary{minted}
+\usepackage{verbatimbox}
+
+
+% -------------------------------------------------------------------------- %
+% Macros                                                                     %
+% -------------------------------------------------------------------------- %
+\newcommand\code[1]{\texttt{#1}}
+
+
+% -------------------------------------------------------------------------- %
+% Title                                                                      %
+% -------------------------------------------------------------------------- %
+\title{\textsf{\Huge Verbatim Text and Code Listings in \LaTeX}}
+\author{Raphael Frey, <\href{mailto:webmaster@alpenwasser.net}{\nolinkurl{webmaster@alpenwasser.net}}>}
+\date{\vspace{1em}\today}
+
+
+% ************************************************************************** %
+\begin{document}
+% ************************************************************************** %
+
+\maketitle
+
+\begin{abstract}
+    There  are  many ways  to  integrate  verbatim  text (text  which  should,
+    ideally,  be unaltered)  and  formatted code  (listings)  into a  \LaTeX{}
+    document,  as  can  easily  be  seen when  looking  at  the  corresponding
+    topic  pages on  CTAN \cite{ctan:topic:listings,ctan:topic:verbatim}. This
+    document  presents  examples  for  a  few of  them. The  idea  is  not  to
+    provide  in-depth  documentation,  but  to  give a  brief  overview  of  a
+    few  possibilities.   Consulting  the  respective user  manual  is  always
+    recommended for detailled information.
+
+    For  the  \emph{very}  impatient: For  most   code  listings,  I  use  the
+    \code{minted}  package these  days. While it  is slow  (at least  on first
+    compilation),  it has  served  me well  most of  the  time. But there  are
+    alternatives,  and personal  preferences  matter,  too. One's mileage  may
+    vary.
+\end{abstract}
+
+\tableofcontents*
+
+
+% ========================================================================== %
+\newpage
+\chapter{The \code{verbatim} Environment}
+\label{chap:verbatim}
+% ========================================================================== %
+
+\LaTeX{} provides a \code{verbatim} Environment which, although it has quite a
+few limitations, is simple to use and often gets the job done well enough. For
+fancier things, there exists a re-implementation with a few added niceties.
+
+
+% -------------------------------------------------------------------------- %
+\section{Stock \LaTeX}
+\label{sec:verbatim:stock}
+% -------------------------------------------------------------------------- %
+
+The stock \LaTeX{} \code{verbatim} environment is used like this:
+
+\begin{tcblisting}{listing side text,title=\textsf{\bfseries LaTeX Result vs. Code},listing engine=minted,minted language=text}
+\begin{verbatim}
+#include <stdio.h>
+
+main() {
+    print("Hello, world!\n");
+}
+\end{verbatim}
+\end{tcblisting}
+
+
+% -------------------------------------------------------------------------- %
+\section{Re-Implementation \cite{verbatim}}
+\label{sec:verbatim:reimp}
+% -------------------------------------------------------------------------- %
+
+The re-implementation alleviates some limitations of the stock \code{verbatim}
+environment. For  more  details  and  to evaluate  whether  these  limitations
+may  be  of  relevance  to  your   use  case,  consult  the  documentation  at
+\cite{verbatim}. Basic  usage  is  identical   to  the  stock  \code{verbatim}
+environment.
+
+\begin{tcblisting}{listing side text,title=\textsf{\bfseries LaTeX Result vs. Code},listing engine=minted,minted language=text}
+\begin{verbatim}
+#include <stdio.h>
+
+main() {
+    print("Hello, world!\n");
+}
+\end{verbatim}
+\end{tcblisting}
+
+
+
+% ========================================================================== %
+\chapter{The \code{verbatimbox} Package \cite{verbatimbox}}
+\label{chap:verbatimbox}
+% ========================================================================== %
+
+A  box  is   defined  via  \mintinline{text}{\begin{verbbox}[options]  content
+\end{verbbox}}. This, however, does not yet  display the bxo. This can be done
+via  the \mintinline{text}{\theverbbox}  command. This can  be easily  wrapped
+inside a box like so:
+
+\begin{tcblisting}{listing side text,title=\textsf{\bfseries LaTeX Result vs. Code},listing engine=minted,minted language=text}
+\begin{verbbox}
+#include <stdio.h>
+
+main() {
+    print("Hello, world!\n");
+}
+\end{verbbox}
+\fbox{\theverbbox}
+\end{tcblisting}
+
+Note the removal of empty lines in the result on the right.As above, check the
+documentation \cite{verbatimbox} for more options and possibilities.
+
+
+% ========================================================================== %
+\chapter{The \code{fancyvrb} Package \cite{fancyvrb}}
+\label{chap:fancyvrb}
+% ========================================================================== %
+
+
+% ========================================================================== %
+\chapter{The \code{listing} Package \cite{listing}}
+\label{chap:listing}
+% ========================================================================== %
+
+
+% ========================================================================== %
+\chapter{The \code{listings}      Package \cite{listings}}
+\label{chap:listings}
+% ========================================================================== %
+
+
+% ========================================================================== %
+\chapter{The \code{listingsutf8}  Package \cite{listingsutf8}}
+\label{chap:listingsutf8}
+% ========================================================================== %
+
+
+% ========================================================================== %
+\chapter{The \code{mlpretty}      Package \cite{mlpretty}}
+\label{chap:mlpretty}
+% ========================================================================== %
+
+
+% ========================================================================== %
+\chapter{The \code{minted}        Package \cite{minted}}
+\label{chap:minted}
+% ========================================================================== %
+
+
+
+% ========================================================================== %
+\vfill
+\begin{thebibliography}{1}
+% ========================================================================== %
+
+    \bibitem{verbatim}
+        Rainer Sch\"opf and The \LaTeX{} Team.
+        ``\emph{verbatim -– Reimplementation of and extensions to \LaTeX{} verbatim}'',
+        Version 1.5q,
+        2001-MAR-12.
+        [Online],
+        \href{http://ctan.org/pkg/verbatim}{\nolinkurl{http://ctan.org/pkg/verbatim}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{verbatimbox}
+        Steven B. Segletes.
+        ``\emph{verbatimbox – Deposit verbatim text in a box}'',
+        Version 3.13,
+        2014-MAR-12.
+        [Online],
+        \href{http://ctan.org/pkg/verbatimbox}{\nolinkurl{http://ctan.org/pkg/verbatimbox}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{fancyvrb}
+        Timothy Van Zandt and Herbert Vo\ss{} and Denis Girou.
+        ``\emph{fancyrvb -- Sophisticated verbatim text}'',
+        Version 2.8,
+        2010-MAY-15.
+        [Online],
+        \href{http://ctan.org/pkg/fancyvrb}{\nolinkurl{http://ctan.org/pkg/fancyvrb}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{listing}
+        Volker Kuhlmann and Matthew Hebley.
+        ``\emph{listing -- Produce formatted program listings}'',
+        Version 1.2,
+        1999-MAY-25.
+        [Online],
+        \href{http://ctan.org/pkg/listing}{\nolinkurl{http://ctan.org/pkg/listing}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{listings}
+        Brooks Moses and Carsten Heinz and Jobst Hoffman.
+        ``\emph{listings -- Typeset source code listings using \LaTeX}'',
+        Version 1.6,
+        2015-JUN-04.
+        [Online],
+        \href{http://ctan.org/pkg/listings}{\nolinkurl{http://ctan.org/pkg/listings}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{listingsutf8}
+        Heiko Oberdiek.
+        ``\emph{listingsutf8 -- Allow UTF-8 in listings input}'',
+        Version 1.3,
+        2016-MAY-16.
+        [Online],
+        \href{http://ctan.org/pkg/listingsutf8}{\nolinkurl{http://ctan.org/pkg/listingsutf8}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{mlpretty}
+        Julien Cretel.
+        ``\emph{matlab-prettifier -- Pretty-print Matlab source code}'',
+        Version 0.3,
+        2014-JUN-19.
+        [Online],
+        \href{http://ctan.org/pkg/matlab-prettifier}{\nolinkurl{http://ctan.org/pkg/matlab-prettifier}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{minted}
+        Konrad Rudolph and Geoffrey Poore.
+        ``\emph{minted -- Highlighted source code for \LaTeX}'',
+        Version 2.4.1,
+        2016-OCT-31.
+        [Online],
+        \href{http://ctan.org/pkg/minted}{\nolinkurl{http://ctan.org/pkg/minted}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{verbments}
+        Dejan Živkovic.
+        ``\emph{verbments -- Syntax highlighting of source code in \LaTeX{} documents}'',
+        Version 1.2,
+        2011-AUG-20.
+        [Online],
+        \href{http://ctan.org/pkg/verbments}{\nolinkurl{http://ctan.org/pkg/verbments}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{ctan:topic:listings}
+        Comprehensive \TeX{} Archive Network.
+        ``\emph{Topic listing}''.
+        [Online],
+        \href{http://ctan.org/topic/listing}{\nolinkurl{http://ctan.org/topic/listing}},
+        [Accessed: 2017-MAR-22].
+
+    \bibitem{ctan:topic:verbatim}
+        Comprehensive \TeX{} Archive Network.
+        ``\emph{Topic verbatim}''.
+        [Online],
+        \href{http://ctan.org/topic/verbatim}{\nolinkurl{http://ctan.org/topic/verbatim}},
+        [Accessed: 2017-MAR-22].
+
+
+\end{thebibliography}
+
+\end{document}
