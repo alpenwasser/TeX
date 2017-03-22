@@ -3,6 +3,7 @@
 \usepackage{lipsum}
 \usepackage{booktabs}
 \usepackage{xcolor}
+\usepackage{framed}
 \usepackage[%
         bookmarksnumbered=true,
         colorlinks=true,
@@ -14,13 +15,18 @@
 \usepackage[left=30mm,right=30mm,top=30mm,bottom=40mm]{geometry}
 \usepackage[light,nott]{kpfonts}
 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
 \newcommand\compar[2]{\texttt{\textbackslash #1\{#2\}}}
 \newcommand\comm[1]{\texttt{\textbackslash#1}}
 \newcommand\code[1]{\texttt{#1}}
 \newcommand\XeLaTeX{\hologo{XeLaTeX}}
-
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+\newenvironment{framedcompact}
+    {\begin{framed}\vspace{-1em}}
+    {\vspace{-1em}\end{framed}}
+\definecolor{TFFrameColor}{HTML}{4393c3}
+\definecolor{TFTitleColor}{HTML}{FFFFFF}
 
 \title{Changing Fonts in \LaTeX}
 \author{Raphael Frey  <\texttt{webmaster@alpenwasser.net}>}
@@ -34,8 +40,80 @@
 
 \tableofcontents
 
+\vspace{8em}
+
+\begin{abstract}
+    This document  presents a  very brief  overview of the  topic of  fonts in
+    \LaTeX. A  quick introduction  to some  of the  terminology is  given, and
+    various ways  are shown to change  fonts and different aspects  of them to
+    one's liking.
+
+    This document is in  no way, shape or form exhaustive;  the topic of fonts
+    can fill  (and has filled)  entire books. But  it should suffice  for most
+    day-to-day usage.
+\end{abstract}
+
+
 % -------------------------------------------------------------------------- %
-\section{Font Families, Fonts and Glyphs}
+\newpage
+\section{Incomplete Summary For the Impatient}
+\label{sec:summary}
+% -------------------------------------------------------------------------- %
+
+\begin{titled-frame}
+{\textsf{Switching to Default Document Font}}
+\vspace{-1em}
+\begin{verbatim}
+\normalfont The quick brown fox jumps over the lazy dog.
+\end{verbatim}
+\normalfont The quick brown fox jumps over the lazy dog.
+\end{titled-frame}
+
+\begin{titled-frame}
+{\textsf{Switching Between Roman, Sans-Serif and Monospace Fonts}}
+\vspace{-1em}
+\begin{verbatim}
+\textrm{The quick brown fox jumps over the lazy dog.}
+\textsf{The quick brown fox jumps over the lazy dog.}
+\texttt{The quick brown fox jumps over the lazy dog.}
+\end{verbatim}
+\textrm{The quick brown fox jumps over the lazy dog.}\\
+\textsf{The quick brown fox jumps over the lazy dog.}\\
+\texttt{The quick brown fox jumps over the lazy dog.}
+\end{titled-frame}
+
+\begin{titled-frame}
+{\textsf{Font Weights}}
+\vspace{-1em}
+\begin{verbatim}
+\textbf{The quick brown fox jumps over the lazy dog.}
+\textmd{The quick brown fox jumps over the lazy dog.}
+\end{verbatim}
+\textbf{The quick brown fox jumps over the lazy dog.}\\
+\textmd{The quick brown fox jumps over the lazy dog.}
+\end{titled-frame}
+
+\begin{titled-frame}
+{\textsf{Font Shapes}}
+\vspace{-1em}
+\begin{verbatim}
+\emph{The quick brown fox jumps over the lazy dog.}
+\textit{The quick brown fox jumps over the lazy dog.}
+\textsl{The quick brown fox jumps over the lazy dog.}
+\textsc{The quick brown fox jumps over the lazy dog.}
+\textup{The quick brown fox jumps over the lazy dog.}
+\end{verbatim}
+\emph{The quick brown fox jumps over the lazy dog.}\\
+\textit{The quick brown fox jumps over the lazy dog.}\\
+\textsl{The quick brown fox jumps over the lazy dog.}\\
+\textsc{The quick brown fox jumps over the lazy dog.}\\
+\textup{The quick brown fox jumps over the lazy dog.}
+\end{titled-frame}
+
+
+% -------------------------------------------------------------------------- %
+\newpage
+\section{Terminology: Font Families, Fonts and Glyphs}
 \label{sec:font-families}
 % -------------------------------------------------------------------------- %
 
@@ -79,11 +157,12 @@ these days tend to be grouped into three main categories\footnotemark:
     There are  more, but  these are  unlikely to be  useful in  most practical
     applications these days. For more, see \cite{wikipedia:typeface}.}
 
-\begin{itemize}
-    \item {\fontfamily{ppl}\selectfont roman fonts (with serifs), for example Palatino}
-    \item {\fontfamily{phv}\selectfont sans-serif fonts, for example Helvetica}
-    \item {\fontfamily{pcr}\selectfont monospace fonts, for example Courier}
-\end{itemize}
+\begin{titled-frame}
+    {\textsf{Common Font Families}}
+    \noindent{\fontfamily{ppl}\selectfont roman fonts (with serifs), for example Palatino}\\
+    {\fontfamily{phv}\selectfont sans-serif fonts, for example Helvetica}\\
+    {\fontfamily{pcr}\selectfont monospace fonts, for example Courier}
+\end{titled-frame}
 
 Often, font families  provide fonts for roman, sans-serif  and monospace fonts
 (also called  typewriter fonts,  particularly in  the \TeX{}  world). In those
@@ -100,11 +179,12 @@ result looking odd\footnotemark.
 In \LaTeX, there are three macros which contain the default fonts families for
 the three font groups:
 
-\begin{itemize}
-    \item \comm{rmdefault}
-    \item \comm{sfdefault}
-    \item \comm{ttdefault}
-\end{itemize}
+\begin{titled-frame}
+    {\textsf{Default Font Families in \LaTeX}}
+    \noindent\comm{rmdefault}\\
+    \comm{sfdefault}\\
+    \comm{ttdefault}
+\end{titled-frame}
 
 Furthermore,  there  is  a  command \comm{familydefault}  which  contains  the
 currently configured default font family (one of the above three).
@@ -145,11 +225,12 @@ that package.
 The same  goes for mathematics: Not all  fonts provide the needed  symbols for
 typesetting that either.
 
-A personal favorite of mine is  the Johannes Kepler font family. It has roman,
-sans-serif  and typewriter  font  choices (although  personally  I prefer  the
-Computer  Modern typewriter  font and  usually keep  that intact),  along with
-mathematics and many symbols. This is the setup which has been chosen for this
-document. But this is a matter of personal preference; one's mileage may vary.
+A personal  favorite of mine  is the Kp-Fonts family  \cite{ctan:kpfonts}.  It
+has  roman, sans-serif  and  typewriter font  choices  (although personally  I
+prefer  the Computer  Modern typewriter  font and  usually keep  that intact),
+along with  mathematics and  many symbols. This  is the  setup which  has been
+chosen for this  document. But this is a matter of  personal preference; one's
+mileage may vary.
 
 
 % -------------------------------------------------------------------------- %
@@ -160,35 +241,45 @@ document. But this is a matter of personal preference; one's mileage may vary.
 %\fontfamily{\sfdefault}\selectfont
 
 In the preamble, we can change the  default document font from roman (which is
-the default) to sans-serif or typewriter with
+the default) to sans-serif or typewriter with one of these commands:
 
+\begin{titled-frame}
+{\textsf{Selecting Sans-Serif or Typewriter Default}}
+\vspace{-1em}
 \begin{verbatim}
 \renewcommand{\familydefault}{\sfdefault}
-\end{verbatim}
-and
-\begin{verbatim}
 \renewcommand{\familydefault}{\ttdefault}
 \end{verbatim}
-respectively.
+\vspace{-1em}
+\end{titled-frame}
 
 Note that typewriter fonts differ in  what kinds of adjustments \TeX{} usually
 makes  when it  comes to  spacing in  order to  achieve a  justified block  of
-text. More on the topic can be found in \cite{texblog:typewriter}.
+text. This  is also  why sometimes  a monospaced  piece of  text can  protrude
+outside the right textblock  margin when you put it in  normal text (see above
+with the dejavu example; that was not  done on purpose). More on the topic can
+be found in \cite{texblog:typewriter}.
 
 Combining different  font families  can be  done on  the same  principle.  For
 example,  selecting Palatino  as  the  roman default  font,  Helvetica as  the
 default sans-serif font and Latin Modern  as the typewriter font could be done
 by putting these commands in the preamble:
 
+\begin{titled-frame}
+{\textsf{Creating a Custom Set of Default Fonts}}
+\vspace{-1em}
 \begin{verbatim}
-\renewcommand{\rmdefault}{ppl}
-\renewcommand{\sfdefault}{phv}
-\renewcommand{\ttdefault}{lmtt}
+\renewcommand{\rmdefault}{ppl}  % Palatino
+\renewcommand{\sfdefault}{phv}  % Helvetica
+\renewcommand{\ttdefault}{lmtt} % Latin Modern
 \end{verbatim}
+\vspace{-1em}
+\end{titled-frame}
 
-Changing  math  fonts is  rather  more  complex. I  recommend not  doing  this
-manually,   but  instead   relying  on   packages  instead. See   for  example
-\cite{stackexch:math-fonts} and \cite{practex:fonts}).
+Changing  math  fonts is  rather  more  complex. I  recommend not  doing  that
+manually,  but  instead  relying  on   font  packages  instead,  as  described
+in  the  previous  section. See for  example  \cite{stackexch:math-fonts}  and
+\cite{practex:fonts}).
 
 
 % -------------------------------------------------------------------------- %
@@ -198,61 +289,73 @@ manually,   but  instead   relying  on   packages  instead. See   for  example
 
 Besides  global  font selection,  one  might  wish  to select  fonts  manually
 somewhere in a document (as opposed  to global settings in the preamble). This
-is   done  by   selecting  the   desired   fontfamily  and   then  using   the
+is   done  by   selecting  the   desired  font family  and   then  using   the
 \comm{selectfont} command. For example, if we wish to switch to Helvetica:
 
+\begin{titled-frame}
+{\textsf{Changing Fonts Until They Are Changed Again}}
+\vspace{-1em}
 \begin{verbatim}
 \fontfamily{phv}\selectfont
 \end{verbatim}
 
 
-\fontfamily{phv}\selectfont And now we should have Helvetica for this text. The
-font family will stay switched until it is switched back:
+\fontfamily{phv}\selectfont  And  now  we   should  have  Helvetica  for  this
+text. The font family will stay switched until it is switched back with one of
+these two commands:
 
 \begin{verbatim}
 \fontfamily{\familydefault}\selectfont
-\end{verbatim}
-or:
-
-\begin{verbatim}
 \normalfont
 \end{verbatim}
-
-\normalfont And now we're back to Kepler serif.
+\normalfont And now we're back to Kp-Fonts serif.
+\end{titled-frame}
 
 In order to keep the font change local,  we can enclose a portion of text in a
 group:
 
+\begin{titled-frame}
+{\textsf{Selecting Fonts Locally}}
+\vspace{-1em}
 \begin{verbatim}
-{\fontfamily{phv}\selectfont This text is in Helvetica!} While this text is not!
+{\fontfamily{phv}\selectfont This text is in Helvetica!}
+While this text is not!
 \end{verbatim}
-
 {\fontfamily{phv}\selectfont This text is in Helvetica!} While this text is not!
+\end{titled-frame}
 
 Locally   switching    to   a   different   style    among   \comm{sfdefault},
 \comm{rmdefault} and \comm{ttdefault} can be done either via:
 
+\begin{titled-frame}
+{\textsf{Locally Switching Fonts Among Default Families}}
+\vspace{-1em}
 \begin{verbatim}
 {\rmfamily This is roman text!}
 {\sffamily This is sans-serif text!}
 {\ttfamily This is sans-serif text!}
 \end{verbatim}
-
 {\rmfamily This is roman text!}
 {\sffamily This is sans-serif text!}
 {\ttfamily This is typewriter text!}
+\end{titled-frame}
 
 Or alternatively:
 
+\begin{titled-frame}
+{\textsf{Locally Switching Fonts Among Default Families (Preferred)}}
+\vspace{-1em}
 \begin{verbatim}
 \textrm{This is roman text!}
 \textsf{This is sans-serif text!}
 \texttt{This is typewriter text!}
 \end{verbatim}
+\vspace{-1em}
+\end{titled-frame}
 
-Leaving out the braces (\code{\{} and  \code{\}}) in the first version results
-in the font  being switched until it is switched  to something else again. The
-second version is usually recommended for local changes.
+Leaving out the braces in the first  version results in the font being changed
+until it  is switched to  something else, as  the astute reader  might already
+have guessed. The second version is usually recommended for local changes.
 
 
 % -------------------------------------------------------------------------- %
@@ -271,13 +374,14 @@ its  series (weight)  and  its  shape. For a  nice  explanation  of this,  see
 % -------------------------------------------------------------------------- %
 
 By  default, \LaTeX{}  offers the  following font  sizes, which,  depending on
-which global  document font size  has been set  in the preamble  (for example,
-with \code{\textbackslash{}documentclass[11pt]\{article\}}):
+the  global  document  font  size  set in  the  preamble  (for  example,  with
+\code{\textbackslash{}documentclass[11pt]\{article\}}), vary in the size which
+they will have on the page:
 
 \begin{center}
     \begin{tabular}{lrrrrrr}
         \toprule
-        \textsc{Size} & 
+        \textsc{Size} &
         \multicolumn{3}{l}{\textsc{Standard Classes and beamer}} &
         \multicolumn{3}{l}{\textsc{AMS Classes and memoir}} \\
         \midrule
@@ -300,47 +404,181 @@ The table has been copied from \cite{wikibooks:fonts}.
 Yet again, these commands change the font size within the current scope, so should
 usually be enclosed in braces:
 
+\begin{titled-frame}
+{\textsf{Locally Changing Font Sizes}}
+\vspace{-1em}
 \begin{verbatim}
 {\LARGE This is a piece of large text.} And this is of normal size again.
 \end{verbatim}
-
 {\LARGE This is a piece of large text.} And this is of normal size again.
+\end{titled-frame}
 
 % -------------------------------------------------------------------------- %
 \subsection{Font Series}
 \label{subsec:font-series}
 % -------------------------------------------------------------------------- %
 
+Changing font weights can be done either via a \comm{fontseries\{<argument>\}}
+command,    followed   by    \comm{selectfont},   or    via   \comm{bfseries},
+\comm{mdseries} and \comm{lfseries}, respectively. A  font may offer more than
+three weights, in which case one might need to resort to the \comm{fontseries}
+command for changing fonts.
+
+Furthermore,  depending on  which option  is  loaded if  one is  using a  font
+package  such as  Kp-Fonts, the  default font  weight and  all others  will be
+changed accordingly  among \comm{bfseries} and its  friends. For example, this
+happens when  one selects  the \comm{light}  option for  Kp-Fonts package. For
+specifics, consult the documentation for the package you're using.
+
+Lastly,  note that  not  all options  might  be supported  by  all fonts  (for
+example,  Kp-Fonts  with  a  \code{light} option  shows  vehement  displeasure
+at  being  instructed  to   execute  \comm{lfseries}). With  Kp-Fonts  in  the
+configuration for this document, these are the options available:
+
+\begin{titled-frame}
+{\textsf{Locally Changing Font Weight}}
+\vspace{-1em}
+\begin{verbatim}
+{\fontseries{l}\selectfont  The quick brown fox jumps over the lazy dog.}
+{\fontseries{m}\selectfont  The quick brown fox jumps over the lazy dog.}
+{\fontseries{sb}\selectfont The quick brown fox jumps over the lazy dog.}
+{\fontseries{b}\selectfont  The quick brown fox jumps over the lazy dog.}
+{\fontseries{bx}\selectfont The quick brown fox jumps over the lazy dog.}
+
+{\mdseries\selectfont The quick brown fox jumps over the lazy dog.}\\
+{\bfseries\selectfont The quick brown fox jumps over the lazy dog.}\\
+
+\textbf{The quick brown fox jumps over the lazy dog.}
+\textmd{The quick brown fox jumps over the lazy dog.}
+\end{verbatim}
+
+\noindent{\fontseries{l}\selectfont  The quick brown fox jumps over the lazy dog.}\\
+{\fontseries{m}\selectfont  The quick brown fox jumps over the lazy dog.}\\
+{\fontseries{sb}\selectfont  The quick brown fox jumps over the lazy dog.}\\
+{\fontseries{b}\selectfont  The quick brown fox jumps over the lazy dog.}\\
+{\fontseries{bx}\selectfont The quick brown fox jumps over the lazy dog.}\\
+
+\noindent{\mdseries\selectfont The quick brown fox jumps over the lazy dog.}\\
+{\bfseries\selectfont The quick brown fox jumps over the lazy dog.}\\
+
+\noindent\textmd{The quick brown fox jumps over the lazy dog.}\\
+\textbf{The quick brown fox jumps over the lazy dog.}\\
+\vspace{-1em}
+\end{titled-frame}
+
+
 % TODO: Check kepler sty file for jkplight or whatever it is called
+
 
 % -------------------------------------------------------------------------- %
 \subsection{Font Shapes}
 \label{subsec:font-shapes}
 % -------------------------------------------------------------------------- %
 
+Again, the number of font shapes, and possible combinations thereof, will vary
+depending on which font is being used. Kp-Fonts supports these options:
+
+\begin{titled-frame}
+{\textsf{Locally Changing Font Shapes}}
+\vspace{-1em}
+\small
+\begin{verbatim}
+{\fontshape{sc}\selectfont The quick brown fox jumps over the lazy dog.}
+{\fontshape{scsl}\selectfont The quick brown fox jumps over the lazy dog.}
+{\fontshape{it}\selectfont The quick brown fox jumps over the lazy dog.}
+{\otherscshape\selectfont The quick brown fox jumps over the lazy dog.}
+{\otherscslshape\selectfont The quick brown fox jumps over the lazy dog.}
+\end{verbatim}
+\normalsize
+\noindent{\fontshape{sc}\selectfont The quick brown fox jumps over the lazy dog.}\\
+{\fontshape{scsl}\selectfont The quick brown fox jumps over the lazy dog.}\\
+{\fontshape{it}\selectfont The quick brown fox jumps over the lazy dog.}\\
+{\otherscshape\selectfont The quick brown fox jumps over the lazy dog.}\\
+{\otherscslshape\selectfont The quick brown fox jumps over the lazy dog.}\\
+\vspace{-1em}
+\end{titled-frame}
+
+
 % -------------------------------------------------------------------------- %
-\section{List of Typefaces}
-\label{sec:tflist}
+\subsection{Combinations}
+\label{subsec:combinations}
 % -------------------------------------------------------------------------- %
 
-\begin{itemize}
-    \item Computer Modern: The \LaTeX{} default
-    \item  
-        Latin  Modern: Basically  Computer  Modern with  some  amendments  for
-        non-English languages.
-\end{itemize}
+The  commands presented  above can  be  combined in  various ways,  depending,
+again,  on the  font families  being used. Some  fonts will  support different
+combinations than others.
 
+\begin{titled-frame}
+{\textsf{Combining Different Font Styles}}
+\vspace{-1em}
+\begin{verbatim}
+The quick brown fox jumps over the lazy dog.\\
+{\fontshape{sc}\fontseries{b}\selectfont
+The quick brown fox jumps over the lazy dog.}\\
+{\fontshape{it}\fontseries{b}\selectfont
+The quick brown fox jumps over the lazy dog.}
+\end{verbatim}
+
+\noindent The quick brown fox jumps over the lazy dog.\\
+{\fontshape{sc}\fontseries{b}\selectfont
+The quick brown fox jumps over the lazy dog.}\\
+{\fontshape{it}\fontseries{b}\selectfont
+The quick brown fox jumps over the lazy dog.}
+\end{titled-frame}
 
 % -------------------------------------------------------------------------- %
-\section{pdf\LaTeX{} vs. \XeLaTeX{} vs. Lua\LaTeX}
-\label{sec:fontsel:pdf:xe:lua}
+\subsection{Emphasis}
 % -------------------------------------------------------------------------- %
+
+The  \comm{emph}  command  is  a   context-aware  way  to  highlight  text. It
+will  select  an  appropriate  font  version  automatically  to  achieve  this
+goal. Usually, \comm{emph} uses  italics, but when it is  placed inside italic
+text, it will switch to an upright font shape.
+
+\begin{titled-frame}
+{\textsf{Emphasis}}
+\vspace{-1em}
+\small
+\begin{verbatim}
+{\fontshape{u}\selectfont This sentence \emph{emphasizes} a word of itself.}\\
+{\fontshape{it}\selectfont This sentence \emph{emphasizes} a word of itself.}\\
+Here, again, there exists an {\em alternative} version.\\
+{\itshape Here, again, there exists an {\em alternative} version.}
+\end{verbatim}
+\normalsize
+{\fontshape{u}\selectfont This sentence \emph{emphasizes} a word of itself.}\\
+{\fontshape{it}\selectfont This sentence \emph{emphasizes} a word of itself.}\\
+Here, again, there exists an {\em alternative} version.\\
+{\itshape Here, again, there exists an {\em alternative} version.}
+\end{titled-frame}
+
+%% -------------------------------------------------------------------------- %
+%\section{List of Typefaces}
+%\label{sec:tflist}
+%% -------------------------------------------------------------------------- %
+%
+%\begin{itemize}
+%    \item 
+%        {\fontfamily{cmr}\selectfont Computer Modern: The \LaTeX{} default}
+%    \item
+%        {\fontfamily{lmr}\selectfont Latin Modern: A  modernised derivative of
+%        Computer modern with more characters.}
+%    \item
+%        {\fontfamily{jkp}\selectfont Kp-Fonts: An alternative to the above two
+%        with fully-featured  glyph sets for roman,  sans-serif, typewriter and
+%        math fonts. \cite{ctan:kpfonts}}
+%    \item
+%        {\fontfamily{aeccr}\selectfont aecc --  Almost European Concrete Roman
+%        virtual  fonts.  A  font prividing  roman, sans-serif,  and typewriter
+%        fonts. \cite{ctan:aecc}}
+%\end{itemize}
+
 
 
 % -------------------------------------------------------------------------- %
 \begin{thebibliography}{1}
 % -------------------------------------------------------------------------- %
-        
+
     \bibitem{wikipedia:typeface}
         Wikipedia,
         ``\emph{Typeface}'',
@@ -366,6 +604,14 @@ usually be enclosed in braces:
              {\nolinkurl{http://ctan.org/topic/font}},
         [Accessed: 2017-MAR-20].
 
+    \bibitem{ctan:kpfonts}
+        The Johannes Kepler Project, Christophe Caignaert,
+        ``\emph{kpfonts -- A complete set of fonts for text and mathematics}''
+        [Online],
+        \href{https://www.ctan.org/pkg/kpfonts}
+             {nolinkurl{https://www.ctan.org/pkg/kpfonts}},
+        [Accessed: 2017-MAR-22].
+
     \bibitem{tug:font-catalog}
         \TeX{} Users Group,
         ``\emph{The \LaTeX{} Font Catalogue}'',
@@ -381,7 +627,7 @@ usually be enclosed in braces:
         \href{http://tex.stackexchange.com/questions/30049/how-to-select-math-font-in-document}
              {\nolinkurl{http://tex.stackexchange.com/questions/30049/how-to-select-math-font-in-document}},
         [Accessed: 2017-MAR-20].
-        
+
     \bibitem{practex:fonts}
         Walter Schmidt,
         ``\emph{Font selection in \LaTeX{}: The most frequently asked questions}'',
@@ -417,6 +663,14 @@ usually be enclosed in braces:
         \href{https://en.wikibooks.org/wiki/LaTeX/Fonts}
              {\nolinkurl{https://en.wikibooks.org/wiki/LaTeX/Fonts}},
         [Accessed: 2017-MAR-21].
+
+%    \bibitem{ctan:aecc}
+%        CTAN,
+%        ``\emph{aecc -- Almost European Concrete Roman virtual fonts}'',
+%        [Online],
+%        \href{http://ctan.org/pkg/aecc}
+%             {\nolinkurl{http://ctan.org/pkg/aecc}},
+%        [Accessed: 2017-MAr-22].
 
 \end{thebibliography}
 
