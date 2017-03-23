@@ -3,7 +3,6 @@
 % -------------------------------------------------------------------------- %
 % Page Layout                                                                %
 % -------------------------------------------------------------------------- %
-\isopage
 \setlrmarginsandblock{0.142857111\paperwidth}{0.142857111\paperwidth}{*}
 \setulmarginsandblock{0.111111111\paperheight}{*}{1.25}
 \checkandfixthelayout
@@ -75,6 +74,7 @@
 \usepackage{tcolorbox}
 \tcbuselibrary{minted}
 \usepackage{verbatimbox}
+\usepackage{fancyvrb}
 
 
 % -------------------------------------------------------------------------- %
@@ -90,22 +90,31 @@
 \author{Raphael Frey, <\href{mailto:webmaster@alpenwasser.net}{\nolinkurl{webmaster@alpenwasser.net}}>}
 \date{\vspace{1em}\today}
 
+\tcbset{
+    listing and text,
+    listing engine=minted,
+    title=\textsf{\bfseries Code \hfill \LaTeX{} Output},
+    minted language=text}
 
 % ************************************************************************** %
 \begin{document}
 % ************************************************************************** %
 
+
 \maketitle
 
 \begin{abstract}
-    There  are  many ways  to  integrate  verbatim  text (text  which  should,
-    ideally,  be unaltered)  and  formatted code  (listings)  into a  \LaTeX{}
-    document,  as  can  easily  be  seen when  looking  at  the  corresponding
-    topic  pages on  CTAN \cite{ctan:topic:listings,ctan:topic:verbatim}. This
-    document  presents  examples  for  a  few of  them. The  idea  is  not  to
-    provide  in-depth  documentation,  but  to  give a  brief  overview  of  a
-    few  possibilities.   Consulting  the  respective user  manual  is  always
-    recommended for detailled information.
+    There  are   many  ways  to   integrate  verbatim  text  (text   which  is
+    presented  in  the  resulting  document  as it  is  in  the  source  code)
+    and  listings  (which may  include  pretty  printing, syntax  highlighting
+    and  other  fancy  things)  into   a  \LaTeX{}  document,  as  can  easily
+    be  seen   when  looking  at   the  corresponding  topic  pages   on  CTAN
+    \cite{ctan:topic:listings,ctan:topic:verbatim}. This   document   presents
+    examples  for  a  few  of  them. The  idea  is  not  to  provide  in-depth
+    documentation, but to give a  brief overview of \emph{a few} possibilities
+    to enable the  reader to get an  idea of what's out there  and what might,
+    potentially, be useful to them.   Consulting the respective user manual is
+    always recommended for more detailled information.
 
     For  the  \emph{very}  impatient: For  most   code  listings,  I  use  the
     \code{minted}  package these  days. While it  is slow  (at least  on first
@@ -135,7 +144,7 @@ fancier things, there exists a re-implementation with a few added niceties.
 
 The stock \LaTeX{} \code{verbatim} environment is used like this:
 
-\begin{tcblisting}{listing side text,title=\textsf{\bfseries LaTeX Result vs. Code},listing engine=minted,minted language=text}
+\begin{tcblisting}{listing side text}
 \begin{verbatim}
 #include <stdio.h>
 
@@ -157,7 +166,7 @@ may  be  of  relevance  to  your   use  case,  consult  the  documentation  at
 \cite{verbatim}. Basic  usage  is  identical   to  the  stock  \code{verbatim}
 environment.
 
-\begin{tcblisting}{listing side text,title=\textsf{\bfseries LaTeX Result vs. Code},listing engine=minted,minted language=text}
+\begin{tcblisting}{listing side text}
 \begin{verbatim}
 #include <stdio.h>
 
@@ -168,39 +177,264 @@ main() {
 \end{tcblisting}
 
 
-
 % ========================================================================== %
+\newpage
 \chapter{The \code{verbatimbox} Package \cite{verbatimbox}}
 \label{chap:verbatimbox}
 % ========================================================================== %
 
 A  box  is   defined  via  \mintinline{text}{\begin{verbbox}[options]  content
-\end{verbbox}}. This, however, does not yet  display the bxo. This can be done
-via  the \mintinline{text}{\theverbbox}  command. This can  be easily  wrapped
-inside a box like so:
+\end{verbbox}}.  This, however,  does not yet display the  box. Instead, it is
+stored for later use  via the \mintinline{text}{\theverbbox} command. This can
+be easily  wrapped inside an \mintinline{text}{\fbox},  optionally adding some
+vertical space with the \mintinline{text}{\addvbuffer} command.
 
-\begin{tcblisting}{listing side text,title=\textsf{\bfseries LaTeX Result vs. Code},listing engine=minted,minted language=text}
-\begin{verbbox}
+\vfill
+
+\begin{tcblisting}{}
+\begin{verbbox}[\arabic{VerbboxLineNo}:\hspace{1ex}]
 #include <stdio.h>
 
 main() {
     print("Hello, world!\n");
 }
 \end{verbbox}
-\fbox{\theverbbox}
+\fbox{\addvbuffer[10pt 5pt]\theverbbox} % different spacing above and below
+\fbox{\addvbuffer[10pt]\theverbbox}     % same spacing above and below
 \end{tcblisting}
 
-Note the removal of empty lines in the result on the right.As above, check the
-documentation \cite{verbatimbox} for more options and possibilities.
+\vfill
 
+Note the removal of empty lines in the result on the right.As above, check the
+documentation \cite{verbatimbox} for more options and possibilities. Also, the
+optional argument  \mintinline{text}{[\arabic{VerbboxLineNo}:\hspace{1ex}]} to
+\mintinline{text}{\begin{verbbox}} must be  on the same line and  only on that
+line.
+
+For cases where the limitation of having  only a single named box to which one
+can refer, \mintinline{text}{\theverbbox}, must  be overcome, there exists the
+\mintinline{text}{\myverbbox} command, by which named boxes can be created for
+later  use. One use  case for  this  is the  use of  verbatim environments  in
+tabular environments, where the use of \code{verbatim} is not allowed (example
+from the \code{verbatimbox} manual \cite{verbatimbox}).
+
+\vfill
+
+\begin{tcblisting}{}
+\begin{myverbbox}{\vtheta}\theta\end{myverbbox}
+\begin{myverbbox}{\valpha}\alpha\end{myverbbox}
+\begin{tabular}{|c|c|} \hline
+\valpha & $\alpha$ \\ \hline
+\vtheta & $\theta$ \\ \hline
+\end{tabular}
+\end{tcblisting}
+
+\newpage
+\code{verbatimbox} also allows including the contents of an entire file:
+
+\begin{tcblisting}{listing side text}
+\verbfilebox{code/hw.c}
+\theverbbox
+\end{tcblisting}
+
+Because  \code{verbatimbox}  uses boxes  to  save  its contents,  they  cannot
+be  broken across  pages. For  breaking verbatims  across  pages, there  esist
+the  \code{verbnobox}  environment and  the  \mintinline{text}{\verbfilenobox}
+command. These do not  allow recalling the verbatim contents at  a later point
+though; their output is generated directly where they are placed in the source
+code.
+
+
+\begin{tcblisting}{}
+\begin{verbnobox}[\arabic{VerbboxLineNo}:\hspace{1ex}]
+#include <stdio.h>
+
+main() {
+    print("Hello, world!\n");
+}
+\end{verbnobox}
+\end{tcblisting}
+
+\begin{tcblisting}{listing side text}
+\verbfilenobox{code/hw.c}
+\end{tcblisting}
 
 % ========================================================================== %
+\newpage
 \chapter{The \code{fancyvrb} Package \cite{fancyvrb}}
 \label{chap:fancyvrb}
 % ========================================================================== %
 
+\code{fancyvrb}  offers  several  advancements   over  the  standard  \LaTeX{}
+verbatim environment. Some of them are:
+
+\begin{itemize}\firmlist
+    \item
+        Footnotes can contain verbatim content.
+    \item
+        Several  different  verbatim  environments  are provided,  and  it  is
+        possible to create new environments.
+    \item
+        Verbatim content can be stored and recalled.
+    \item
+        Files can be read and written in verbatim mode.
+\end{itemize}
+
+Putting  verbatim  content  in  footnotes  is  accomplished  by  invoking  the
+\mintinline{text}{\VerbatimFootnotes}  command  after  the  preamble  at  some
+point, after which verbatim content can be put inside footnotes:
+
+
+% -------------------------------------------------------------------------- %
+\section{Footnotes}
+\label{sec:fancyvrb:footnotes}
+% -------------------------------------------------------------------------- %
+
+\VerbatimFootnotes
+After    invoking    VerbatimFootnotes,    verbatim   can    be    put    into
+footnotes\footnotemark. Note that the verbatim content in the footnote must be
+on a  single line (though the  footnote text itself can  break across multiple
+lines of source code.)
+
+\footnotetext{\verb+_And here we are, down in the footnotes!!_+ This is outside
+the verbatim content in the footnote.} 
+
+\begin{tcblisting}{listing only}
+\VerbatimFootnotes
+And then  we have some  text\footnotemark with  a footnote, and  that footnote
+shall contain verbatim content.
+\footnotetext{\verb+_And here we are, down in the footnotes!!_+ This is outside
+the verbatim content in the footnote.} 
+\end{tcblisting}
+
+
+% -------------------------------------------------------------------------- %
+\section{Inline Verbatim Content}
+\label{sec:fancyvrb:inline}
+% -------------------------------------------------------------------------- %
+
+\code{fancyvrb}  allows  convenient  inlining  of  verbatim  content  via  the
+\mintinline{text}{\DefineShortVerb}, the \mintinline{text}{\UnDefineShortVerb}
+and the \mintinline{text}{\Verb} commands\footnotemark:
+
+\footnotetext{%
+    Note that  the underscores in this  example are not necessary,  but merely
+    serve to emphasize  that we are in verbatim mode,  because in regular text
+    mode it  is a special  character which would need  to be escaped  like so:
+    \mintinline{text}{\_}.}
+
+\begin{tcblisting}{listing side text}
+We can write \Verb+_inline verbatim_+ by
+defining  delimiting characters  ad hoc,
+or via:
+\DefineShortVerb{\|}
+And now we  can use |_this_ _delimiter_|
+around  inline  verbatim content,  until
+its special meaning is revoked via
+\UndefineShortVerb{\|}
+And  now the  |delimiter| no  longer has
+any  effect. A  new  one could  also  be
+defined.
+\end{tcblisting}
+
+% -------------------------------------------------------------------------- %
+\section{Verbatim Environments}
+\label{sec:fancyvrb:environments}
+% -------------------------------------------------------------------------- %
+
+\code{fancyvrb}    provides    several   verbatim    environments. The    most
+straightforward replacement for the stock \LaTeX{} \code{verbatim} environment
+is the \code{Verbatim} environment\footnotemark:
+
+\footnotetext{%
+    For   a  complete   list  of   options,   consult  the   user  manual   at
+    \code{fancyvrb}.}
+
+\begin{tcblisting}{listing side text}
+\begin{Verbatim}
+#include <stdio.h>
+
+main() {
+    print("Hello, world!\n");
+}
+\end{Verbatim}
+\end{tcblisting}
+
+An example with a lot of options (not all of which might be sensible):
+
+\begin{tcblisting}{listing side text}
+\begin{Verbatim}[%
+    gobble=4,
+    numbers=left,
+    numbersep=4pt,
+    showspaces=true,
+    showtabs=true,
+    baselinestretch=1.5,
+    tabsize=4,
+    frame=single,
+    framerule=1mm,
+    framesep=1em,
+    rulecolor=\color{teal},
+    label={%
+        [\fbox{\Large{Hello World}}]%
+        end of code}%
+    ]
+    #include <stdio.h>
+
+    main() {
+    	print("Hello, world!\n");
+    }
+    \end{Verbatim}
+\end{tcblisting}
+
+We can also define custom environments:
+
+\begin{tcblisting}{listing side text}
+\DefineVerbatimEnvironment%
+    {CustomVerbatim}{Verbatim}{%
+    gobble=4,
+    numbers=left,
+    numbersep=4pt,
+    baselinestretch=1.1,
+    frame=single,
+    framerule=1mm,
+    framesep=1em,
+    rulecolor=\color{teal}}
+
+\begin{CustomVerbatim}[%
+    label={%
+        [\fbox{\Large{Hello World In C}}]%
+        end of code}%
+    ]
+    #include <stdio.h>
+
+    main() {
+        print("Hello, world!\n");
+    }
+\end{CustomVerbatim}
+
+\begin{CustomVerbatim}[%
+    label={%
+    [\fbox{\Large{Hello World in Perl}}]%
+    end of code}]
+    #!/usr/bin/env perl
+    use strict;
+    use warnings;
+    use v5.10;
+
+    say("Hello, world!");
+\end{CustomVerbatim}
+\end{tcblisting}
+
+There is also the possibility to  store and recall verbatim content, which, as
+in  the case  of \code{verbatimbox}  package, allows  to use  verbatim content
+where it is otherwise not allowed, and to re-use it repeatedly in a convenient
+way.   Additionally,  content  can  be  written  to  and  read  from  external
+files. Consult the user manual for information on how to achieve this.
+
 
 % ========================================================================== %
+\newpage
 \chapter{The \code{listing} Package \cite{listing}}
 \label{chap:listing}
 % ========================================================================== %
@@ -229,6 +463,11 @@ documentation \cite{verbatimbox} for more options and possibilities.
 \label{chap:minted}
 % ========================================================================== %
 
+
+% ========================================================================== %
+\chapter{The \code{verbments}        Package \cite{verbments}}
+\label{chap:minted}
+% ========================================================================== %
 
 
 % ========================================================================== %
