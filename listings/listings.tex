@@ -71,10 +71,21 @@
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor-solarized}
 \usepackage{minted}
+\usepackage{packages/mylisting}
 \usepackage{tcolorbox}
 \tcbuselibrary{minted}
 \usepackage{verbatimbox}
 \usepackage{fancyvrb}
+\DefineVerbatimEnvironment%
+    {GlobalCustomVerbatim}{Verbatim}{%
+    gobble=8,
+    numbers=left,
+    numbersep=4pt,
+    frame=single,
+    framerule=1pt,
+    framesep=1ex,
+    rulecolor=\color{cyan!50!blue}}
+\usepackage{listings}
 
 
 % -------------------------------------------------------------------------- %
@@ -94,7 +105,8 @@
     listing and text,
     listing engine=minted,
     title=\textsf{\bfseries Code \hfill \LaTeX{} Output},
-    minted language=text}
+    minted language=text,
+    minted options={gobble=4}}
 
 % ************************************************************************** %
 \begin{document}
@@ -111,16 +123,17 @@
     be  seen   when  looking  at   the  corresponding  topic  pages   on  CTAN
     \cite{ctan:topic:listings,ctan:topic:verbatim}. This   document   presents
     examples  for  a  few  of  them. The  idea  is  not  to  provide  in-depth
-    documentation, but to give a  brief overview of \emph{a few} possibilities
-    to enable the  reader to get an  idea of what's out there  and what might,
+    documentation, but  to give  a brief  overview of  a few  possibilities to
+    enable the  reader to  get an  idea of  what's out  there and  what might,
     potentially, be useful to them.   Consulting the respective user manual is
-    always recommended for more detailled information.
+    always recommended for  more detailled information and  achieving the best
+    results.
 
     For  the  \emph{very}  impatient: For  most   code  listings,  I  use  the
     \code{minted}  package these  days. While it  is slow  (at least  on first
     compilation),  it has  served  me well  most of  the  time. But there  are
-    alternatives,  and personal  preferences  matter,  too. One's mileage  may
-    vary.
+    alternatives  (hence  this  document), and  personal  preferences  matter,
+    too. One's mileage may vary.
 \end{abstract}
 
 \tableofcontents*
@@ -128,13 +141,14 @@
 
 % ========================================================================== %
 \newpage
-\chapter{The \code{verbatim} Environment}
+\chapter{The \code{verbatim} Environment and \code{\textbackslash{}verb} Command}
 \label{chap:verbatim}
 % ========================================================================== %
 
 \LaTeX{} provides a \code{verbatim} Environment which, although it has quite a
-few limitations, is simple to use and often gets the job done well enough. For
-fancier things, there exists a re-implementation with a few added niceties.
+few  limitations,  is  simple  to  use  and  often  gets  the  job  done  well
+enough. For fancier things, there exists  a re-implementation with a few added
+niceties. For inline code, there is the \code{\textbackslash{}verb} command.
 
 
 % -------------------------------------------------------------------------- %
@@ -145,18 +159,26 @@ fancier things, there exists a re-implementation with a few added niceties.
 The stock \LaTeX{} \code{verbatim} environment is used like this:
 
 \begin{tcblisting}{listing side text}
-\begin{verbatim}
-#include <stdio.h>
+    \begin{verbatim}
+    #include <stdio.h>
 
-main() {
-    print("Hello, world!\n");
-}
-\end{verbatim}
+    main() {
+        print("Hello, world!\n");
+    }
+    \end{verbatim}
 \end{tcblisting}
 
+Writing inline code can be done with the \code{\textbackslash{}verb} command:
+
+\begin{tcblisting}{listing side text}
+    Inline  verbatim content  is  
+    \verb|typeset inside regular text| 
+    instead of being put in a special box or
+    paragraph or being similarly separated.
+\end{tcblisting}
 
 % -------------------------------------------------------------------------- %
-\section{Re-Implementation \cite{verbatim}}
+\section{Re-Implementation of the \code{verbatim} and \code{verbatim*} Environments \cite{verbatim}}
 \label{sec:verbatim:reimp}
 % -------------------------------------------------------------------------- %
 
@@ -167,13 +189,13 @@ may  be  of  relevance  to  your   use  case,  consult  the  documentation  at
 environment.
 
 \begin{tcblisting}{listing side text}
-\begin{verbatim}
-#include <stdio.h>
+    \begin{verbatim}
+    #include <stdio.h>
 
-main() {
-    print("Hello, world!\n");
-}
-\end{verbatim}
+    main() {
+        print("Hello, world!\n");
+    }
+    \end{verbatim}
 \end{tcblisting}
 
 
@@ -192,15 +214,15 @@ vertical space with the \mintinline{text}{\addvbuffer} command.
 \vfill
 
 \begin{tcblisting}{}
-\begin{verbbox}[\arabic{VerbboxLineNo}:\hspace{1ex}]
-#include <stdio.h>
+    \begin{verbbox}[\arabic{VerbboxLineNo}:\hspace{1ex}]
+    #include <stdio.h>
 
-main() {
-    print("Hello, world!\n");
-}
-\end{verbbox}
-\fbox{\addvbuffer[10pt 5pt]\theverbbox} % different spacing above and below
-\fbox{\addvbuffer[10pt]\theverbbox}     % same spacing above and below
+    main() {
+        print("Hello, world!\n");
+    }
+    \end{verbbox}
+    \fbox{\addvbuffer[10pt 5pt]\theverbbox} % different spacing above and below
+    \fbox{\addvbuffer[10pt]\theverbbox}     % same spacing above and below
 \end{tcblisting}
 
 \vfill
@@ -221,20 +243,20 @@ from the \code{verbatimbox} manual \cite{verbatimbox}).
 \vfill
 
 \begin{tcblisting}{}
-\begin{myverbbox}{\vtheta}\theta\end{myverbbox}
-\begin{myverbbox}{\valpha}\alpha\end{myverbbox}
-\begin{tabular}{|c|c|} \hline
-\valpha & $\alpha$ \\ \hline
-\vtheta & $\theta$ \\ \hline
-\end{tabular}
+    \begin{myverbbox}{\vtheta}\theta\end{myverbbox}
+    \begin{myverbbox}{\valpha}\alpha\end{myverbbox}
+    \begin{tabular}{|c|c|} \hline
+    \valpha & $\alpha$ \\ \hline
+    \vtheta & $\theta$ \\ \hline
+    \end{tabular}
 \end{tcblisting}
 
 \newpage
 \code{verbatimbox} also allows including the contents of an entire file:
 
 \begin{tcblisting}{listing side text}
-\verbfilebox{code/hw.c}
-\theverbbox
+    \verbfilebox{code/hw.c}
+    \theverbbox
 \end{tcblisting}
 
 Because  \code{verbatimbox}  uses boxes  to  save  its contents,  they  cannot
@@ -246,17 +268,17 @@ code.
 
 
 \begin{tcblisting}{}
-\begin{verbnobox}[\arabic{VerbboxLineNo}:\hspace{1ex}]
-#include <stdio.h>
+    \begin{verbnobox}[\arabic{VerbboxLineNo}:\hspace{1ex}]
+    #include <stdio.h>
 
-main() {
-    print("Hello, world!\n");
-}
-\end{verbnobox}
+    main() {
+        print("Hello, world!\n");
+    }
+    \end{verbnobox}
 \end{tcblisting}
 
 \begin{tcblisting}{listing side text}
-\verbfilenobox{code/hw.c}
+    \verbfilenobox{code/hw.c}
 \end{tcblisting}
 
 % ========================================================================== %
@@ -300,11 +322,11 @@ lines of source code.)
 the verbatim content in the footnote.} 
 
 \begin{tcblisting}{listing only}
-\VerbatimFootnotes
-And then  we have some  text\footnotemark with  a footnote, and  that footnote
-shall contain verbatim content.
-\footnotetext{\verb+_And here we are, down in the footnotes!!_+ This is outside
-the verbatim content in the footnote.} 
+    \VerbatimFootnotes
+    And then we have some text\footnotemark with a footnote, and that footnote
+    shall contain verbatim content.
+    \footnotetext{\verb+_And here  we are,  down in the  footnotes!!_+ This is
+    outside the verbatim content in the footnote.}
 \end{tcblisting}
 
 
@@ -324,17 +346,18 @@ and the \mintinline{text}{\Verb} commands\footnotemark:
     \mintinline{text}{\_}.}
 
 \begin{tcblisting}{listing side text}
-We can write \Verb+_inline verbatim_+ by
-defining  delimiting characters  ad hoc,
-or via:
-\DefineShortVerb{\|}
-And now we  can use |_this_ _delimiter_|
-around  inline  verbatim content,  until
-its special meaning is revoked via
-\UndefineShortVerb{\|}
-And  now the  |delimiter| no  longer has
-any  effect. A  new  one could  also  be
-defined.
+    We can write \Verb+_inline verbatim_+
+    by defining delimiting characters ad
+    hoc, or via:
+    \DefineShortVerb{\|}
+    And now we  can use 
+    |_this_ _delimiter_|  around  inline
+    verbatim content,  until its special
+    meaning is revoked via
+    \UndefineShortVerb{\|}.
+    And  now the  |delimiter| no  longer
+    has any effect. A new one could also
+    be defined.
 \end{tcblisting}
 
 % -------------------------------------------------------------------------- %
@@ -351,86 +374,87 @@ is the \code{Verbatim} environment\footnotemark:
     \code{fancyvrb}.}
 
 \begin{tcblisting}{listing side text}
-\begin{Verbatim}
-#include <stdio.h>
-
-main() {
-    print("Hello, world!\n");
-}
-\end{Verbatim}
-\end{tcblisting}
-
-An example with a lot of options (not all of which might be sensible):
-
-\begin{tcblisting}{listing side text}
-\begin{Verbatim}[%
-    gobble=4,
-    numbers=left,
-    numbersep=4pt,
-    showspaces=true,
-    showtabs=true,
-    baselinestretch=1.5,
-    tabsize=4,
-    frame=single,
-    framerule=1mm,
-    framesep=1em,
-    rulecolor=\color{teal},
-    label={%
-        [\fbox{\Large{Hello World}}]%
-        end of code}%
-    ]
-    #include <stdio.h>
-
-    main() {
-    	print("Hello, world!\n");
-    }
-    \end{Verbatim}
-\end{tcblisting}
-
-We can also define custom environments:
-
-\begin{tcblisting}{listing side text}
-\DefineVerbatimEnvironment%
-    {CustomVerbatim}{Verbatim}{%
-    gobble=4,
-    numbers=left,
-    numbersep=4pt,
-    baselinestretch=1.1,
-    frame=single,
-    framerule=1mm,
-    framesep=1em,
-    rulecolor=\color{teal}}
-
-\begin{CustomVerbatim}[%
-    label={%
-        [\fbox{\Large{Hello World In C}}]%
-        end of code}%
-    ]
+    \begin{Verbatim}
     #include <stdio.h>
 
     main() {
         print("Hello, world!\n");
     }
-\end{CustomVerbatim}
+    \end{Verbatim}
+\end{tcblisting}
 
-\begin{CustomVerbatim}[%
-    label={%
-    [\fbox{\Large{Hello World in Perl}}]%
-    end of code}]
-    #!/usr/bin/env perl
-    use strict;
-    use warnings;
-    use v5.10;
+An example with a lot of options (not all of which might be sensible):
 
-    say("Hello, world!");
-\end{CustomVerbatim}
+\begin{tcblisting}{listing side text}
+    \begin{Verbatim}[%
+        gobble=8,
+        numbers=left,
+        numbersep=4pt,
+        showspaces=true,
+        showtabs=true,
+        baselinestretch=1.5,
+        tabsize=4,
+        frame=single,
+        framerule=1mm,
+        framesep=1em,
+        rulecolor=\color{teal},
+        label={%
+            [\fbox{\Large{Hello World}}]%
+            end of code}%
+        ]
+        #include <stdio.h>
+
+        main() {
+        	print("Hello, world!\n");
+        }
+        \end{Verbatim}
+\end{tcblisting}
+
+We can also define custom environments:
+
+\begin{tcblisting}{listing side text}
+    \DefineVerbatimEnvironment%
+        {CustomVerbatim}{Verbatim}{%
+        gobble=8,
+        numbers=left,
+        numbersep=4pt,
+        baselinestretch=1.1,
+        frame=single,
+        framerule=1mm,
+        framesep=1em,
+        rulecolor=\color{teal}}
+
+    \begin{CustomVerbatim}[%
+        label={%
+        [\fbox{\Large{Hello World In C}}]
+        end of code}]
+        #include <stdio.h>
+
+        main() {
+            print("Hello, world!\n");
+        }
+    \end{CustomVerbatim}
+
+    \begin{CustomVerbatim}[%
+      label={%
+      [\fbox{\Large{Hello World in Perl}}]
+      end of code}]
+        #!/usr/bin/env perl
+        use strict;
+        use warnings;
+        use v5.10;
+
+        say("Hello, world!");
+    \end{CustomVerbatim}
 \end{tcblisting}
 
 There is also the possibility to  store and recall verbatim content, which, as
 in  the case  of \code{verbatimbox}  package, allows  to use  verbatim content
 where it is otherwise not allowed, and to re-use it repeatedly in a convenient
 way.   Additionally,  content  can  be  written  to  and  read  from  external
-files. Consult the user manual for information on how to achieve this.
+files. Lastly,  it shall  be mentioned  that the  \code{fancyvrb} package  can
+interface with  the \code{listings} package (see  Chapter \ref{chap:listings})
+for code formatting.
 
 
 % ========================================================================== %
@@ -440,13 +464,198 @@ files. Consult the user manual for information on how to achieve this.
 % ========================================================================== %
 
 
+The  \code{listing}  package is  not  itself  made  for formatting  code,  but
+provides  a  new  environment  \code{listing}  similar  to  \code{figure}  and
+\code{table}, although not floating, which  can be captioned and indexed. 
+
+Note that other packages provide this  functionality as well, and there may be
+clashes  (for  example  with  the \code{minted}  package,  which  provides  an
+identically named environment and index list)\footnotemark.
+
+\footnotetext{%
+    If you have  a look at the code  of this document, you will  see that some
+    workaround magic has been applied to the source code of the \code{listing}
+    package to produce a customized version, renaming some crucial commands so
+    that they do not clash with the other packages which have been loaded.}
+
+A piece of  example code, using the \code{fancyvrb}  package for formatting
+the code, might look like this\footnotemark:
+
+\footnotetext{%
+    The   \code{GlobalCustomVerbatim}   environment    is   similar   to   the
+    \code{CustomVerbatim}  environment defined  above. The curious  reader may
+    feel inclined to look at this document's source code.}
+
+\begin{tcblisting}{listing only,title=Code}
+    \begin{listing}
+        \begin{GlobalCustomVerbatim}[label={\fbox{\Large{Hello World in Python}}}]
+            #!/usr/bin/env python3
+
+            print("Hello, world!")
+        \end{GlobalCustomVerbatim}
+    \caption{This is a listing with a caption.}
+    \end{listing}
+\end{tcblisting}
+
+Which will yield as its output\footnotemark:
+
+\footnotetext{%
+    The astute reader will  notice that, for once, the output  of this code is
+    not  put inside  one  of those  fancy boxes  with  round corners. This  is
+    because the  \code{listing} environment leaves what  is called \emph{outer
+    par mode}, and thus it will refuse to work inside one of those boxes.}
+
+\begin{mylisting}
+    \begin{GlobalCustomVerbatim}[%
+    label={\fbox{\Large{Hello World in Python}}}]
+        #!/usr/bin/env python3
+
+        print("Hello, world!")
+    \end{GlobalCustomVerbatim}
+    \caption{This is a listing with a caption.}
+\end{mylisting}
+
+The List of Listings can be generated at any place in the document by:
+
+\begin{tcblisting}{listing side text}
+\listoflistings
+\end{tcblisting}
+
+
 % ========================================================================== %
+\newpage
 \chapter{The \code{listings}      Package \cite{listings}}
 \label{chap:listings}
 % ========================================================================== %
 
+The \code{listings}  package is a  very powerful package for  formatting code,
+and probably one of the  more popular choices\footnotemark. It supports inline
+code, code  segments in  paragraphs and  floats and  code input  from external
+files. Covering the entirety of its capabilities would be far beyond the scope
+of this  document; we  shall focus on  a few concise  examples for  common use
+cases.  For  more information, as  you may  have guessed, consult  the package
+documentation at \cite{listings}.
+
+\footnotetext{Going by my very scientifically reliable gut feeling.}
+
+
+\begin{tcblisting}{listing side text}
+\lstset{language=C}
+While writing normal text, code
+can be inlined with the listings
+package: \lstinline!int i = 5;!.
+\end{tcblisting}
+
+
+Without doing much, the output will look like this:
+\begin{tcblisting}{listing side text}
+    \begin{lstlisting}[%
+        language=C,
+        gobble=8]
+        #include <stdio.h>
+
+        /* Comment required. */
+
+        main() {
+            print("Hello, world!\n");
+            int a;
+            a = 3;
+            if (a = 2) {
+                magic(a);
+            } else {
+                darkmagic(--a);
+            }
+        }
+    \end{lstlisting}
+\end{tcblisting}
+
+\newpage
+But \code{listings} allows a lot of customization:
+
+\begin{tcblisting}{listing side text}
+    \lstdefinestyle{myC}{
+        language          = C,
+        showstringspaces  = false,
+        basicstyle        = \ttfamily,
+        numbers           = left,
+        numberstyle       = \tiny,
+        numbersep         = 4pt,
+        commentstyle      = \itshape,
+        keywordstyle      = \color{blue},
+        stringstyle    = \color{magenta},
+        identifierstyle = \color{violet},
+        breaklines        = true,
+        breakatwhitespace = true,
+        tabsize           = 4
+    }
+    \begin{lstlisting}[%
+        language=C,
+        style=myC,
+        gobble=8]
+        #include <stdio.h>
+
+        /* Comment required. */
+
+        main() {
+            print("Hello, world!\n");
+            int a;
+            a = 3;
+            if (a = 2) {
+                magic(a);
+            } else {
+                darkmagic(--a);
+            }
+        }
+    \end{lstlisting}
+\end{tcblisting}
+
+Note that we  only had to define  \code{keywordstyle}, \code{commentstyle} and
+\code{stringstyle} here,  and \code{listings} automatically chose  which words
+to highlight in  which manner. A list of supported languages  is in the manual
+at \cite{listings}; additional languages and new styles for existing languages
+(as done here) can be defined if they  do not exist or if the existing ones do
+not  suit your  tastes. Adding new  languages  will obviously  require you  to
+define  the  appropriate key  words  and  the way  in  which  they are  to  be
+highlighted.
+
+Including external files is  done with the \verb|\lstinputlisting| command. We
+can also  give a caption  (regardless of  whether or not  the listing is  in a
+float) or, if we don't want  the \textbf{Listing} text before the description,
+a \code{title} argument. Putting  a caption also puts the listing  in the list
+of listings (invoked by the \verb|\lstlistoflistings| command).
+
+\begin{tcblisting}{}
+    \lstinputlisting[
+        caption = The \emph{Hello World} program in C,
+        frame=lines,
+        language=C,
+        style=myC]{code/hw.c}
+\end{tcblisting}
+
+A particularly nice  feature for didactic purposes  is the \code{escapeinside}
+argument, which allows to escape to \LaTeX{} code inside an \code{lstlistings}
+environment.
+
+\begin{tcblisting}{}
+    \begin{lstlisting}[%
+        escapeinside=||,
+        basicstyle = \ttfamily,
+        gobble=8,
+        frame=single,
+        frameround=tttt,
+        title = Example of \texttt{escapeinside}]
+        By using the escapeinside argument, we can |\textcolor{red}{highlight}| 
+        particular sections of a code fragment with |\LaTeX| and 
+        use arbitrary |\LaTeX| commands in a listing.
+    \end{lstlisting}
+\end{tcblisting}
+
+Listings  can also  be made  floating by  adding the  \code{float} key  to its
+optional arguments.
+
 
 % ========================================================================== %
+\newpage
 \chapter{The \code{listingsutf8}  Package \cite{listingsutf8}}
 \label{chap:listingsutf8}
 % ========================================================================== %

@@ -1,0 +1,132 @@
+%%----------------------------------------------------------------------
+%% mylisting.sty
+%
+% LaTeX package for typesetting mylistings. 
+% Documentation at end of file after \endinput.
+%
+% Requires LaTeX2e (or newer).
+%
+%
+% (C) Copyright 1994, 1996, 1999 by:
+%
+% Matthew Hebley, Volker Kuhlmann
+% University of Canterbury
+% EEE Dept
+% Christchurch, New Zealand
+% E-Mail: v.kuhlmann@elec.canterbury.ac.nz
+%         (Matthew is no longer available for contact, email or otherwise)
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License, distributed from CTAN
+% archives as macros/latex/base/lppl.txt; either
+% version 1 of the License, or (at your option) any later version.
+%
+%
+% HISTORY:
+%
+% 1.2   25 May 1999	Re-published under the LPPL. No other change.
+% 1.1   07 Feb 96	Added setting of \themylisting with the book and
+%			report document classes.
+% 1.0   19 Aug 94	Created.
+%
+%%----------------------------------------------------------------------
+
+\def\filename{mylisting}
+\def\fileversion{V1.2}
+\def\filedate{1999/05/25}
+
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{\filename}[\filedate]
+\typeout{Package `\filename', \fileversion, <\filedate>}
+
+
+\newcounter{mylisting}
+\setcounter{mylisting}{0}
+
+\newenvironment{mylisting}{%
+   \newcommand{\@captype}{mylisting}%
+   \@ifundefined{@bigcaptionflag}{}{%
+      \def\@makecaption##1##2{%
+         \vskip \abovecaptionskip 
+         \@mylistingsection*{##1:~##2}% 
+         \vskip \belowcaptionskip 
+         }
+      }
+   }%
+   {}
+
+\newcommand{\mylistingname}{Listing}
+\newcommand{\listmylistingname}{List of Listings}
+
+\newcommand{\ext@mylisting}{lol}
+\newcommand{\fnum@mylisting}{\mylistingname ~\themylisting }
+\newcommand{\l@mylisting}{\@dottedtocline {1}{1.5em}{2.3em}}
+\newcommand{\listofmylistings}{%
+   \@mylistingsection*{\listmylistingname 
+      \@mkboth{\uppercase{\listmylistingname}}%
+         {\uppercase{\listmylistingname}}}%
+   \@starttoc {lol}%
+   }
+\@ifundefined{chapter}{%
+   \newcommand\@mylistingsection{\section}%
+   }{%
+   \newcommand\@mylistingsection{\chapter}%
+   \renewcommand\themylisting{\thechapter.\arabic{mylisting}}%
+   }
+   
+\DeclareOption{bigcaptions}{%
+   \def\@bigcaptionflag{}
+}
+
+\ProcessOptions
+
+ 
+\endinput
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Load with:
+
+	\usepackage{mylisting}
+or
+	\usepackage[bigcaptions]{mylisting}
+
+
+Package option:
+
+bigcaptions	If present, captions appear as for sections
+		(or chapters when using the "book" or "report" 
+		classes).
+		If not present, captions appear as for captions
+		in the figure or table environment.
+
+
+Available control sequences:
+
+\begin{mylisting}		A new environment for mylistings is provided.
+			Unlike figure and table, mylisting is NOT
+			a floating environment.
+
+\caption		As usual. (only inside mylisting!)
+\label			As usual. (only inside mylisting; after \caption!)
+\ref			As usual.
+\listofmylistings		As for \listoftables, \listoffigures.
+\mylistingname		Produces the "mylisting" text for the caption.
+\listmylistingname	Produces the "List of mylistings" text.
+
+
+A *.lol file is produced similar to *.lot, *.lof files.
+
+Does not change \@makecaption (unless option "bigcaptions" is used),
+so packages that change the layout of \caption still work.
+mylisting.sty works together with hangcaption.sty.
+
+	``Documentation is like sex.
+	  If it is good, it is REALLY good, 
+	  and if it is bad, it is better than nothing!''
+
+						[Gabe Helou]
+
+%% EOF mylisting.sty
+%%----------------------------------------------------------------------
