@@ -34,6 +34,11 @@ Contents
 * **minipages**: A descent  into  the  abyss which  is  the  dark  sorcery  of
   minipages.
 * **pgfplots**: How to import and plot tabular data from external files.
+* **tables**: Lapo Mori has written 
+  [a pretty decent and reasonably compact introduction](https://www.tug.org/pracjourn/2007-1/mori/mori.pdf)
+  to  the  topic of  tables,  particularly  which  packages are  avilable  and
+  suitable for different use  cases. It is a few years old,  but still gives a
+  reasonably good introduction to the topic in my humble opinion.
 * **tikz**:
   * **faded-hexagons**: some messing around with Ti*k*Z
   * **block-diagrams**: block diagrams with Ti*k*Z
