@@ -86,6 +86,7 @@
     framesep=1ex,
     rulecolor=\color{cyan!50!blue}}
 \usepackage{listings}
+\usepackage{matlab-prettifier}
 
 
 % -------------------------------------------------------------------------- %
@@ -219,26 +220,26 @@ vertical space with the \mintinline{text}{\addvbuffer} command.
 
     main() {
         print("Hello, world!\n");
-    }
-    \end{verbbox}
+    }\end{verbbox}
     \fbox{\addvbuffer[10pt 5pt]\theverbbox} % different spacing above and below
     \fbox{\addvbuffer[10pt]\theverbbox}     % same spacing above and below
 \end{tcblisting}
 
 \vfill
 
-Note the removal of empty lines in the result on the right.As above, check the
-documentation \cite{verbatimbox} for more options and possibilities. Also, the
-optional argument  \mintinline{text}{[\arabic{VerbboxLineNo}:\hspace{1ex}]} to
+ As      usual,      check      the      documentation      \cite{verbatimbox}
+for     more     options     and     possibilities. Also,     the     optional
+argument      \mintinline{text}{[\arabic{VerbboxLineNo}:\hspace{1ex}]}      to
 \mintinline{text}{\begin{verbbox}} must be  on the same line and  only on that
-line.
+line. The \verb|\end{verbbox}| is on the same line as the last line of code so
+that no additional empty line is added to the output.
 
-For cases where the limitation of having  only a single named box to which one
-can refer, \mintinline{text}{\theverbbox}, must  be overcome, there exists the
-\mintinline{text}{\myverbbox} command, by which named boxes can be created for
-later  use. One use  case for  this  is the  use of  verbatim environments  in
-tabular environments, where the use of \code{verbatim} is not allowed (example
-from the \code{verbatimbox} manual \cite{verbatimbox}).
+For cases  where the  limitation of having  only a single  named box  to which
+one  can  refer,  \verb|\theverbbox|,  must  be  overcome,  there  exists  the
+\verb|\myverbbox|  command, by  which named  boxes  can be  created for  later
+use. One use  case for  this is  the use of  verbatim environments  in tabular
+environments, where  the use of  \code{verbatim} is not allowed  (example from
+the \code{verbatimbox} manual \cite{verbatimbox}).
 
 \vfill
 
@@ -260,7 +261,7 @@ from the \code{verbatimbox} manual \cite{verbatimbox}).
 \end{tcblisting}
 
 Because  \code{verbatimbox}  uses boxes  to  save  its contents,  they  cannot
-be  broken across  pages. For  breaking verbatims  across  pages, there  esist
+be  broken across  pages. For  breaking verbatims  across  pages, there  exist
 the  \code{verbnobox}  environment and  the  \mintinline{text}{\verbfilenobox}
 command. These do not  allow recalling the verbatim contents at  a later point
 though; their output is generated directly where they are placed in the source
@@ -515,10 +516,15 @@ Which will yield as its output\footnotemark:
     \caption{This is a listing with a caption.}
 \end{mylisting}
 
-The List of Listings can be generated at any place in the document by:
+The List of Listings can be generated at any place in the document by\footnotemark:
+
+\footnotetext{%
+    The  LoL  also  picks  up  a  listing  from  the  \code{listings}  package
+    from later  in this  document, despite  the \code{listings}  package using
+    \code{lstlistoflistings} for its LoL, because life is weird sometimes.}
 
 \begin{tcblisting}{listing side text}
-\listoflistings
+    \listoflistings
 \end{tcblisting}
 
 
@@ -632,9 +638,13 @@ of listings (invoked by the \verb|\lstlistoflistings| command).
         style=myC]{code/hw.c}
 \end{tcblisting}
 
+\vfill
+
 A particularly nice  feature for didactic purposes  is the \code{escapeinside}
 argument, which allows to escape to \LaTeX{} code inside an \code{lstlistings}
 environment.
+
+\vfill
 
 \begin{tcblisting}{}
     \begin{lstlisting}[%
@@ -650,8 +660,11 @@ environment.
     \end{lstlisting}
 \end{tcblisting}
 
+\vfill
+
 Listings  can also  be made  floating by  adding the  \code{float} key  to its
-optional arguments.
+optional arguments. Having a  look at its manual is highly  recommended, as it
+is a very configurable package.
 
 
 % ========================================================================== %
@@ -660,21 +673,71 @@ optional arguments.
 \label{chap:listingsutf8}
 % ========================================================================== %
 
+If you need to  do a code listing for content  with multi-byte characters, the
+\code{listingsutf8}  package might  be  of  use to  you. It  is  based on  the
+\code{listings}  package,  but  pre-processes  a  multibyte-char  file  before
+passing  it  to \code{listings}. It  can  be  loaded  in the  preamble  either
+\emph{after} or \emph{instead of} the \code{listings} package.
+
+Note  that  \code{listingsutf8}  is  limited  to  the  \verb|\lstinputlisting|
+command; no  replacement is  supported for the  \code{lstlisting} environment,
+the   \verb|\lstinline|   command,   or  custom   environments   defined   via
+\verb|\lstnewenvironment|.
+
 
 % ========================================================================== %
-\chapter{The \code{mlpretty}      Package \cite{mlpretty}}
+\chapter{The \code{matlab-prettifier} Package \cite{mlpretty}}
 \label{chap:mlpretty}
 % ========================================================================== %
 
+The  \code{matlab-prettifier} package  builds  on top  of the  \code{listings}
+package and,  as the name suggests,  specializes in replicating as  closely as
+possible the syntax-highlighting of the Matlab editor.
+
+\begin{tcblisting}{}
+    \lstinputlisting[style=Matlab-editor]{code/fourier.m}
+\end{tcblisting}
+
+\begin{tcblisting}{}
+    \begin{lstlisting}[gobble=8,style=Matlab-bw]
+        % Discrete Fourier Transform of said signal
+        title = 'DFT';
+        X = zeros(1,L);
+        for m = 0:L-1
+            for n = 0:L-1
+                X(m+1) = X(m+1) + x(n+1) * exp(-j*2*pi*m*n/L);
+            end
+        end
+    \end{lstlisting}
+\end{tcblisting}
+
+\begin{tcblisting}{}
+    Inline    code    can    be     highlighted    as    well    like    this:
+    \lstinline[style=Matlab-pyglike]!break!.  Since this is rather cumbersome,
+    particularly if used frequently, one may  choose to define a shorthand via
+    the \verb|\lstMakeShortInline| mechanism from the \verb|listings| package:
+
+    \lstMakeShortInline[style=Matlab-pyglike]`
+
+    And then we can typeset `break` like this. We can undefine the shorthand.
+
+    \lstDeleteShortInline`
+
+    And now `this`  does nothing particularly special  anymore.  Obviously, it
+    is recommended to  pick a character as the delimiter  which does not clash
+    with the rest of your document or \LaTeX's inner workings.
+
+\end{tcblisting}
+
 
 % ========================================================================== %
-\chapter{The \code{minted}        Package \cite{minted}}
+\chapter{The \code{minted} Package \cite{minted}}
 \label{chap:minted}
 % ========================================================================== %
 
 
 % ========================================================================== %
-\chapter{The \code{verbments}        Package \cite{verbments}}
+\chapter{The \code{verbments} Package \cite{verbments}}
 \label{chap:minted}
 % ========================================================================== %
 

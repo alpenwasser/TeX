@@ -8,5 +8,6 @@ clean:
 	@rm -f $(DOCUMENT).log
 	@rm -f $(DOCUMENT).out
 	@rm -f $(DOCUMENT).toc
+	@rm -f $(DOCUMENT).lol
 	@rm -f $(DOCUMENT).listing
 	@rm -rf _minted-listings

@@ -16,7 +16,7 @@
     ]{hyperref}
 
 \title{Including Graphics In Documents}
-\author{Raphael Frey <webmaster@alpenwasser.net>}
+\author{Raphael Frey <\href{mailto:webmaster@alpenwasser.net}{\nolinkurl{webmaster@alpenwasser.net}}>}
 
 \newcommand\code[1]{\texttt{#1}}
 
@@ -26,24 +26,21 @@
 
 \maketitle
 
-\tableofcontents
-
-
-% -------------------------------------------------------------------------- % 
-\section{Overview}
-% -------------------------------------------------------------------------- % 
-
-Including graphics  in a  document is  a very common  task. One of  the easier
-ways,  and the  one  I use  most  frequently, is  to  use the  \code{graphicx}
-package\footnotemark.  This document will present  some common examples on how
-to use it. For demonstration purposes, we  are going to be using two images: A
-PDF  document  of size  \SI{8}{\centi\meter}  by  \SI{8}{\centi\meter}, and  a
-PNG  version  of  the  same  image  with  different  dimensions  (see  Section
-\ref{sec:true-size}).
+\begin{abstract}
+    Including  graphics in  a  document  is a  very  common  task. One of  the
+    easier  ways,  and  the  one  I   use  most  frequently,  is  to  use  the
+    \code{graphicx} package\footnotemark.  This  document presents some common
+    examples on  how to use  it. For demonstration  purposes, we are  going to
+    be  using  two images: A  PDF  document  of size  \SI{8}{\centi\meter}  by
+    \SI{8}{\centi\meter}, and a  PNG version of the same  image with different
+    dimensions (see Section \ref{sec:true-size}).
+\end{abstract}
 
 \footnotetext{%
     For            the            full           documentation,            see
     \href{http://ctan.org/pkg/graphicx}{\nolinkurl{http://ctan.org/pkg/graphicx}}}
+
+\tableofcontents
 
 
 % -------------------------------------------------------------------------- % 
@@ -180,8 +177,8 @@ For more options on rotations, consult the graphix manual.
 % -------------------------------------------------------------------------- % 
 
 \begin{minipage}[t][][b]{0.65\textwidth}
-    Knowing the true size of a picture can relevant when trying to clip it, so
-    a quick  overview on  the issue  is presented here. A  way around  this by
+    Knowing the true size of a picture can relevant be when trying to clip it,
+    so a quick overview  on the issue is presented here. A  way around this by
     using relative coordinates is presented in Section \ref{sec:rviewport}.
 
     There  are several  ways which  can be  used to  determine the  size of  a
