@@ -1,5 +1,11 @@
 \documentclass[a4paper,oneside,11pt]{article}
 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[light,nott]{kpfonts}
+\usepackage[left=30mm,right=30mm,top=30mm,bottom=40mm]{geometry}
+\usepackage{tabularx}
+
 \usepackage{lipsum}
 \usepackage{booktabs}
 \usepackage{xcolor}
@@ -12,11 +18,6 @@
         urlcolor=purple,
     ]{hyperref}
 \usepackage{hologo}
-\usepackage[left=30mm,right=30mm,top=30mm,bottom=40mm]{geometry}
-\usepackage[light,nott]{kpfonts}
-
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 
 \newcommand\compar[2]{\texttt{\textbackslash #1\{#2\}}}
 \newcommand\comm[1]{\texttt{\textbackslash#1}}
@@ -72,8 +73,23 @@
 \normalfont The quick brown fox jumps over the lazy dog.
 \end{titled-frame}
 
+\vspace{-1.0em}
+
 \begin{titled-frame}
-{\textsf{Switching Between Roman, Sans-Serif and Monospace Fonts}}
+{\textsf{Changing Fonts between Roman, Sans Serif and Monospace}}
+\vspace{-1em}
+\begin{verbatim}
+\rmfamily We shall start with roman, \sffamily continue with
+sans serif, \ttfamily and end up at typewriter.
+\end{verbatim}
+\rmfamily  We shall  start with  roman,  \sffamily continue  with sans  serif,
+\ttfamily and end up at typewriter.
+\end{titled-frame}
+
+\vspace{-1.0em}
+
+\begin{titled-frame}
+{\textsf{Writing a Piece of Text In Roman, Sans Serif and Monospace}}
 \vspace{-1em}
 \begin{verbatim}
 \textrm{The quick brown fox jumps over the lazy dog.}
@@ -85,8 +101,10 @@
 \texttt{The quick brown fox jumps over the lazy dog.}
 \end{titled-frame}
 
+\vspace{-1.0em}
+
 \begin{titled-frame}
-{\textsf{Font Weights}}
+{\textsf{Writing a Piece of Text in Different Font Weights}}
 \vspace{-1em}
 \begin{verbatim}
 \textbf{The quick brown fox jumps over the lazy dog.}
@@ -96,8 +114,10 @@
 \textmd{The quick brown fox jumps over the lazy dog.}
 \end{titled-frame}
 
+\vspace{-1.0em}
+
 \begin{titled-frame}
-{\textsf{Font Shapes}}
+{\textsf{Writing a Piece of Text in Different Font Shapes}}
 \vspace{-1em}
 \begin{verbatim}
 \emph{The quick brown fox jumps over the lazy dog.}
@@ -201,6 +221,36 @@ currently configured default font family (one of the above three).
 There  are  various  ways  which  can  be used  to  change  fonts  at  various
 places. Some of them will be described here.
 
+Fundamentally,  there  are  two  mechanisms for  selecting  fonts:  \emph{Font
+declarations} and their corresponding \emph{commands}. Declarations change the
+font within the current  scope, while  the commands  only typeset  the content
+within their braces.
+
+\begin{center}
+    \begin{tabular}{>{\ttfamily}l<{\normalfont} >{\ttfamily}l<{\normalfont} l}
+        \toprule
+        \normalfont\scshape Declaration & \normalfont\scshape Command  & \scshape Effect \\
+        \midrule
+        \textbackslash{}mdseries   & \textbackslash{}textmd\{\textit{text}\}     & \mdseries Medium Series             \\
+        \textbackslash{}bfseries   & \textbackslash{}textbf\{\textit{text}\}     & \bfseries Bold Series               \\
+        \textbackslash{}upshape    & \textbackslash{}textup\{\textit{text}\}     & \upshape Upright Shape              \\
+        \textbackslash{}itshape    & \textbackslash{}textit\{\textit{text}\}     & \itshape Italic Shape               \\
+        \textbackslash{}slshape    & \textbackslash{}textsl\{\textit{text}\}     & \slshape Slanted Shape              \\
+        \textbackslash{}scshape    & \textbackslash{}textsc\{\textit{text}\}     & \scshape Small Caps Shape           \\
+        \textbackslash{}scslshape  & \textbackslash{}textscsl\{\textit{text}\}   & \scslshape Small Caps Slanted Shape \\
+        \textbackslash{}rmfamily   & \textbackslash{}rmfamily\{\textit{text}\}   & \rmfamily Roman Family              \\
+        \textbackslash{}sffamily   & \textbackslash{}sffamily\{\textit{text}\}   & \sffamily Sans Serif Family         \\
+        \textbackslash{}ttfamily   & \textbackslash{}ttfamily\{\textit{text}\}   & \ttfamily Typewriter Family         \\
+        \textbackslash{}normalfont & \textbackslash{}normalfont\{\textit{text}\} & \normalfont Default Document Font   \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+Different fonts  may or may not  implement some or more  of these options. For
+example, the  \textscsl{Small Caps Slanted}  font variant is not  supported by
+Computer Modern, but comes with the Kp-Fonts font family which has been chosen
+for this document.
+
 
 % -------------------------------------------------------------------------- %
 \subsection{Font Packages}
@@ -209,24 +259,27 @@ places. Some of them will be described here.
 
 The easiest way to change from the  default Computer Modern to a different set
 of fonts  is to use  a corresponding package. Good  places to peruse  are CTAN
-\cite{ctan:fonts} and the \LaTeX{} font catalogue \cite{tug:font-catalog}.
+\cite{ctan:fonts} and  the \LaTeX{} font  catalogue \cite{tug:font-catalog}. A
+popular  choice is  the  Latin  Modern Package  (\verb|\usepackage{lmodern}|),
+which is  an expansion of  Computer Modern  with better support  for non-ASCII
+characters. For documents  which are not in  English, Latin Modern is  a solid
+choice.
 
-For  example, if  we  wish to  typeset  our  document in  DejaVu,  we can  put
-\compar{usepackage}{dejavu}{} in the preamble. This will set \comm{rmdefault},
-\comm{sfdefault}  and  \comm{ttdefault}  to the  corresponding  values,  while
-\comm{familydefault} will continue to point to the one of those three to which
-it was set previously (\comm{rmdefault} by default).
+As  a  different example,  if  we  wish to  typeset  our  document in  DejaVu,
+we  can  put  \compar{usepackage}{dejavu}{}  in the  preamble. This  will  set
+\comm{rmdefault}, \comm{sfdefault}  and \comm{ttdefault} to  the corresponding
+values, while \comm{familydefault} will continue to  point to the one of those
+three to which it was set previously (\comm{rmdefault} by default).
 
 Not all font packages provide all kinds of font families, or all font families
 in all  weights and  shapes. Consult the documentation  for the  package which
-you're  intending to  use. In  the cases  where a  package  does only  provide
-some  type of  font,  the  others will  be  left  unchanged. For example,  the
-\code{FiraSans} package,  which is obviously  a sans-serif typeface,  does not
-provide a roman font. Therefore, the serif fonts are left untouched by loading
-that package.
+you're intending to use. In the cases  where a package only provides some type
+of font, the  others will be left unchanged. For  example, the \code{FiraSans}
+package, which  is obviously a sans-serif  typeface, does not provide  a roman
+font. Therefore, the serif fonts are left untouched by loading that package.
 
 The same  goes for mathematics: Not all  fonts provide the needed  symbols for
-typesetting that either.
+typesetting mathematics.
 
 A personal  favorite of mine  is the Kp-Fonts family  \cite{ctan:kpfonts}.  It
 has  roman, sans-serif  and  typewriter font  choices  (although personally  I
@@ -244,10 +297,10 @@ mileage may vary.
 %\fontfamily{\sfdefault}\selectfont
 
 In the preamble, we can change the  default document font from roman (which is
-the default) to sans-serif or typewriter with one of these commands:
+the default) to sans serif or typewriter with one of these commands:
 
 \begin{titled-frame}
-{\textsf{Selecting Sans-Serif or Typewriter Default}}
+{\textsf{Selecting Sans-Serif or Typewriter as Document Default}}
 \vspace{-1em}
 \begin{verbatim}
 \renewcommand{\familydefault}{\sfdefault}
@@ -257,11 +310,13 @@ the default) to sans-serif or typewriter with one of these commands:
 \end{titled-frame}
 
 Note that typewriter fonts differ in  what kinds of adjustments \TeX{} usually
-makes  when it  comes to  spacing in  order to  achieve a  justified block  of
-text. This  is also  why sometimes  a monospaced  piece of  text can  protrude
-outside the right textblock  margin when you put it in  normal text (see above
-with the dejavu example; that was not  done on purpose). More on the topic can
-be found in \cite{texblog:typewriter}.
+makes when it comes  to spacing in order to achieve a  justified block of text
+(also,  words  in  typerwriter  fonts  will not  hyphenate  except  in  places
+where    \code{\textbackslash{}-}  has been  inserted manually). This  is also
+why  sometimes a  monospaced  piece of  text can  protrude  outside the  right
+textblock margin  when you put  it in normal text  (see above with  the dejavu
+example; that  was not  done on purpose). More  on the topic  can be  found in
+\cite{texblog:typewriter}.
 
 Combining different  font families  can be  done on  the same  principle.  For
 example,  selecting Palatino  as  the  roman default  font,  Helvetica as  the
@@ -307,18 +362,20 @@ is   done  by   selecting  the   desired  font family  and   then  using   the
 text. The font family will stay switched until it is switched back with one of
 these two commands:
 
-\begin{verbatim}
-\fontfamily{\familydefault}\selectfont
-\normalfont
-\end{verbatim}
-\normalfont And now we're back to Kp-Fonts serif.
+\vspace{1em}\noindent
+\verb|\fontfamily{\familydefault}\selectfont|\\[1ex]
+or\\[1ex]
+\noindent
+\verb|\normalfont|\\
+
+\noindent\normalfont And now we're back to Kp-Fonts serif.
 \end{titled-frame}
 
 In order to keep the font change local,  we can enclose a portion of text in a
 group:
 
 \begin{titled-frame}
-{\textsf{Selecting Fonts Locally}}
+{\textsf{Selecting Arbitrary Font Families Locally}}
 \vspace{-1em}
 \begin{verbatim}
 {\fontfamily{phv}\selectfont This text is in Helvetica!}
@@ -328,10 +385,11 @@ While this text is not!
 \end{titled-frame}
 
 Locally   switching    to   a   different   style    among   \comm{sfdefault},
-\comm{rmdefault} and \comm{ttdefault} can be done either via:
+\comm{rmdefault}   and  \comm{ttdefault}   can   be  done   either  via   font
+declarations:
 
 \begin{titled-frame}
-{\textsf{Locally Switching Fonts Among Default Families}}
+{\textsf{Locally Switching Fonts Among Default Families (Declarations)}}
 \vspace{-1em}
 \begin{verbatim}
 {\rmfamily This is roman text!}
@@ -343,10 +401,10 @@ Locally   switching    to   a   different   style    among   \comm{sfdefault},
 {\ttfamily This is typewriter text!}
 \end{titled-frame}
 
-Or alternatively:
+Or alternatively via their corresponding commands:
 
 \begin{titled-frame}
-{\textsf{Locally Switching Fonts Among Default Families (Preferred)}}
+{\textsf{Locally Switching Fonts Among Default Families (Commands, Preferred)}}
 \vspace{-1em}
 \begin{verbatim}
 \textrm{This is roman text!}
@@ -356,12 +414,11 @@ Or alternatively:
 \vspace{-1em}
 \end{titled-frame}
 
-Leaving out the braces in the first  version results in the font being changed
-until it  is switched to  something else, as  the astute reader  might already
-have guessed. The second version is usually recommended for local changes.
+The second version is usually recommended for local changes.
 
 
 % -------------------------------------------------------------------------- %
+\newpage
 \section{Font Properties}
 \label{sec:font-props}
 % -------------------------------------------------------------------------- %
@@ -402,7 +459,7 @@ they will have on the page:
     \end{tabular}
 \end{center}
 
-The table has been copied from \cite{wikibooks:fonts}.
+The table has been taken from \cite{wikibooks:fonts}.
 
 Yet again, these commands change the font size within the current scope, so should
 usually be enclosed in braces:
@@ -422,10 +479,11 @@ usually be enclosed in braces:
 % -------------------------------------------------------------------------- %
 
 Changing font weights can be done either via a \comm{fontseries\{<argument>\}}
-command,    followed   by    \comm{selectfont},   or    via   \comm{bfseries},
-\comm{mdseries} and \comm{lfseries}, respectively. A  font may offer more than
-three weights, in which case one might need to resort to the \comm{fontseries}
-command for changing fonts.
+command,   followed  by   \comm{selectfont},  or   via  the   \comm{bfseries},
+\comm{mdseries}  and \comm{lfseries}  declarations,  respectively. A font  may
+offer more  than three  weights, in  which case  one might  need to  resort to
+the  \comm{fontseries} command  for changing  fonts because  the corresponding
+\comm{..series} declaration does not exist.
 
 Furthermore,  depending on  which option  is  loaded if  one is  using a  font
 package  such as  Kp-Fonts, the  default font  weight and  all others  will be
@@ -448,8 +506,8 @@ configuration for this document, these are the options available:
 {\fontseries{b}\selectfont  The quick brown fox jumps over the lazy dog.}
 {\fontseries{bx}\selectfont The quick brown fox jumps over the lazy dog.}
 
-{\mdseries\selectfont The quick brown fox jumps over the lazy dog.}\\
-{\bfseries\selectfont The quick brown fox jumps over the lazy dog.}\\
+{\mdseries\selectfont The quick brown fox jumps over the lazy dog.}
+{\bfseries\selectfont The quick brown fox jumps over the lazy dog.}
 
 \textbf{The quick brown fox jumps over the lazy dog.}
 \textmd{The quick brown fox jumps over the lazy dog.}
@@ -478,8 +536,11 @@ configuration for this document, these are the options available:
 \label{subsec:font-shapes}
 % -------------------------------------------------------------------------- %
 
-Again, the number of font shapes, and possible combinations thereof, will vary
-depending on which font is being used. Kp-Fonts supports these options:
+Selecting the  font shape can  be done via  the \comm{fontshape\{<argument>\}}
+command,   followed  by   \comm{selectfont},  or   by  a   corresponding  font
+declaration.   Again, the  number of  font shapes,  and possible  combinations
+thereof will  vary depending on  the font being used. Kp-Fonts  supports these
+options:
 
 \begin{titled-frame}
 {\textsf{Locally Changing Font Shapes}}
@@ -491,13 +552,36 @@ depending on which font is being used. Kp-Fonts supports these options:
 {\fontshape{it}\selectfont The quick brown fox jumps over the lazy dog.}
 {\otherscshape\selectfont The quick brown fox jumps over the lazy dog.}
 {\otherscslshape\selectfont The quick brown fox jumps over the lazy dog.}
+
+{\upshape The quick brown fox jumps over the lazy dog.}
+{\itshape The quick brown fox jumps over the lazy dog.}
+{\slshape The quick brown fox jumps over the lazy dog.}
+{\scshape The quick brown fox jumps over the lazy dog.}
+{\scslshape The quick brown fox jumps over the lazy dog.}
+
+\textup{The quick brown fox jumps over the lazy dog.}
+\textit{The quick brown fox jumps over the lazy dog.}
+\textsl{The quick brown fox jumps over the lazy dog.}
+\textsc{The quick brown fox jumps over the lazy dog.}
+\textscsl{The quick brown fox jumps over the lazy dog.}
+
 \end{verbatim}
 \normalsize
 \noindent{\fontshape{sc}\selectfont The quick brown fox jumps over the lazy dog.}\\
 {\fontshape{scsl}\selectfont The quick brown fox jumps over the lazy dog.}\\
 {\fontshape{it}\selectfont The quick brown fox jumps over the lazy dog.}\\
 {\otherscshape\selectfont The quick brown fox jumps over the lazy dog.}\\
-{\otherscslshape\selectfont The quick brown fox jumps over the lazy dog.}\\
+{\otherscslshape\selectfont The quick brown fox jumps over the lazy dog.}\\\\
+{\upshape The quick brown fox jumps over the lazy dog.}\\
+{\itshape The quick brown fox jumps over the lazy dog.}\\
+{\slshape The quick brown fox jumps over the lazy dog.}\\
+{\scshape The quick brown fox jumps over the lazy dog.}\\
+{\scslshape The quick brown fox jumps over the lazy dog.}\\\\
+\textup{The quick brown fox jumps over the lazy dog.}\\
+\textit{The quick brown fox jumps over the lazy dog.}\\
+\textsl{The quick brown fox jumps over the lazy dog.}\\
+\textsc{The quick brown fox jumps over the lazy dog.}\\
+\textscsl{The quick brown fox jumps over the lazy dog.}\\
 \vspace{-1em}
 \end{titled-frame}
 
@@ -515,9 +599,9 @@ combinations than others.
 {\textsf{Combining Different Font Styles}}
 \vspace{-1em}
 \begin{verbatim}
-The quick brown fox jumps over the lazy dog.\\
+The quick brown fox jumps over the lazy dog.
 {\fontshape{sc}\fontseries{b}\selectfont
-The quick brown fox jumps over the lazy dog.}\\
+The quick brown fox jumps over the lazy dog.}
 {\fontshape{it}\fontseries{b}\selectfont
 The quick brown fox jumps over the lazy dog.}
 \end{verbatim}
@@ -561,7 +645,7 @@ Here, again, there exists an {\em alternative} version.\\
 %% -------------------------------------------------------------------------- %
 %
 %\begin{itemize}
-%    \item 
+%    \item
 %        {\fontfamily{cmr}\selectfont Computer Modern: The \LaTeX{} default}
 %    \item
 %        {\fontfamily{lmr}\selectfont Latin Modern: A  modernised derivative of
@@ -579,6 +663,7 @@ Here, again, there exists an {\em alternative} version.\\
 
 
 % -------------------------------------------------------------------------- %
+\newpage
 \begin{thebibliography}{1}
 % -------------------------------------------------------------------------- %
 
