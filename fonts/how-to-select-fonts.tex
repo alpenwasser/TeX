@@ -221,10 +221,10 @@ currently configured default font family (one of the above three).
 There  are  various  ways  which  can  be used  to  change  fonts  at  various
 places. Some of them will be described here.
 
-Fundamentally,  there  are  two  mechanisms for  selecting  fonts:  \emph{Font
-declarations} and their corresponding \emph{commands}. Declarations change the
-font within the current  scope, while  the commands  only typeset  the content
-within their braces.
+Fundamentally,  there  are  three  mechanisms  for  selecting  fonts: Firstly,
+\emph{Font     declarations}     and,    secondly,     their     corresponding
+\emph{commands}. Declarations change the font  within the current scope, while
+the commands only typeset the content within their braces:
 
 \begin{center}
     \begin{tabular}{>{\ttfamily}l<{\normalfont} >{\ttfamily}l<{\normalfont} l}
@@ -250,6 +250,32 @@ Different fonts  may or may not  implement some or more  of these options. For
 example, the  \textscsl{Small Caps Slanted}  font variant is not  supported by
 Computer Modern, but comes with the Kp-Fonts font family which has been chosen
 for this document.
+
+The third way is to set the  four properties which are configurable for a font
+with the commands \verb|\fontencoding|, \verb|\fontfamily|, \verb|\fontseries|
+and \verb|\fontshape|, followed by \verb|\selectfont| (not all of them need be
+set,  of  course;  one  may  choose  to  only  change  the  font  family,  for
+example).
+
+
+\begin{titled-frame}
+{\textsf{The \textbackslash{}selectfont Command}}
+\vspace{-1em}
+\begin{verbatim}
+\fontencoding{T1}
+\fontfamily{pag}
+\fontseries{m}
+\fontshape{it}
+\selectfont
+The quick brown fox jumps over the lazy dog.
+\end{verbatim}
+\fontencoding{T1}
+\fontfamily{pag}
+\fontseries{m}
+\fontshape{it}
+\selectfont
+The quick brown fox jumps over the lazy dog.
+\end{titled-frame}
 
 
 % -------------------------------------------------------------------------- %
@@ -418,7 +444,6 @@ The second version is usually recommended for local changes.
 
 
 % -------------------------------------------------------------------------- %
-\newpage
 \section{Font Properties}
 \label{sec:font-props}
 % -------------------------------------------------------------------------- %
