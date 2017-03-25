@@ -33,3 +33,19 @@
         {%
             \clearpage\endgroup\relax%
         }}{}
+\@ifclassloaded{fhnwreport}{%
+    \newenvironment{a3pages}
+        {%
+            \begingroup%
+            \clearpage%
+            \setlength{\pdfpagewidth}{2\pdfpagewidth}%
+            \setlength{\hsize}{\pdfpagewidth}%
+            \addtolength{\hsize}{-2\oddsidemargin}%
+            \addtolength{\hsize}{-2\marginparwidth}%
+            \addtolength{\hsize}{-2\marginparsep}%
+            \setlength{\textwidth}{\hsize}%
+            \setlength{\paperwidth}{2\paperwidth}%
+        }
+        {%
+            \clearpage\endgroup\relax%
+        }}{}

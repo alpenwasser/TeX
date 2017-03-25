@@ -1,4 +1,4 @@
-DOCUMENT := how-to-select-fonts
+DOCUMENT := latex-fonts
 
 default:
 	@pdflatex $(DOCUMENT)

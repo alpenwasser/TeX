@@ -1,5 +1,5 @@
-Miniages
-========
+Minipages
+=========
 
 The dark sorcery of the minipage environment.
 

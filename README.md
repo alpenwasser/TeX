@@ -36,7 +36,7 @@ Contents
 * **pgfplots**: How to import and plot tabular data from external files.
 * **tables**: Lapo Mori has written 
   [a pretty decent and reasonably compact introduction](https://www.tug.org/pracjourn/2007-1/mori/mori.pdf)
-  to  the  topic of  tables,  particularly  which  packages are  avilable  and
+  to  the  topic of  tables,  particularly  which  packages are available  and
   suitable for different use  cases. It is a few years old,  but still gives a
   reasonably good introduction to the topic in my humble opinion.
 * **tikz**:
@@ -53,11 +53,21 @@ Unless   otherwise    noted,   the    contents   of   this    repository   are
 MIT-licensed. Content  not  created by  me  falls  under  the license  of  its
 respective creator.
 
-TODO
-----
+Priority List
+-------------
 
+**High**:
+* floats
+* bibliography
+* circuits
+
+**Medium**:
 * references, captions, labels
 * iso-31
-* tables
 * hyperref
-* bibliographies
+* colors
+* [GUI tools for making graphics in TeX](http://tex.stackexchange.com/questions/26972/what-gui-applications-are-there-to-assist-in-generating-graphics-for-tex)
+* [the fontspec package](http://ctan.org/pkg/fontspec)
+
+**Low**:
+* anything else
