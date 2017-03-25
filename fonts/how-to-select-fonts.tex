@@ -153,25 +153,29 @@ other things\footnotemark.
     information shall suffice. The curious reader  shall feel free to research
     the topic in more depth, if so desired.}
 
-For example, the following are all different glyphs (called allographs) of the
-letter Q:
+For  example, Table  \ref{tab:allographs}  contains  different glyphs  (called
+allographs) of the letter Q.
 
-\begin{center}
-\begin{tabular}{llr}
-    \toprule
-    Font                               & \TeX{} Abbreviation & Glyph \\
-    \midrule
-    Computer Modern (\LaTeX{} default) & \code{cmr}  & \fontfamily{cmr}\selectfont Q \\
-    Latin Modern                       & \code{lmr}  & \fontfamily{lmr}\selectfont Q \\
-    Johannes Kepler Roman              & \code{jkp}  & \fontfamily{jkp}\selectfont Q\\
-    Johannes Kepler Roman Light        & \code{jkpl} & \fontfamily{jkpl}\selectfont Q\\
-    Latin Modern Sans Serif            & \code{lmss} & \fontfamily{lmss}\selectfont Q \\
-    Avant Garde                        & \code{pag}  & \fontfamily{pag}\selectfont Q \\
-    Computer Modern Typewriter         & \code{cmtt} & \fontfamily{cmtt}\selectfont Q \\
-    Zapf Chancery                      & \code{pzc}  & \fontfamily{pzc}\selectfont Q \\
-    \bottomrule
-\end{tabular}
-\end{center}
+\begin{table}[h!]
+    \centering
+    \caption{Allographs for the letter Q}
+    \label{tab:allographs}
+    \vspace{0.5em}
+    \begin{tabular}{llr}
+        \toprule
+        Font                               & \TeX{} Abbreviation & Glyph \\
+        \midrule
+        Computer Modern (\LaTeX{} default) & \code{cmr}  & \fontfamily{cmr}\selectfont Q \\
+        Latin Modern                       & \code{lmr}  & \fontfamily{lmr}\selectfont Q \\
+        Johannes Kepler Roman              & \code{jkp}  & \fontfamily{jkp}\selectfont Q\\
+        Johannes Kepler Roman Light        & \code{jkpl} & \fontfamily{jkpl}\selectfont Q\\
+        Latin Modern Sans Serif            & \code{lmss} & \fontfamily{lmss}\selectfont Q \\
+        Avant Garde                        & \code{pag}  & \fontfamily{pag}\selectfont Q \\
+        Computer Modern Typewriter         & \code{cmtt} & \fontfamily{cmtt}\selectfont Q \\
+        Zapf Chancery                      & \code{pzc}  & \fontfamily{pzc}\selectfont Q \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 In general,  font families  which one  tends to use  in a  reasonable document
 these days tend to be grouped into three main categories\footnotemark:
@@ -218,15 +222,18 @@ currently configured default font family (one of the above three).
 \label{sec:setting-fonts}
 % -------------------------------------------------------------------------- %
 
-There  are  various  ways  which  can  be used  to  change  fonts  at  various
-places. Some of them will be described here.
-
 Fundamentally,  there  are  three  mechanisms  for  selecting  fonts: Firstly,
-\emph{Font     declarations}     and,    secondly,     their     corresponding
+\emph{font     declarations}     and,    secondly,     their     corresponding
 \emph{commands}. Declarations change the font  within the current scope, while
-the commands only typeset the content within their braces:
+the  commands only  typeset the  content within  their argument,  delimited by
+\verb|{| and \verb|}|. Table \ref{tab:font-decs-cmds} presents an overview the
+declarations, their equivalent commands and their effect.
 
-\begin{center}
+\begin{table}[h!]
+    \centering
+    \caption{Font declarations and commands, and their effects}
+    \vspace{0.5em}
+    \label{tab:font-decs-cmds}
     \begin{tabular}{>{\ttfamily}l<{\normalfont} >{\ttfamily}l<{\normalfont} l}
         \toprule
         \normalfont\scshape Declaration & \normalfont\scshape Command  & \scshape Effect \\
@@ -244,18 +251,20 @@ the commands only typeset the content within their braces:
         \textbackslash{}normalfont & \textbackslash{}normalfont\{\textit{text}\} & \normalfont Default Document Font   \\
         \bottomrule
     \end{tabular}
-\end{center}
+\end{table}
 
 Different fonts  may or may not  implement some or more  of these options. For
 example, the  \textscsl{Small Caps Slanted}  font variant is not  supported by
 Computer Modern, but comes with the Kp-Fonts font family which has been chosen
 for this document.
 
-The third way is to set the  four properties which are configurable for a font
-with the commands \verb|\fontencoding|, \verb|\fontfamily|, \verb|\fontseries|
-and \verb|\fontshape|, followed by \verb|\selectfont| (not all of them need be
-set,  of  course;  one  may  choose  to  only  change  the  font  family,  for
-example).
+The  third mechanism  is to  set the  four properties  which are  configurable
+for  a  font  with   the  commands  \verb|\fontencoding|,  \verb|\fontfamily|,
+\verb|\fontseries| and \verb|\fontshape|,  followed by \verb|\selectfont| (not
+all of  them need be set,  of course; one may  choose to only change  the font
+family, for example). The  \verb|\selectfont| command tends to  be used mostly
+for local font style  changes which can't be covered by  the macros from Table
+\ref{tab:font-decs-cmds}.
 
 
 \begin{titled-frame}
@@ -283,13 +292,17 @@ The quick brown fox jumps over the lazy dog.
 \label{subsec:font-packages}
 % -------------------------------------------------------------------------- %
 
-The easiest way to change from the  default Computer Modern to a different set
-of fonts  is to use  a corresponding package. Good  places to peruse  are CTAN
-\cite{ctan:fonts} and  the \LaTeX{} font  catalogue \cite{tug:font-catalog}. A
-popular  choice is  the  Latin  Modern Package  (\verb|\usepackage{lmodern}|),
-which is  an expansion of  Computer Modern  with better support  for non-ASCII
-characters. For documents  which are not in  English, Latin Modern is  a solid
-choice.
+The most convenient way to choose the default fonts for a document is by using
+font packages. Once  one or more font  packages have been loaded,  we can then
+switch among the  defaults which have been defined by  those packages with the
+commands from Table \ref{tab:font-decs-cmds}.
+
+Good places  to peruse for  finding fonts  are CTAN \cite{ctan:fonts}  and the
+\LaTeX{}  font  catalogue  \cite{tug:font-catalog}. A popular  choice  is  the
+Latin Modern  Package (\verb|\usepackage{lmodern}|), which is  an expansion of
+Computer Modern  with better  support for non-ASCII  characters. For documents
+which are not in  English, Latin Modern is a solid  choice, provided one likes
+its aesthetics.
 
 As  a  different example,  if  we  wish to  typeset  our  document in  DejaVu,
 we  can  put  \compar{usepackage}{dejavu}{}  in the  preamble. This  will  set
@@ -300,9 +313,11 @@ three to which it was set previously (\comm{rmdefault} by default).
 Not all font packages provide all kinds of font families, or all font families
 in all  weights and  shapes. Consult the documentation  for the  package which
 you're intending to use. In the cases  where a package only provides some type
-of font, the  others will be left unchanged. For  example, the \code{FiraSans}
-package, which  is obviously a sans-serif  typeface, does not provide  a roman
-font. Therefore, the serif fonts are left untouched by loading that package.
+of font, the  others will be left  unchanged and may be configured  by using a
+font  package  specific  to  those  fonts, or  left  at  the  Computer  Modern
+default. For example, the  \code{FiraSans} package, which is  obviously a sans
+serif typeface, does not provide a  roman font. Therefore, the serif fonts are
+left untouched by loading that package.
 
 The same  goes for mathematics: Not all  fonts provide the needed  symbols for
 typesetting mathematics.
@@ -320,34 +335,44 @@ mileage may vary.
 \label{subsec:fontsel:global}
 % -------------------------------------------------------------------------- %
 
-%\fontfamily{\sfdefault}\selectfont
+One may wish to typeset a  document in sans serif or typewriter. Besides using
+a package  to do this,  one may also  manually configure the  default document
+font in the preamble\footnotemark like this:
 
-In the preamble, we can change the  default document font from roman (which is
-the default) to sans serif or typewriter with one of these commands:
+\footnotetext{%
+    Or anywhere else in the document,  for that matter. Whether or not that is
+    a sensible  thing to do  is another  question. One should usually  not mix
+    different fonts and font styles willy-nilly.}
 
 \begin{titled-frame}
-{\textsf{Selecting Sans-Serif or Typewriter as Document Default}}
+{\textsf{Defining the Default Font Families Manually}}
 \vspace{-1em}
 \begin{verbatim}
+\renewcommand{\familydefault}{\rmdefault}
 \renewcommand{\familydefault}{\sfdefault}
 \renewcommand{\familydefault}{\ttdefault}
 \end{verbatim}
 \vspace{-1em}
 \end{titled-frame}
 
+The first  command will  usually do  nothing, of  course, because  the default
+family tends to be the roman font.
+
 Note that typewriter fonts differ in  what kinds of adjustments \TeX{} usually
-makes when it comes  to spacing in order to achieve a  justified block of text
-(also,  words  in  typerwriter  fonts  will not  hyphenate  except  in  places
-where    \code{\textbackslash{}-}  has been  inserted manually). This  is also
+makes  when it  comes to  spacing in  order to  achieve a  justified block  of
+text.  Also,  words in typerwriter fonts  will not hyphenate except  in places
+where  \code{\textbackslash{}-}  has  been  inserted  manually. This  is  also
 why  sometimes a  monospaced  piece of  text can  protrude  outside the  right
 textblock margin  when you put  it in normal text  (see above with  the dejavu
 example; that  was not  done on purpose). More  on the topic  can be  found in
 \cite{texblog:typewriter}.
 
-Combining different  font families  can be  done on  the same  principle.  For
-example,  selecting Palatino  as  the  roman default  font,  Helvetica as  the
-default sans-serif font and Latin Modern  as the typewriter font could be done
-by putting these commands in the preamble:
+Combining different font families can be  done in the same manner. This allows
+to compose  a custom set of  default fonts for  a document which might  not be
+covered by  a font package. As mentioned,  care should be taken  to pick fonts
+which go nicely together. For example, selecting Palatino as the roman default
+font,  Helvetica as  the  default  sans-serif font  and  Latin  Modern as  the
+typewriter font could be done by putting these commands in the preamble:
 
 \begin{titled-frame}
 {\textsf{Creating a Custom Set of Default Fonts}}
@@ -367,26 +392,88 @@ in  the  previous  section. See for  example  \cite{stackexch:math-fonts}  and
 
 
 % -------------------------------------------------------------------------- %
-\subsection{Local Font Selection Within a Document}
-\label{subsec:fontsel:local}
+\subsection{Local Font Selection From Defined Defaults}
+\label{subsec:fontsel:local:defaults}
 % -------------------------------------------------------------------------- %
 
-Besides  global  font selection,  one  might  wish  to select  fonts  manually
-somewhere in a document (as opposed  to global settings in the preamble). This
-is   done  by   selecting  the   desired  font family  and   then  using   the
-\comm{selectfont} command. For example, if we wish to switch to Helvetica:
+There  are  two  basic  scenarios  for  locally  changing  fonts: Selecting  a
+different font, series  or shape from the defined default  font families which
+are already loaded, or selecting a completely different font which has not yet
+been loaded  into the document. This  section deals with the  former scenario;
+for the latter, see the next section.
+
+Locally  changing  font  properties  or families  among  the  choices  already
+loaded  can  be done  with  the  declarations  and  commands listed  in  Table
+\ref{tab:font-decs-cmds}.
+
 
 \begin{titled-frame}
-{\textsf{Changing Fonts Until They Are Changed Again}}
+{\textsf{Local Font Changing Among Loaded Fonts and Styles}}
 \vspace{-1em}
 \begin{verbatim}
-\fontfamily{phv}\selectfont
-\end{verbatim}
+\bfseries This text is in bold, while \mdseries this text is
+in  normal weight.  \slshape  We continue  with the  slanted
+shape,  followed  by  the  \scshape  small  capitals  shape,
+followed by  the \itshape italic shape.  \normalfont and now
+we are back to the  default document font, whatever that may
+be.
 
+{\scslshape For keeping font  declaration effects local}, we
+must enclose  the declaration and  the text which  it should
+affect inside a scope.
+\end{verbatim}
+\bfseries This text is in bold, while \mdseries this text is
+in  normal weight.  \slshape  We continue  with the  slanted
+shape,  followed  by  the  \scshape  small  capitals  shape,
+followed by  the \itshape italic shape.  \normalfont And now
+we are back to the  default document font, whatever that may
+be.
+
+{\scslshape For keeping font  declaration effects local}, we
+must enclose  the declaration and  the text which  it should
+affect inside a scope.
+\end{titled-frame}
+
+Or with font commands:
+
+\begin{titled-frame}
+{\textsf{Local Font Changing Among Loaded Fonts and Styles}}
+\vspace{-1em}
+\begin{verbatim}
+\textbf{This text is in bold, while} \textmd{this text is in
+normal weight}. \textsl{We continue  with the slanted shape,
+followed by the } \textsc{ small capitals shape, followed by
+the  }\textit{italic  shape.} And now  we  are  back to  the
+default document font, whatever that may be.
+\end{verbatim}
+\textbf{This text is in bold, while} \textmd{this text is in
+normal weight}. \textsl{We continue  with the slanted shape,
+followed by the } \textsc{ small capitals shape, followed by
+the  }\textit{italic  shape.} And now  we  are  back to  the
+default document font, whatever that may be.
+\end{titled-frame}
+
+
+% -------------------------------------------------------------------------- %
+\subsection{Local Font Selection From Non-Defaults}
+\label{subsec:fontsel:local:nondefaults}
+% -------------------------------------------------------------------------- %
+
+If we  wish to  load a completely  different font which  has not  already been
+loaded (be  that because we  did not  want it to  be the document  default, or
+because  there simply  does  not exist  a  package  for it),  we  can use  the
+\verb|\selectfont| command and its friends.  
+
+\begin{titled-frame}{\sffamily Switching to a Non-Default Font}
+For example, if we wish to switch to Helvetica:
+
+\vspace{1em}\noindent
+\verb|\fontfamily{phv}\selectfont|\\
 
 \fontfamily{phv}\selectfont  And  now  we   should  have  Helvetica  for  this
-text. The font family will stay switched until it is switched back with one of
-these two commands:
+text. The font family  will stay Helvetica until it is  switched back with one
+of  these two  commands  (or changed  to anything  else  with the  appropriate
+command, should one so choose):
 
 \vspace{1em}\noindent
 \verb|\fontfamily{\familydefault}\selectfont|\\[1ex]
@@ -397,8 +484,7 @@ or\\[1ex]
 \noindent\normalfont And now we're back to Kp-Fonts serif.
 \end{titled-frame}
 
-In order to keep the font change local,  we can enclose a portion of text in a
-group:
+The same scope rules which we've already seen apply here as well:
 
 \begin{titled-frame}
 {\textsf{Selecting Arbitrary Font Families Locally}}
@@ -409,38 +495,6 @@ While this text is not!
 \end{verbatim}
 {\fontfamily{phv}\selectfont This text is in Helvetica!} While this text is not!
 \end{titled-frame}
-
-Locally   switching    to   a   different   style    among   \comm{sfdefault},
-\comm{rmdefault}   and  \comm{ttdefault}   can   be  done   either  via   font
-declarations:
-
-\begin{titled-frame}
-{\textsf{Locally Switching Fonts Among Default Families (Declarations)}}
-\vspace{-1em}
-\begin{verbatim}
-{\rmfamily This is roman text!}
-{\sffamily This is sans-serif text!}
-{\ttfamily This is sans-serif text!}
-\end{verbatim}
-{\rmfamily This is roman text!}
-{\sffamily This is sans-serif text!}
-{\ttfamily This is typewriter text!}
-\end{titled-frame}
-
-Or alternatively via their corresponding commands:
-
-\begin{titled-frame}
-{\textsf{Locally Switching Fonts Among Default Families (Commands, Preferred)}}
-\vspace{-1em}
-\begin{verbatim}
-\textrm{This is roman text!}
-\textsf{This is sans-serif text!}
-\texttt{This is typewriter text!}
-\end{verbatim}
-\vspace{-1em}
-\end{titled-frame}
-
-The second version is usually recommended for local changes.
 
 
 % -------------------------------------------------------------------------- %
@@ -505,10 +559,11 @@ usually be enclosed in braces:
 
 Changing font weights can be done either via a \comm{fontseries\{<argument>\}}
 command,   followed  by   \comm{selectfont},  or   via  the   \comm{bfseries},
-\comm{mdseries}  and \comm{lfseries}  declarations,  respectively. A font  may
-offer more  than three  weights, in  which case  one might  need to  resort to
-the  \comm{fontseries} command  for changing  fonts because  the corresponding
-\comm{..series} declaration does not exist.
+\comm{mdseries}   and    \comm{lfseries}   declarations   listed    in   Table
+\ref{tab:font-decs-cmds},  respectively. A  font  may offer  more  than  three
+weights,  in which  case one  might need  to resort  to the  \comm{fontseries}
+command  for   changing  fonts   because  the   corresponding  \comm{..series}
+declaration does not exist.
 
 Furthermore,  depending on  which option  is  loaded if  one is  using a  font
 package  such as  Kp-Fonts, the  default font  weight and  all others  will be
@@ -553,19 +608,17 @@ configuration for this document, these are the options available:
 \end{titled-frame}
 
 
-% TODO: Check kepler sty file for jkplight or whatever it is called
-
-
 % -------------------------------------------------------------------------- %
 \subsection{Font Shapes}
 \label{subsec:font-shapes}
 % -------------------------------------------------------------------------- %
 
 Selecting the  font shape can  be done via  the \comm{fontshape\{<argument>\}}
-command,   followed  by   \comm{selectfont},  or   by  a   corresponding  font
-declaration.   Again, the  number of  font shapes,  and possible  combinations
-thereof will  vary depending on  the font being used. Kp-Fonts  supports these
-options:
+command,   followed   by   \comm{selectfont},    by   a   corresponding   font
+declaration,  or, by  the  corresponding \verb|\text..{}|  command (see  Table
+\ref{tab:font-decs-cmds}).   Again, the  number of  font shapes   and possible
+combinations  thereof will  vary depending  on the  font being  used. Kp-Fonts
+supports these options:
 
 \begin{titled-frame}
 {\textsf{Locally Changing Font Shapes}}
@@ -652,9 +705,9 @@ text, it will switch to an upright font shape.
 \vspace{-1em}
 \small
 \begin{verbatim}
-{\fontshape{u}\selectfont This sentence \emph{emphasizes} a word of itself.}\\
-{\fontshape{it}\selectfont This sentence \emph{emphasizes} a word of itself.}\\
-Here, again, there exists an {\em alternative} version.\\
+{\fontshape{u}\selectfont This sentence \emph{emphasizes} a word of itself.}
+{\fontshape{it}\selectfont This sentence \emph{emphasizes} a word of itself.}
+Here, again, there exists an {\em alternative} version.
 {\itshape Here, again, there exists an {\em alternative} version.}
 \end{verbatim}
 \normalsize
