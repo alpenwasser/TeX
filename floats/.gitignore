@@ -4,4 +4,6 @@
 *.toc
 *.listing
 *.lol
+*.lot
 _minted-listings
+_minted-floats

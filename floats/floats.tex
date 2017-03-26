@@ -120,17 +120,24 @@
 \label{chap:what-are-floats}
 % ========================================================================== %
 
-Normal text is broken by \TeX{} across lines and pages automatically. For some
+Normal text  is broken  by \TeX{} across  lines and  pages automatically. Some
 content, such as images, are not  well-suited to being split into pieces. That
 is what floating environments are for: To provide a way to put such content in
 a place where it does not need to be broken; a way for it to \emph{float} to a
 suitable location for an optimal overall result.
 
 Two  such  floating environments  are  provided  by \LaTeX{}  by  default: The
-\verb|figure|  and  the  \verb|table| environment. There  are  packages  which
-define more  floating environments (for example,  the \verb|listings| packages
-can let its code listings float, if  so desired), or the user may define their
-own floating environments, if they so wish.
+\verb|figure|   and  the   \verb|table|\footnotemark  environment. There   are
+packages   which  define   more  floating   environments  (for   example,  the
+\verb|listings| packages can  let its code listings float, if  so desired), or
+the user may define their own floating environments, if they so wish.
+
+\footnotetext{%
+    Because confusion is fun: The \texttt{table} environment does not actually
+    typeset  a table.   That is  what \texttt{tabular},  \texttt{tabularx} and
+    similar environments are for. See  \cite{mori:tables} for an overview. The
+    \texttt{table}  environment is  merely a  floating container  intended for
+    containing tabular content.}
 
 Fundamentally, the only important difference between these environments is how
 they  are  captioned  and  numbered: \verb|figure|  environments  will  get  a
@@ -143,12 +150,13 @@ Ipsum text inside their environments.
 The floating behavior can be demonstrated by the fact that, in the source code
 of this document, \ref{fig:lipsum} and \ref{tab:lipsum} are placed right after
 this sentence. In the resulting document, they may be placed wherever \LaTeX{}
-deems most suitable (probably at the top of this page\footnotemark).
+deems most suitable (maybe at the top of this page\footnotemark, maybe not).
 
 \footnotetext{%
     \LaTeX{} usually tries  to place floats either  at the top of  a page, the
     bottom of a page, or on a separate page. See \ref{chap:placement} for more
     information.}
+
 
 \begin{figure}
     \small\lipsum[2]
@@ -161,6 +169,7 @@ deems most suitable (probably at the top of this page\footnotemark).
     \label{tab:lipsum}
     \small\lipsum[2]
 \end{table}
+
 
 Because  captions are  a moving  argument (Section  3.5.1 in  \cite{lamport}),
 fragile  commands  such  as  linebreaks   inside  them  must  be  preceded  by
@@ -211,14 +220,24 @@ external graphics file inside a \verb|figure| environment.
     \label{lst:figure}
 \end{listing}
 
-It is often desirable  to center a table or a picture, in  which case we add a
-\verb|\centering| directive into the environment:
+It is  often desirable to center  a table or a  picture, in which case  we add
+a  \verb|\centering|  directive  into  the environment,  as  done  in  Listing
+\ref{lst:centering}\footnotemark.
 
-\cite{stackexch:center-centering}
+\footnotetext{%
+    There     exists     also    a     \texttt{\textbackslash{}begin\{center\}
+    \ldots   \textbackslash{}end\{center\}}   environment. For  the   curious,
+    some    information    on    the     differences    between    that    and
+    \texttt{\textbackslash{}centering} can be found at
+    \cite{stackexch:center-centering,texblog:center-centering}}
+
+
 \begin{listing}
     \begin{minted}[autogobble,escapeinside=||]{text}
         \begin{table}
-            |\textcolor{red}{\textbf{\textbackslash{}centering}}|
+            |\textcolor{solarized-red}{\textbf{\textbackslash{}centering}}|
+            \caption{Results for an experiment}
+            \label{tab:experiment}
             \begin{tabular}{ll}
                 \toprule
                 Experiment Input  & Experiment Output        \\
@@ -227,42 +246,32 @@ It is often desirable  to center a table or a picture, in  which case we add a
                 boring thing      & mildly surprising result \\
                 weird thing       & very unexpected result   \\
                 fascinating thing & machine broke            \\
-                Xenomorph XX121   & very dead scientists     \\
+                Xenomorph XX121   & dead scientists          \\
                 \bottomrule
             \end{tabular}
-            \caption{Results for an experiment}
-            \label{tab:experiment}
         \end{table}
     \end{minted}
     \caption{%
         Centering  a  \texttt{tabular}   environment  inside  a \texttt{table}
         floating environment}
-    \label{lst:figure}
+    \label{lst:centering}
 \end{listing}
 
-%\begin{figure}
-%    \includegraphics[width=\textwidth]{images/aw--fluffy--2014-12-28--21.jpeg}
-%    \caption{A picture of our canine in snowy conditions}
-%    \label{fig:fluffy}
-%\end{figure}
-%
-%\begin{figure}
-%    \includegraphics[width=\textwidth]{images/aw--helios--2016-02-24--01.jpeg}
-%    \caption{My box of computing}
-%    \label{fig:helios}
-%\end{figure}
+You may have noticed that the  \verb|\caption| is placed above the content for
+tables  and below  the picture  in  a \verb|figure|  environment. This is  not
+prescribed by  \LaTeX, obviously, and  will depend  on the style  guide you're
+following or your own preferences. All I will  say on the subject is that most
+tables I've seen  had their caption above  the table and most  images had them
+below the picture.
 
-%\begin{figure}
-%    \lipsum[2]
-%    \caption{%
-%        One can  place arbitrary  content inside a  \code{figure} environment,
-%        though this does not usually make much sense.\protect\\
-%        Note      that       you      can      also       have      linebreaks
-%        inside     a      \code{caption},     but     it      requires     the
-%        \code{\textbackslash{}protect} command before  the linebreak, like so:
-%        \code{\textbackslash{}protect\textbackslash\textbackslash}}
-%    \caption{fig:lipsum}
-%\end{figure}
+\textcolor{solarized-red}{What   does   matter,    however,   is   where   the
+\texttt{\textbackslash{}label}  is  put!} In  order  to pick  up  the  correct
+number, it must  always come after the \verb|\caption| command  to which it is
+supposed to  be connected. If you  put it before the  \verb|\caption| command,
+the  \verb|\label| will  pick up  whichever counter  was the  last active  one
+before the \verb|\caption|, which can be anything (another picture or table or
+float of some sort, but also a chapter, section or similar). This is a mistake
+which is easily made and often hard to detect.
 
 
 % ========================================================================== %
@@ -270,7 +279,24 @@ It is often desirable  to center a table or a picture, in  which case we add a
 \label{chap:placement}
 % ========================================================================== %
 
-Only use these towards the end of writing.
+So you have written  your document, or a large part of it,  and the floats are
+just not  where you'd like  them to be? That  is where placement  options come
+in. They allow you  to tell \LaTeX{} where  you would like your  floats to be,
+with more  or less vehemence. It  will then try  to accomodate your  wishes as
+best it can while still following its internal rules to some extent.
+
+\textcolor{solarized-red}{Whatever  your   preferences,  only   use  placement
+options  once your  text  is  (almost) complete.} Otherwise  you  will end  up
+needing  to  change  them again  and  again  and  again,  causing a  lot  more
+work. Also, it  is quite easily  possible to  overlook a bad  placement option
+from  an earlier  version of  a document  which makes  you jump  through hoops
+trying to get the best result even though \LaTeX{} would actually do the right
+thing if you would just let it\footnotemark.
+
+\footnotetext{%
+    I am  obviously \emph{not}  speaking from  personal experience  here. I am
+    smarter than that, I assure you.}
+
 
 % ========================================================================== %
 \chapter{Help, My Floats Are Jinxed!}
@@ -304,6 +330,16 @@ Too many floats, not enough text, \ldots
         1994,
         Addison-Wesley Publishing Company.
 
+    \bibitem{mori:tables}
+        Lapo Mori,
+        ``\emph{Tables in \LaTeXe: Packages and Methods}'',
+        The Prac\TeX{} Journal,
+        2007-FEB-20.
+        [Online],
+        \href{https://www.tug.org/pracjourn/2007-1/mori/mori.pdf}
+             {\nolinkurl{https://www.tug.org/pracjourn/2007-1/mori/mori.pdf}},
+        [Accessed: 2017-MAR-27].
+
     \bibitem{ctan:package:caption}
         Comprehensive \TeX{} Archive Network.
         ``\emph{Package caption -- Customising captions in floating environments}''.
@@ -326,6 +362,14 @@ Too many floats, not enough text, \ldots
         \href{http://tex.stackexchange.com/a/23653}
              {\nolinkurl{http://tex.stackexchange.com/a/23653}},
         [Accessed: 2017-MAR-26].
+    
+    \bibitem{texblog:center-centering}
+        stefan,
+        ``\emph{\TeX{}Blog -- center vs. centering}''.
+        [Online],
+        \href{http://texblog.net/latex-archive/floats/center-centering/}
+             {\nolinkurl{http://texblog.net/latex-archive/floats/center-centering/}},
+        [Accessed: 2017-MAR-27].
 
 \end{thebibliography}
 
