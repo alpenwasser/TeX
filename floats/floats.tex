@@ -1,0 +1,332 @@
+\documentclass[article,a4paper,oneside,10pt]{memoir}
+
+% -------------------------------------------------------------------------- %
+% Page Layout                                                                %
+% -------------------------------------------------------------------------- %
+\setlrmarginsandblock{0.142857111\paperwidth}{0.142857111\paperwidth}{*}
+\setulmarginsandblock{0.111111111\paperheight}{*}{1.25}
+\checkandfixthelayout
+\newfixedcaption{\figcaption}{figure}
+\newfixedcaption{\tabcaption}{table}
+\captiontitlefont{\small}
+\captionnamefont{\bfseries\small}
+\captiondelim{: }
+
+% -------------------------------------------------------------------------- %
+% Bibliography                                                               %
+% -------------------------------------------------------------------------- %
+\renewcommand{\bibsection}{%
+    \chapter{References}%
+    \prebibhook}
+\bibintoc
+\renewcommand{\cftdot}{\textcolor{gray}{.}}
+\renewcommand{\cftchapterdotsep}{\cftdotsep} % Chapters have dots in ToC
+\renewcommand{\cftsectiondotsep}{\cftnodots} % Sections have no dots in ToC
+
+
+% -------------------------------------------------------------------------- %
+% Chapter and Section Headings                                               %
+% -------------------------------------------------------------------------- %
+\makeatletter
+\makechapterstyle{alpensec}{%
+  \chapterstyle{default}
+  \setlength{\beforechapskip}{3.5ex \@plus 1ex \@minus .2ex}
+  \renewcommand*{\chapterheadstart}{\vspace{\beforechapskip}}
+  \setlength{\afterchapskip}{2.3ex \@plus .2ex}
+  \renewcommand{\printchaptername}{}
+  \renewcommand{\chapternamenum}{}
+  \renewcommand{\chaptitlefont}{\sffamily\LARGE\bfseries}
+  \renewcommand{\chapnumfont}{\chaptitlefont}
+  \renewcommand{\printchapternum}{\chapnumfont \thechapter\quad}
+  \renewcommand{\afterchapternum}{}}
+
+\renewcommand{\section}{%
+  \sechook%
+  \@startsection{section}{1}%  level 1
+      {\secindent}%            heading indent
+      {\beforesecskip}%        skip before the heading
+      {\aftersecskip}%         skip after the heading
+      {\sffamily\secheadstyle}} % font
+
+\makeatother
+
+\chapterstyle{alpensec}
+
+
+% -------------------------------------------------------------------------- %
+% Packages                                                                   %
+% -------------------------------------------------------------------------- %
+\usepackage[%
+        bookmarksnumbered=true,
+        colorlinks=true,
+        linkcolor=cyan!50!blue,
+        citecolor=violet,
+        urlcolor=purple,
+    ]{hyperref}
+\usepackage[light,nott]{kpfonts}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor-solarized}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{minted}
+\renewcommand{\listingscaption}{\small\bfseries Listing}
+
+
+% -------------------------------------------------------------------------- %
+% Macros                                                                     %
+% -------------------------------------------------------------------------- %
+\newcommand\code[1]{\texttt{#1}}
+
+
+% -------------------------------------------------------------------------- %
+% Title                                                                      %
+% -------------------------------------------------------------------------- %
+\title{\textsf{\Huge  The Black Magic of Floats in \LaTeX}}
+\author{Raphael Frey\\[2mm]\small%
+    \href{https://github.com/alpenwasser/TeX/tree/master/floats}
+         {\nolinkurl{https://github.com/alpenwasser/TeX/}}}
+
+\date{\vspace{1em}\today}
+
+% ************************************************************************** %
+\begin{document}
+% ************************************************************************** %
+
+
+\maketitle
+
+\begin{abstract}
+    The behavior  of floats can  often be  confusing for the  uninitiated, and
+    yield  unexpected results. This  document gives  a brief  overview on  the
+    subject, primarily based on Leslie  Lamport's \emph{\LaTeX{} -- A Document
+    Preparation System} \cite{lamport}.
+
+    I will not cover every possible edge case, but present some usage examples
+    and common problem one tends to run into while working with floats.
+\end{abstract}
+
+\tableofcontents*
+\listoflistings
+\listoffigures
+\listoftables
+
+
+% ========================================================================== %
+\newpage
+\chapter{What Are Floats, Anyway?}
+\label{chap:what-are-floats}
+% ========================================================================== %
+
+Normal text is broken by \TeX{} across lines and pages automatically. For some
+content, such as images, are not  well-suited to being split into pieces. That
+is what floating environments are for: To provide a way to put such content in
+a place where it does not need to be broken; a way for it to \emph{float} to a
+suitable location for an optimal overall result.
+
+Two  such  floating environments  are  provided  by \LaTeX{}  by  default: The
+\verb|figure|  and  the  \verb|table| environment. There  are  packages  which
+define more  floating environments (for example,  the \verb|listings| packages
+can let its code listings float, if  so desired), or the user may define their
+own floating environments, if they so wish.
+
+Fundamentally, the only important difference between these environments is how
+they  are  captioned  and  numbered: \verb|figure|  environments  will  get  a
+different caption and  number to a \verb|table|  environment. However, one may
+in principle put pretty much  anything one desires into either environment. As
+long  as  the  code  itself  is  valid,  \LaTeX{}  will  not  complain. Figure
+\ref{fig:lipsum} and Table \ref{lipsum} demonstrate this by placing some Lorem
+Ipsum text inside their environments.
+
+The floating behavior can be demonstrated by the fact that, in the source code
+of this document, \ref{fig:lipsum} and \ref{tab:lipsum} are placed right after
+this sentence. In the resulting document, they may be placed wherever \LaTeX{}
+deems most suitable (probably at the top of this page\footnotemark).
+
+\footnotetext{%
+    \LaTeX{} usually tries  to place floats either  at the top of  a page, the
+    bottom of a page, or on a separate page. See \ref{chap:placement} for more
+    information.}
+
+\begin{figure}
+    \small\lipsum[2]
+    \caption{A \texttt{figure} environment with placeholder text}
+    \label{fig:lipsum}
+\end{figure}
+
+\begin{table}
+    \caption{A \texttt{table} environment with placeholder text}
+    \label{tab:lipsum}
+    \small\lipsum[2]
+\end{table}
+
+Because  captions are  a moving  argument (Section  3.5.1 in  \cite{lamport}),
+fragile  commands  such  as  linebreaks   inside  them  must  be  preceded  by
+\verb|\protect|, as shown in the caption of Figure \ref{fig:protect}.
+
+\begin{figure}
+    \centering
+    \includegraphics[height=3cm,width=4.5cm]{images/grid8cm.png}
+    \caption[Linebreaks in Captions]{%
+        One can  place arbitrary  content inside a  \code{figure} environment,
+        though this does not usually make much sense.\protect\\
+        Note      that       you      can      also       have      linebreaks
+        inside     a      \code{caption},     but     it      requires     the
+        \code{\textbackslash{}protect} command before  the linebreak, like so:
+        \code{\textbackslash{}protect\textbackslash\textbackslash}}
+    \label{fig:protect}
+\end{figure}
+
+The \verb|\caption| command can only be  used inside a floating environment by
+default.   If  you require  captions  for  non-floating arguments,  there  are
+packages which provide such facilities,  as well as more caption customisation
+options,   see   \cite{ctan:package:caption,ctan:topic:caption}  and   Chapter
+\ref{chap:alternatives} of this document.
+
+
+% ========================================================================== %
+\chapter{Basic Usage}
+\label{chap:basic-usage}
+% ========================================================================== %
+
+Listing \ref{lst:figure}\footnotemark  shows the  basic code for  including an
+external graphics file inside a \verb|figure| environment.
+
+\footnotetext{%
+    Incidentally, Listing \ref{lst:figure}  is one of those cases  where a new
+    type  of floating  environment  has been  provided; in  this  case by  the
+    \texttt{minted} package.}
+
+\begin{listing}
+    \begin{minted}[autogobble]{tex}
+        \begin{figure}
+            \includegraphics[height=3cm,width=4.5cm]{images/grid8cm.png}
+            \caption{A very interesting and slightly distorted picture of a grid}
+            \label{fig:distorted-grid}
+        \end{figure}
+    \end{minted}
+    \caption{Code block for includeing a graphics in a figure}
+    \label{lst:figure}
+\end{listing}
+
+It is often desirable  to center a table or a picture, in  which case we add a
+\verb|\centering| directive into the environment:
+
+\cite{stackexch:center-centering}
+\begin{listing}
+    \begin{minted}[autogobble,escapeinside=||]{text}
+        \begin{table}
+            |\textcolor{red}{\textbf{\textbackslash{}centering}}|
+            \begin{tabular}{ll}
+                \toprule
+                Experiment Input  & Experiment Output        \\
+                \midrule
+                interesting thing & interesting result!      \\
+                boring thing      & mildly surprising result \\
+                weird thing       & very unexpected result   \\
+                fascinating thing & machine broke            \\
+                Xenomorph XX121   & very dead scientists     \\
+                \bottomrule
+            \end{tabular}
+            \caption{Results for an experiment}
+            \label{tab:experiment}
+        \end{table}
+    \end{minted}
+    \caption{%
+        Centering  a  \texttt{tabular}   environment  inside  a \texttt{table}
+        floating environment}
+    \label{lst:figure}
+\end{listing}
+
+%\begin{figure}
+%    \includegraphics[width=\textwidth]{images/aw--fluffy--2014-12-28--21.jpeg}
+%    \caption{A picture of our canine in snowy conditions}
+%    \label{fig:fluffy}
+%\end{figure}
+%
+%\begin{figure}
+%    \includegraphics[width=\textwidth]{images/aw--helios--2016-02-24--01.jpeg}
+%    \caption{My box of computing}
+%    \label{fig:helios}
+%\end{figure}
+
+%\begin{figure}
+%    \lipsum[2]
+%    \caption{%
+%        One can  place arbitrary  content inside a  \code{figure} environment,
+%        though this does not usually make much sense.\protect\\
+%        Note      that       you      can      also       have      linebreaks
+%        inside     a      \code{caption},     but     it      requires     the
+%        \code{\textbackslash{}protect} command before  the linebreak, like so:
+%        \code{\textbackslash{}protect\textbackslash\textbackslash}}
+%    \caption{fig:lipsum}
+%\end{figure}
+
+
+% ========================================================================== %
+\chapter{Placement Options}
+\label{chap:placement}
+% ========================================================================== %
+
+Only use these towards the end of writing.
+
+% ========================================================================== %
+\chapter{Help, My Floats Are Jinxed!}
+\label{chap:jinxed}
+% ========================================================================== %
+
+Too many floats, not enough text, \ldots
+
+
+% ========================================================================== %
+\chapter{\LaTeX's Dark Magic}
+\label{chap:innards}
+% ========================================================================== %
+
+
+% ========================================================================== %
+\chapter{Alternatives to Using Floats}
+\label{chap:alternatives}
+% ========================================================================== %
+
+
+% ========================================================================== %
+\newpage
+\begin{thebibliography}{1}
+% ========================================================================== %
+
+    \bibitem{lamport}
+        Leslie Lamport, Digital Equipment Corporation,
+        ``\emph{\LaTeX{} -- A Document Preparation System}'',
+        2nd Edition,
+        1994,
+        Addison-Wesley Publishing Company.
+
+    \bibitem{ctan:package:caption}
+        Comprehensive \TeX{} Archive Network.
+        ``\emph{Package caption -- Customising captions in floating environments}''.
+        [Online],
+        \href{http://ctan.org/pkg/caption}{\nolinkurl{http://ctan.org/pkg/caption}},
+        [Accessed: 2017-MAR-26].
+
+    \bibitem{ctan:topic:caption}
+        Comprehensive \TeX{} Archive Network.
+        ``\emph{Topic caption}''.
+        [Online],
+        \href{http://ctan.org/topic/caption}{\nolinkurl{http://ctan.org/topic/caption}},
+        [Accessed: 2017-MAR-26].
+
+    \bibitem{stackexch:center-centering}
+        Enrico Gregorio,
+        ``\emph{When should we use \texttt{\textbackslash{}begin\{center\}} 
+        instead of \texttt{\textbackslash{}centering?}}'',
+        [Online],
+        \href{http://tex.stackexchange.com/a/23653}
+             {\nolinkurl{http://tex.stackexchange.com/a/23653}},
+        [Accessed: 2017-MAR-26].
+
+\end{thebibliography}
+
+\end{document}
