@@ -1,0 +1,39 @@
+\documentclass[a4paper,11pt,oneside]{report}
+\usepackage{lipsum}
+
+%%%%
+\let\ifchapterflag\iftrue
+%\let\ifchapterflag{ch1}
+
+\ifcsname ifchapterflag\endcsname\else
+    \expandafter\let\csname ifchapterflag\expandafter\endcsname
+                    \csname iffalse\endcsname
+\fi
+
+\ifchapterflag
+  \newcommand\comment[1]{\emph{#1}}
+\else
+  \newcommand\comment[1]{\textbf{#1}}
+\fi
+%%%%
+
+%%%%
+\newcommand\includechapter[1]{%
+    \expandafter\def\csname chapterone\endcsname{asdf}%
+}
+%%%%
+
+%\def\mychapters{chapter2,chapter3}
+\ifcsname mychapters\endcsname
+    \expandafter\includeonly{\mychapters}%
+\fi
+
+\begin{document}
+
+%\comment{Comment!}
+\include{chapters/chapter1}
+\include{chapters/chapter2}
+\include{chapters/chapter3}
+\include{chapters/chapter4}
+\include{chapters/some-random-chapter-name}
+\end{document}
