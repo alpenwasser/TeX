@@ -4,8 +4,8 @@ TeX Sandbox
 A collection of various TeX snippets (mostly LaTeX so far), proofs of concept,
 tutorials, and so on and so forth.
 
-Contents
---------
+Topics
+------
 
 * **A3Pages**:  Inserting landscape  A3  pages in  documents  which are  otherwise
   portrait A4.
@@ -15,6 +15,7 @@ Contents
   encounter while writing reports during one's academic career.
 * **booklet**: (ab)using LaTeX to make booklets and signatures for books.
 * **bytefield**: an example for a customized usage of the *bytefield* package.
+* **cli-args**: Passing command-line arguments to LaTeX. Very experimental.
 * **example-documents**:
   * **simple-document**: A very simple LaTeX document.
   * Links to various LaTeX documents I've created over the ages.
@@ -38,7 +39,7 @@ Contents
   [a pretty decent and reasonably compact introduction](https://www.tug.org/pracjourn/2007-1/mori/mori.pdf)
   to  the  topic of  tables,  particularly  which  packages are available  and
   suitable for different use  cases. It is a few years old,  but still gives a
-  reasonably good introduction to the topic in my humble opinion.
+  good introduction to the topic in my humble opinion.
 * **tikz**:
   * **faded-hexagons**: some messing around with Ti*k*Z
   * **block-diagrams**: block diagrams with Ti*k*Z
@@ -57,7 +58,6 @@ Priority List
 -------------
 
 **High**:
-* floats
 * bibliography
 * circuits
 
@@ -66,8 +66,8 @@ Priority List
 * iso-31
 * hyperref
 * colors
-* [GUI tools for making graphics in TeX](http://tex.stackexchange.com/questions/26972/what-gui-applications-are-there-to-assist-in-generating-graphics-for-tex)
 * [the fontspec package](http://ctan.org/pkg/fontspec)
 
 **Low**:
 * anything else
+* [GUI tools for making graphics in TeX](http://tex.stackexchange.com/questions/26972/what-gui-applications-are-there-to-assist-in-generating-graphics-for-tex)

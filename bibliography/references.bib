@@ -1,0 +1,295 @@
+% Article: Required: author, title, journal, year
+%  BibTeX concatenation:
+%    month    = {November} # {/} # {December},
+% or:
+%    month    = "November" # "/" # "December",
+@Article{fancy-article,
+    author   = {First Author and Second Author and Third Important Author},
+    title    = {A Very Fancy Article},
+    language = {Latin},
+    journal  = {A Journal of Fancy Articles},
+    volume   = {1},
+    number   = {5},
+    pages    = {132--142},
+    month    = {November} # {/} # {December},
+    year     = {1913},
+    note     = {A crucial note},
+    url      = {https://a-very-important-journal.com/a-very-fancy-article.pdf},
+}
+
+% Book: Required fields: author and/or editor, title, publisher, year
+@Book{funny-book,
+    author    = {A Funny Author},
+    editor    = {A Serious Person},
+    title     = {A Book of Amusement},
+    language  = {Greek},
+    edition   = {5},
+    series    = {A Series of Funny Books},
+    address   = {666 Weird Street, Pandemonium},
+    publisher = {A Publisher of Odd Things},
+    month     = {April},
+    year      = {2023},
+    volume    = {7},
+    number    = {9},
+    note      = {A not-so-amusing note},
+    url       = {https://publisher-of-odd-things.net/a-book-of-amusements.html},
+}
+
+% Inbook: Required fields: author and/or editor, title, publisher, year
+% type field can be used to override the "Chapter" designation, for example
+% if you want to refer to "Sections" or "Parts" instead of "Chapters".
+@Book{funny-inbook,
+    author    = {A Funny Author},
+    editor    = {A Serious Person},
+    title     = {A Book of Amusement},
+    language  = {Greek},
+    edition   = {5},
+    series    = {A Series of Funny Books},
+    address   = {666 Weird Street, Pandemonium},
+    publisher = {A Publisher of Odd Things},
+    month     = {April},
+    year      = {2023},
+    volume    = {7},
+    number    = {9},
+    chapter   = {4},
+    type      = {Chapter},
+    pages     = {98-302},
+    note      = {A not-so-amusing note},
+    url       = {https://publisher-of-odd-things.net/a-book-of-amusements.html},
+}
+
+% Incollection: Required Fields: author, title, booktitle, year
+@Book{funny-incollection,
+    author    = {A Funny Author},
+    editor    = {A Serious Person},
+    title     = {A Collection of Amusing Works},
+    booktitle = {A Book of Amusement},
+    language  = {Greek},
+    edition   = {5},
+    series    = {A Series of Funny Books},
+    address   = {666 Weird Street, Pandemonium},
+    publisher = {A Publisher of Odd Things},
+    month     = {April},
+    year      = {2023},
+    volume    = {7},
+    number    = {9},
+    chapter   = {4},
+    type      = {Part},
+    pages     = {98-302},
+    note      = {A not-so-amusing note},
+    url       = {https://publisher-of-odd-things.net/a-book-of-amusements.html},
+}
+
+% Booklet: Required fields: title
+@Booklet{serious-booklet,
+    author       = {Somber Writer},
+    title        = {A Booklet of Seriousness},
+    language     = {German},
+    howpublished = {Available on mail-order},
+    organization = {Terrible Organization},
+    address      = {98 Avenue, Drunkhaven},
+    month        = {July},
+    year         = {1616},
+    note         = {A note},
+    url          = {https://serious-writing.org/somber.pdf},
+}
+
+% Manual: Required fields: title
+@Manual{useless-manual,
+    author       = {Illiterate Writer},
+    title        = {Utterly Useless Manual},
+    language     = {Swiss German},
+    edition      = {2},
+    howpublished = {Available on mail-order},
+    organization = {Organization of Incompetence},
+    address      = {12 Street, Idiotville},
+    month        = {October},
+    year         = {1874},
+    note         = {A useless note},
+    url          = {https://org-of-incomp.ch/uselessman.pdf},
+}
+
+% Inproceeding/Conference: Required fields: author, title, booktitle
+% intype can be used to override the "in" with another string.
+% Note that if intype is used, the booktitle field is no longer
+% italicized because the book that contains the written conference
+% record is no longer what is being referred to.
+% The type field can be used to override the "paper" in the output.
+@Inproceedings{boring-conference,
+    author       = {Boring Person},
+    title        = {Summary of a Boring Conference},
+    booktitle    = {Book of Boring Things},
+    language     = {French},
+    series       = {Chain of Boring Literature},
+    editor       = {Sleepy Editor},
+    volume       = {8},
+    number       = {3},
+    organization = {Association of Boring People},
+    address      = {98 Exhaustion Road, Snoozeville},
+    publisher    = {Publisher for Bores},
+    month        = {May},
+    year         = {1984},
+    paper        = {13.492},
+    pages        = {4-12},
+    note         = {A boring note},
+    url          = {https://boringconference.com/snoozeville/},
+}
+
+% Proceedings: Required Fields: title, year
+@Proceedings{acceptable-proceedings,
+    editor       = {Adequate Editor},
+    title        = {Acceptable Proceedings},
+    language     = {Spanish},
+    series       = {Many Average Things},
+    volume       = {7},
+    number       = {4},
+    organization = {Club of Average Content},
+    address      = {54 Adequacy Avenue, Boringtown},
+    publisher    = {Average Output, Inc.},
+    month        = {April},
+    year         = {2012},
+    note         = {Not an exciting note},
+    url          = {https://acceptable-proceedings.com/},
+}
+
+% Mastersthesis: Required Fields: author, title, school, year
+% The optional "type" field can be used to override the default
+% "Master's thesis" title.
+@Mastersthesis{splendid-mastersthesis,
+    author   = {Brilliant Author},
+    title    = {{An Investigation Into the Properties of Weird Things Under Odd Conditions in Peculiar Surroundings}},
+    language = {Complicated},
+    school   = {International Institute of Long Thesis Titles},
+    address  = {92 Lengthy Road, Academiaville},
+    month    = {February},
+    year     = {1952},
+    note     = {{The longer the title, the better the thesis}},
+    url      = {https://iiltt.com/mt.pdf},
+}
+
+% Phdthesis: Required Fields: author, title, school, year
+% Same as Master's thesis, the type field can be used to
+% override the default designation.
+@Phdthesis{splendid-phdthesis,
+    author   = {Brilliant Author},
+    title    = {{An Investigation Into the Surprising Properties of Eccentric Elements Under Varied Conditions in Even More Peculiar Surroundings}},
+    language = {Very Complicated},
+    school   = {International Institute of Long Thesis Titles},
+    address  = {92 Lengthy Road, Academiaville},
+    month    = {February},
+    year     = {1956},
+    note     = {{The longer the title, the better the thesis}},
+    url      = {https://iiltt.com/phdt.pdf},
+}
+
+% Techreport: Required Fields: author, title, institution, year
+% Has a "type" field which can be used to override
+% the default "Tech. Rep." designation.
+@Techreport{innovative-report,
+    author       = {Genius Inventor},
+    title        = {{An Ingenious Invention}},
+    language     = {Chinese},
+    howpublished = {Available in trade against material favors},
+    institution  = {Laboratory for Creative Creators},
+    address      = {1 Ingenuity Avenue, Creatown},
+    number       = {5},
+    month        = {March},
+    year         = {2122},
+    note         = {A very brilliant invention, indeed},
+    url          = {https://creacrealabs.org/ingenius-invention.pdf},
+}
+
+% Unpublished: Required Fields: author, title
+@Unpublished{never-seen,
+    author   = {Shy Writer},
+    title    = {A Secret Method for Doing Something},
+    language = {Cryptic},
+    month    = {September},
+    year     = {1187},
+    note     = {{Never seen before!}},
+    url      = {https://secrets.com/hidden.php},
+}
+
+% Electronic: Required Fields: none
+@Electronic{elec-resource,
+    author = {Anonymous},
+    month = {June},
+    year = {1789},
+    title = {{Conspiracies In 18th Century Italy}},
+    language = {Italian},
+    howpublished = {Blog Post},
+    organization = {Anarchy, Inc.},
+    address = {Hidden Town},
+    note = {Must be very secret stuff},
+    url = {https://anon.net},
+}
+
+% Patent: Required Fields: nationality, number, year or yearfiled
+% "type" field is override for "Patent"
+@Patent{patent,
+    author       = {Genius Inventor},
+    title        = {{An Ingenious Invention}},
+    language     = {Chinese},
+    assignee     = {Smart Assignee},
+    address      = {1 Ingenuity Avenue, Creatown},
+    nationality  = {Japanese},
+    institution  = {Laboratory for Creative Creators},
+    number       = {5.12.0912.12510},
+    day          = {28},
+    dayfiled     = {10},
+    month        = {March},
+    monthfiled   = {March},
+    year         = {2122},
+    yearfiled    = {2122},
+    note         = {A very brilliant invention, indeed},
+    url          = {https://creacrealabs.org/ingenius-invention.pdf},
+}
+
+% Periodical: Required Fields: title, year
+@Periodical{periodical,
+    editor = {Periodic Editor},
+    title  = {A Periodic Occurrence},
+    language = {Russian},
+    series = {Periodic Occurrences},
+    volume = {1},
+    number = {5},
+    organization = {Association of Periodic Events},
+    month = {September},
+    year = {1976},
+    note = {Things keep happening},
+    url = {https://again-and-again-and-again.edu},
+}
+
+% Standard: Required Fields: title, organization or institution
+% Either organization or institution can be used, depending on the
+% preference of the standard-issuing body.
+% "type" field serves as override, as usual.
+@Standard{the-standard,
+    author = {Stan Dard},
+    title  = {The Most Standardized Standard Ever},
+    language = {Arabic},
+    howpublished = {Clay tablets},
+    organization = {Body of Clay Standard Tablets},
+    number = {3012.132.834819},
+    revision = {5},
+    address = {Standard Way, Standard City},
+    month = {August},
+    year = {1999},
+    note = {This is a note for a standard},
+    url = {https://clay-standards.com},
+}
+
+% Misc: Required Fields: none
+@Misc{misc-things,
+    author = {This Author and That Author and Some Other Author},
+    title  = {Miscellaneous Things!},
+    language = {Polish},
+    howpublished = {Parchment rolls},
+    organization = {Organization of Various Things},
+    address = {Some Road in Some City},
+    pages = {1-21},
+    month = {November},
+    year = {1985},
+    note = {No, I do not need notes},
+    url = {https://many-things.gov},
+}

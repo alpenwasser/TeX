@@ -1,13 +1,11 @@
 *.tdo
 *.blg
-*.bbl
 *.aux
 *.lof
 *.log
 *.toc
 *.out
 *.auxlock
-bibliography
 microtype
 dsp
 resources
