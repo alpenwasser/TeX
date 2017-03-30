@@ -1,0 +1,26 @@
+\documentclass[a4paper,11pt,oneside]{article}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+%% the following commands are needed for some matlab2tikz features
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{arrows.meta}
+\usepgfplotslibrary{patchplots}
+\usepackage{grffile}
+\usepackage{amsmath}
+
+%% you may also want the following commands
+%\pgfplotsset{plot coordinates/math parser=false}
+%\newlength\figureheight
+%\newlength\figurewidth
+
+\usepgfplotslibrary{external}
+\tikzexternalize
+\tikzset{external/prefix = extfig-}
+\tikzset{external/figure name = matlabplot}
+
+\begin{document}
+\begin{center}
+	\input{plot.tex}
+\end{center}
+\end{document}

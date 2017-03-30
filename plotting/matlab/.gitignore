@@ -1,0 +1,8 @@
+*.dpth
+*.log
+*.md5
+*.pdf
+*.aux
+*.auxlock
+*.log
+!Main.pdf
