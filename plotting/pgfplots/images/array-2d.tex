@@ -1,69 +1,43 @@
 \begin{tikzpicture}
-    \begin{scope}[x={(0mm,0.95\textwidth)},y={(0,110mm)}]
-        \begin{axis}[%
-                title = Strom eines Modulstrangs ohne Freilaufdioden,
-                height=50mm,
-                width=0.95\textwidth,
-                at={(0,55mm)},
-                grid=both,
-                xlabel=Spannung (\si{\kilo\volt}),
-                ylabel=Strom (\si{\ampere}),
-                colormap/hot2,
-                xmin = 0,
-                xmax = 930,
-                change x base=true,
-                x SI prefix=kilo,
-                legend cell align = right,
-                legend style={at={(0.02,0.1)},anchor=south west},
-                each nth point=2,
-                filter discard warning=false,
-                unbounded coords=discard,
-            ]
-            \addplot[-,blue]    table[x=V(out), y=I(R1)] {data/stringNoD-IV-001pc.dat};
-            \addplot[-,violet]  table[x=V(out), y=I(R1)] {data/stringNoD-IV-022pc.dat};
-            \addplot[-,teal]    table[x=V(out), y=I(R1)] {data/stringNoD-IV-043pc.dat};
-            \addplot[-,magenta] table[x=V(out), y=I(R1)] {data/stringNoD-IV-065pc.dat};
-            \addplot[-,cyan]    table[x=V(out), y=I(R1)] {data/stringNoD-IV-100pc.dat};
-            \legend{%
-                1\%,
-                22\%,
-                43\%,
-                65\%,
-                100\%
-            }
-        \end{axis}
-        \begin{axis}[%
-                title = Leistung eines Modulstrangs ohne Freilaufdioden,
-                height=50mm,
-                width=0.95\textwidth,
-                at={(0,0)},
-                grid=both,
-                xlabel=Spannung (\si{\kilo\volt}),
-                ylabel=Leistung (\si{\kilo\watt}),
-                xmin = 0,
-                xmax = 930,
-                change x base=true,
-                change y base=true,
-                x SI prefix=kilo,
-                y SI prefix=kilo,
-                legend cell align = right,
-                legend style={at={(0.02,0.30)},anchor=south west},
-                each nth point=2,
-                filter discard warning=false,
-                unbounded coords=discard,
-            ]
-            \addplot[-,blue]    table[x=V(out), y=power] {data/stringNoD-IV-001pc.dat};
-            \addplot[-,violet]  table[x=V(out), y=power] {data/stringNoD-IV-022pc.dat};
-            \addplot[-,teal]    table[x=V(out), y=power] {data/stringNoD-IV-043pc.dat};
-            \addplot[-,magenta] table[x=V(out), y=power] {data/stringNoD-IV-065pc.dat};
-            \addplot[-,cyan]    table[x=V(out), y=power] {data/stringNoD-IV-100pc.dat};
-            \legend{%
-                1\%,
-                22\%,
-                43\%,
-                65\%,
-                100\%
-            }
-        \end{axis}
-    \end{scope}
+    \begin{axis}[%
+            title = Strom eines Modulstrangs ohne Freilaufdioden,
+            at={(0,\axisoffset)},
+            ylabel=Strom (\si{\ampere}),
+            legend style={at={(0.02,0.1)},anchor=south west},
+        ]
+        \addplot[-,blue]    table[x=V(out), y=I(R1)] {data/stringNoD-IV-001pc.dat};
+        \addplot[-,violet]  table[x=V(out), y=I(R1)] {data/stringNoD-IV-022pc.dat};
+        \addplot[-,teal]    table[x=V(out), y=I(R1)] {data/stringNoD-IV-043pc.dat};
+        \addplot[-,magenta] table[x=V(out), y=I(R1)] {data/stringNoD-IV-065pc.dat};
+        \addplot[-,cyan]    table[x=V(out), y=I(R1)] {data/stringNoD-IV-100pc.dat};
+        \legend{%
+            \SI{1}{\percent},
+            \SI{22}{\percent},
+            \SI{43}{\percent},
+            \SI{65}{\percent},
+            \SI{100}{\percent},
+        }
+    \end{axis}
+
+    \begin{axis}[%
+            title = Leistung eines Modulstrangs ohne Freilaufdioden,
+            at={(0,0)},
+            ylabel=Leistung (\si{\kilo\watt}),
+            change y base=true,
+            y SI prefix=kilo,
+            legend style={at={(0.02,0.275)},anchor=south west},
+        ]
+        \addplot[-,blue]    table[x=V(out), y=power] {data/stringNoD-IV-001pc.dat};
+        \addplot[-,violet]  table[x=V(out), y=power] {data/stringNoD-IV-022pc.dat};
+        \addplot[-,teal]    table[x=V(out), y=power] {data/stringNoD-IV-043pc.dat};
+        \addplot[-,magenta] table[x=V(out), y=power] {data/stringNoD-IV-065pc.dat};
+        \addplot[-,cyan]    table[x=V(out), y=power] {data/stringNoD-IV-100pc.dat};
+        \legend{%
+            \SI{1}{\percent},
+            \SI{22}{\percent},
+            \SI{43}{\percent},
+            \SI{65}{\percent},
+            \SI{100}{\percent},
+        }
+    \end{axis}
 \end{tikzpicture}

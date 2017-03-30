@@ -1,19 +1,51 @@
-\documentclass[a4paper]{article}
-\usepackage[left=30mm,right=30mm,top=40mm,bottom=50mm]{geometry}
+\documentclass[a4paper]{minimal}
+\usepackage[left=20mm,right=20mm,top=20mm,bottom=20mm]{geometry}
 \usepackage{pgfplots}
 \usepackage{siunitx}
 \setlength{\parindent}{0mm}
 \pgfplotsset{compat=1.14}
 \usepgfplotslibrary{units}
 \usepgfplotslibrary{colormaps}
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=cache/,mode=list and make] 
+% Yes, the / at the end is required, because prefix
+% is just a string, not a directory. Hence:
+% Directory must be created manually.
+
 \begin{document}
+
+\newlength{\axisheight}
+\newlength{\axisoffset}
+\setlength{\axisheight}{58mm}
+\setlength{\axisoffset}{63mm}
+
+\pgfplotsset{every axis/.style={
+        height=\axisheight,
+        width=0.95\textwidth,
+        grid=both,
+        xlabel=Spannung (\si{\kilo\volt}),
+        xmin = 0,
+        xmax = 930,
+        change x base=true,
+        x SI prefix=kilo,
+        legend cell align = right,
+        each nth point=2,
+        filter discard warning=false,
+        unbounded coords=discard,
+    },
+}
+
 \begin{center}
-\input{images/array-2d.tex}
 
-\input{images/array-bypass-2d.tex}
+    % Force remake for everything after this
+    %\tikzset{external/force remake}
+    \input{images/array-2d.tex}
+    \vfill
+    \input{images/array-bypass-2d.tex}
+    \vfill
+    \input{images/module-2d.tex}
+    \vfill
+    \input{images/module-3d.tex}
 
-\input{images/module-2d.tex}
-
-\input{images/module-3d.tex}
 \end{center}
 \end{document}

@@ -6,3 +6,4 @@ pgfplots package.
 
 - memory limits
 - every nth point
+- colorbrewer: manual pages 414ff (Section 5.2)
