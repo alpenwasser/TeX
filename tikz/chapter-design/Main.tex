@@ -1,0 +1,191 @@
+\documentclass[a4paper,oneside,11pt]{memoir}
+
+% ============================================================================ %
+% MEMOIR SETUP                                                                 %
+% ============================================================================ %
+
+% -------------------------------------------------------- %
+% Choose a page layout                                     %
+% -------------------------------------------------------- %
+%                                                          %
+% - The spine margin is 30 mm. This is so that binding the %
+% document with  a ringbinder does  not come too  close to %
+% the text.                                                %
+% - The edge  margin is  1.5 times the spine  margin, i.e. %
+% 45 mm.                                                   %
+% - The top margin is 1/9  of the paper height, same as in %
+% \isopage                                                 %
+% - The bottom margin is decreased from isopage's value to %
+% 1.5 times the top margin, i.e. about 50 mm.              %
+% -------------------------------------------------------- %
+%    +----------^--------------------+
+%    |          | 33mm               |
+%    |     +----v------------+       |
+%    |30mm |                 | 45mm  |
+%    |<--->|                 |<----->|
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     +----^------------+       |
+%    |          | 49.5mm             |
+%    |          |                    |
+%    +----------v--------------------+
+\isopage%
+\setlrmarginsandblock{0.142857111\paperwidth}{0.190476190\paperwidth}{*}
+\setulmarginsandblock{0.111111111\paperheight}{*}{1.5}%
+\checkandfixthelayout%
+
+% -------------------------------------------------------- %
+% Pagestyle (Headers, Footers)                             %
+% -------------------------------------------------------- %
+\pagestyle{headings}
+
+% -------------------------------------------------------- %
+% Choose a chapter style                                   %
+% We're  going  with  veelo, but  removing  the  "Chapter" %
+% designation in front of the chapter number.              %
+% -------------------------------------------------------- %
+
+\newcommand\sqwaveplot[1]{%
+    \begin{tikzpicture}[remember picture,overlay,rotate=-90]
+        \begin{axis}[
+                domain=0:8 * 360,
+                xmin=0,
+                xmax= 8 * 360,
+                hide axis,
+                width=\paperheight,
+                height=\midchapskip,
+                samples = 1000,
+                at = {($(current page.north east) - (0,\midchapskip/2)$)},
+                anchor = west,
+                scale only axis,
+        ]
+            \def\superpos{0}
+            \pgfplotsinvokeforeach{1,...,#1} {%
+                %\addplot[smooth,red] {4/pi * sin(360 * (2*##1 - 1) * x) / (2 * ##1 - 1)};
+                \xdef\superpos{\superpos + 4/pi * sin((2*##1 - 1) * x) / (2 * ##1 - 1)}
+                %\xdef\superpos{\superpos + 0.5}
+            }
+            \addplot[path fading = east,smooth,solarized-blue] {\superpos};
+        \end{axis}
+        %\draw[red] (0,0) -- (2,0);
+    \end{tikzpicture}
+}
+
+\newlength{\edgewidth}
+\makeatletter
+\makechapterstyle{alpenthesis}{%
+    % Lengths
+    \setlength{\afterchapskip}{40pt}
+    \renewcommand*{\chapterheadstart}{\vspace*{40pt}}
+    \renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
+    \setlength{\beforechapskip}{18mm}%  \numberheight
+    \setlength{\midchapskip}{\paperwidth}% \barlength
+    \addtolength{\midchapskip}{-\textwidth}
+    \addtolength{\midchapskip}{-\spinemargin}
+    % Fonts
+    \renewcommand*{\chapnamefont}{\normalfont\LARGE\flushright}
+    \renewcommand*{\chapnumfont}{\normalfont\HUGE}
+    \renewcommand*{\chaptitlefont}{\normalfont\HUGE\bfseries\flushright}
+    % Output:
+    \renewcommand*{\printchaptername}{%
+        \chapnamefont\MakeTextUppercase{\@chapapp}
+    }
+    % What comes between chaptername and the number:
+    \renewcommand*{\chapternamenum}{}
+    % Print chapter number etc.
+    \renewcommand*{\printchapternum}{%
+        \sqwaveplot{\thechapter}
+        \setlength{\edgewidth}{\marginparwidth}
+        \addtolength{\edgewidth}{\marginparsep}
+        \makebox[0pt][l]{%
+            \hspace{.8em}%
+            \resizebox{!}{\beforechapskip}{\chapnumfont \thechapter}%
+            \hspace{.8em}%
+            %\rule{\midchapskip}{\beforechapskip}%
+        }%
+   }%
+   \makeoddfoot{plain}{}{}{\thepage}}
+\makeatother
+\chapterstyle{alpenthesis} % requires graphicx package
+
+%\newcommand{\chapterheadstart}{\vspace*{\beforechapskip}}
+%\newcommand{\printchaptername}{\chapnamefont \@chapapp}
+%\newcommand{\chapternamenum}{\space}
+%\newcommand{\printchapternum}{\chapnumfont \thechapter}
+%\newcommand{\afterchapternum}{\par\nobreak\vskip \midchapskip}
+%\newcommand{\printchapternonum}{}
+%\newcommand{\printchaptertitle}[1]{\chaptitlefont #1}
+%\newcommand{\afterchaptertitle}{\par\nobreak\vskip \afterchapskip}
+%\newcommand{\chapnamefont}{\normalfont\huge\bfseries}
+%\newcommand{\chapnumfont}{\normalfont\huge\bfseries}
+%\newcommand{\chaptitlefont}{\normalfont\Huge\bfseries}
+%\setlength{\beforechapskip}{50pt}
+%\setlength{\midchapskip}{20pt}
+%\setlength{\afterchapskip}{40pt}
+
+
+% ============================================================================ %
+% PACKAGES                                                                     %
+% ============================================================================ %
+\usepackage{xcolor-solarized}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{fadings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\tikzfading[name=topbot,top color=transparent!0,bottom color=transparent!100]
+\usepackage{lipsum}
+\usepackage[nott,light]{kpfonts}
+\usepackage{lettrine}
+\usepackage{graphicx}
+
+
+
+% ============================================================================ %
+% COLORS                                                                       %
+% ============================================================================ %
+
+
+% **************************************************************************** %
+\begin{document}
+% **************************************************************************** %
+\chapter{This Is the First Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{This Is the Second Chapter With a Longer Title}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{Third Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{And We Have a Fourth Chapter!}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{Shall We Do Number Five?}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{six!}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{Chapter Number Seven, For We Are Masochists}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{Chapter Eight}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{Nine Chapters \ldots Ridiculous!}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+
+\chapter{Alright, We Have Made It to Ten}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[3-5]
+\end{document}

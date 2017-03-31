@@ -14,7 +14,6 @@ int main ( int argc, char *argv[] )
 	} else {
 		int seq_length;
 		int current_elem;
-		int current_fib;
 		current_elem = -1;
 		seq_length = atoi(argv[1]);
 		while (seq_length > ++current_elem)

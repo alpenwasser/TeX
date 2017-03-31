@@ -4,6 +4,7 @@ TeX Sandbox
 A collection of various TeX snippets (mostly LaTeX so far), proofs of concept,
 tutorials, and so on and so forth.
 
+
 Topics
 ------
 
@@ -35,7 +36,7 @@ Topics
 * **minipages**: A descent  into  the  abyss which  is  the  dark  sorcery  of
   minipages.
 * **pgfplots**: How to import and plot tabular data from external files.
-* **tables**: Lapo Mori has written 
+* **tables**: Lapo Mori has written
   [a pretty decent and reasonably compact introduction](https://www.tug.org/pracjourn/2007-1/mori/mori.pdf)
   to  the  topic of  tables,  particularly  which  packages are available  and
   suitable for different use  cases. It is a few years old,  but still gives a
@@ -47,6 +48,7 @@ Topics
   * **full-page-picture**: a way to get pictures to cover an entire page using
     Ti*k*Z
 
+
 License
 -------
 
@@ -54,12 +56,14 @@ Unless   otherwise    noted,   the    contents   of   this    repository   are
 MIT-licensed. Content  not  created by  me  falls  under  the license  of  its
 respective creator.
 
+
 Priority List
 -------------
 
 **High**:
 * bibliography
 * circuits
+* plotting: matlab2tikz
 
 **Medium**:
 * references, captions, labels
