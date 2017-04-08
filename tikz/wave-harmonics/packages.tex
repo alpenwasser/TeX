@@ -1,0 +1,185 @@
+% -------------------------------------------------------- %
+% NOTE: There   are  two   kinds  of   packages  in   this %
+% document. On ond hand, there  are those which are needed %
+% for this  template to function at  as intended. It might %
+% still  compile without  them,  but it  will probably  no %
+% longer look as it should.                                %
+%                                                          %
+% On the other hand, there are those which I have found to %
+% be useful over the years  and tend to commonly use.  You %
+% may or may  not need those.  Feel free  to disable those %
+% you do not need.                                         %
+%                                                          %
+% By default,  I recommend leaving the  following packages %
+% enabled:                                                 %
+% - fontenc: for output font encoding                      %
+% - inputenc: for using  non-standard characters in input, %
+%   such as Umlauts or other accented characters           %
+% - graphicx:  needed for  the  chapter  style (based  on  %
+%   veelo)                                                 %
+%                                                          %
+% Feel free to  disable and enable the  rest as needed. If %
+% the document no longer compiles or breaks aesthetically, %
+% you will notice soon enough...                           %
+% -------------------------------------------------------- %
+
+
+% -------------------------------------------------------- %
+% General Packages                                         %
+% -------------------------------------------------------- %
+\usepackage[T1]{fontenc}     % output encoding
+\usepackage[utf8]{inputenc}  % input encoding
+\usepackage[ngerman]{babel}
+\usepackage{lipsum}          % filler text
+\usepackage{graphicx}
+\usepackage{amsmath}         % for reasonable math typesetting
+\usepackage{pdfpages}        % include pdf documents
+\usepackage{adjustbox}       % helps w/ minipage alignmant
+\usepackage{pbox}            % boxes w/ line breaks in tables
+\usepackage[textsize=footnotesize, textwidth = 37mm, german, colorinlistoftodos]{todonotes}
+\usepackage{calc}            % used for calculating margins and widths for A3 pages
+\usepackage[separate-uncertainty=true]{siunitx}
+\usepackage[light]{kpfonts}
+\usepackage{counttexruns}
+\usepackage[european,siunitx,cuteinductors]{circuitikz}
+\usepackage{adjustbox}
+\usepackage{microtype}
+\usepackage{colortbl}
+%\usepackage{amsfonts}        % not sure yet if we need this
+%\usepackage{caption}         % captions outside float environments, overrides memoir's caption facilities
+%\usepackage{subcaption} % same as the caption package, seems to override memoir's own caption configs
+%\usepackage{datetime2}
+\usepackage{wrapfig}
+\usepackage{listings}
+%\usepackage{titletoc}        % TOC per chapter
+
+%\overfullrule=2cm
+
+% -------------------------------------------------------- %
+% xcolor  and kvoptions  are  loaded by  xcolor-solarized. %
+% If   you  require   special   options   for  these   two %
+% packages,  uncomment  these  two lines  and  pass  those %
+% options. Otherwise  leave them  commented out  since the %
+% packages are loaded anyway.                              %
+% -------------------------------------------------------- %
+%\usepackage{xcolor}
+%\usepackage{kvoptions}
+%\usepackage[prefix=sol]{xcolor-solarized}
+\usepackage{xcolor-solarized}
+
+% -------------------------------------------------------- %
+% Draft Watermark                                          %
+%                                                          %
+% Prints  a watermark  across the  page, marking  it as  a %
+% draft.                                                   %
+% -------------------------------------------------------- %
+%\usepackage{draftwatermark}
+%\SetWatermarkText{Entwurf, \today}
+%\SetWatermarkScale{0.5}
+%\usepackage[final]{draftwatermark} % removes watermark
+
+
+
+% -------------------------------------------------------- %
+% TIKZ and PGF                                             %
+%                                                          %
+% TODO: See if this  should be put in a  separate file, or %
+% if  having  it  here makes  sense. Alternatively,  these %
+% documents might not need to be set globally at all.      %
+% -------------------------------------------------------- %
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{graphs}
+\usetikzlibrary{spy}
+\usetikzlibrary{fit}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.symbols}
+\usetikzlibrary{decorations.pathmorphing}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+%\usepgfplotslibrary{units}
+\usetikzlibrary{pgfplots.units}
+\pgfplotsset{compat=1.10}
+\pgfplotsset{max space between ticks=80pt}
+\pgfplotsset{max space between ticks=80pt}
+\pgfplotsset{try min ticks=5}
+\pgfplotsset{
+    tick label style={font=\small},
+    label style={font=\small},
+    legend style={font=\footnotesize}
+}
+\pgfplotsset{every axis plot/.append style={%
+    line width=0.5pt}}
+\usepgfplotslibrary{colormaps}
+
+\usepackage{bytefield}
+
+
+% -------------------------------------------------------- %
+% Conditionals                                             %
+% -------------------------------------------------------- %
+% http://tex.stackexchange.com/questions/5894/latex-conditional-expression
+\usepackage{etoolbox}
+
+% -------------------------------------------------------- %
+% Packages which might be used under certain circumstances %
+% -------------------------------------------------------- %
+%\usepackage{geometry}
+%\usepackage[english]{babel}
+%\usepackage{kpfonts}
+
+% -------------------------------------------------------- %
+% Set link  colors and  all that good  stuff. See hyperref %
+% manual for more info and options if you wish.            %
+% -------------------------------------------------------- %
+\newtoggle{paper}
+%\toggletrue{paper} % we're printing on paper
+\togglefalse{paper} % we're making an electronic version
+
+\iftoggle{paper}{%
+    % ---------------------------------------------------- %
+    % If  we're  printing on  paper,  don't  do any  fancy %
+    % coloring for links and such.                         %
+    % ---------------------------------------------------- %
+    \usepackage[%
+        bookmarksnumbered=true,
+        colorlinks=true,
+        linkcolor=black,
+        citecolor=black,
+        urlcolor=black,
+        %hidelinks=false,
+    ]{hyperref}
+}{%
+    % ---------------------------------------------------- %
+    % If  we're  creating  an electronic  version  of  our %
+    % document, color links as follows.                    %
+    % ---------------------------------------------------- %
+    \usepackage[%
+        bookmarksnumbered=true,
+        colorlinks=true,
+        linkcolor=blue,
+        citecolor=solarized-cyan,
+        urlcolor=purple,
+        %hidelinks=false,
+    ]{hyperref}
+}
+
+% -------------------------------------------------------- %
+% Input Listing Formatting                                 %
+% -------------------------------------------------------- %
+\lstdefinestyle{txt}{
+    aboveskip           = 3mm,
+    belowskip           = 3mm,
+    showstringspaces    = false,
+    columns             = flexible,
+    keepspaces          = true,
+    basicstyle          = {\scriptsize\ttfamily},
+    numbers             = left,
+    numberstyle         = \tiny\color{gray},
+    breaklines          = true,
+    breakatwhitespace   = true,
+    tabsize             = 3
+}

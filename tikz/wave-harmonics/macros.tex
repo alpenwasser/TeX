@@ -1,0 +1,31 @@
+\def\code#1{\texttt{#1}}
+\def\quelleVA{\emph{Quelle:} Versuchsanleitung}
+\def\anweisung{\emph{Anmerkung f\"ur Autoren: }}
+\def\Raspi{Raspberry Pi}
+\def\ISC{I\textsuperscript{2}C}
+
+
+\definecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{darkblue}{rgb}{0.6,0.6,1}
+\definecolor{darkgray}{gray}{0.4}
+% checkmark
+\newcommand{\checkmark}{\tikz\fill[fill=black!30!green,scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+% partially fulfilled
+\newcommand{\partially}{\tikz\fill[fill=darkblue,scale=0.4](.5,0) -- (.55,.28) -- (.8,.33) -- (.55,.38) -- (.55,.62) -- (.8,.67) -- (.55,.72) -- (.5,1) -- (.45,.72) -- (.2,.67) -- (.45,.62) -- (.45,.38) -- (.2,.33) -- (.45,.28) -- cycle;}
+% no indication
+\newcommand{\noi}{\textcolor{darkgray}{\small\textsf{---}}}
+% not present
+\newcommand{\np}{\tikz\fill[fill=darkred,scale=0.4](0,0) -- (.5,.4) -- (1,0) -- (.6,.5) -- (1,1) -- (.5,.6) -- (0,1) -- (.4,.5) -- cycle;}
+%\newcommand{\nv}{\textcolor{darkred}{$×$}}
+
+\newcommand{\Sensor}{Sensor}
+\newcommand{\Master}{Master-Ger\"at}
+
+\newcommand{\myfancybreaksymbol}{\Diamond}
+\newcommand{\myfancybreak}{\fancybreak{$\myfancybreaksymbol\quad\myfancybreaksymbol\quad\myfancybreaksymbol$}}
+
+\newlength{\parindentbak}
+
+\newcommand{\colorbitbox}[4]{%
+    \rlap{\bitbox{#3}{\color{#1}\rule{\width}{\height}}}%
+    \bitbox{#3}{\sffamily\textcolor{#2}{#4}}}

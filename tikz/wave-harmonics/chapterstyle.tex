@@ -1,0 +1,40 @@
+% -------------------------------------------------------- %
+% This  chapterstyle is  baesd on  veelo, but  removes the %
+% "Chapter" designation in front of the chapter number.    %
+% -------------------------------------------------------- %
+%
+% TODO: Check if this is allowed by the  LPPL, under which
+% 'memoir.cls' is distributed, which contains the original
+% code for the veelo chapter style.
+%
+% http://www.latex-project.org/lppl.txt
+%
+% If this is not permitted, implement alternative via this:
+% http://tex.stackexchange.com/questions/51527/chapter-heading-with-the-word-chapter-replaced-by-chapter-name
+
+\makeatletter
+\makechapterstyle{fhnw}{%
+    \setlength{\afterchapskip}{40pt}
+    \renewcommand*{\chapterheadstart}{\vspace*{40pt}}
+    \renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
+    \renewcommand*{\chapnamefont}{\sffamily\LARGE\flushright}
+    \renewcommand*{\chapnumfont}{\sffamily\HUGE}
+    \renewcommand*{\chaptitlefont}{\sffamily\HUGE\bfseries\flushright}
+    \renewcommand*{\printchaptername}{%
+        \chapnamefont\MakeTextUppercase{}}
+    \renewcommand*{\chapternamenum}{}
+    \setlength{\beforechapskip}{18mm}%  \numberheight
+    \setlength{\midchapskip}{\paperwidth}% \barlength
+    \addtolength{\midchapskip}{-\textwidth}
+    \addtolength{\midchapskip}{-\spinemargin}
+    \renewcommand*{\printchapternum}{%
+        \makebox[0pt][l]{%
+            \hspace{.8em}%
+            \resizebox{!}{\beforechapskip}{\chapnumfont \thechapter}%
+            \hspace{.8em}%
+            \rule{\midchapskip}{\beforechapskip}%
+        }%
+    }%
+   \makeoddfoot{plain}{}{}{\thepage}%
+}
+\makeatother

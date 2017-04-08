@@ -1,0 +1,128 @@
+% -------------------------------------------------------- %
+% This file contains various options for the memoir class  %
+% itself.                                                  %
+% -------------------------------------------------------- %
+
+
+% -------------------------------------------------------- %
+% Rename Appendices to whatever we want.                   %
+% See p78 of memman.pdf                                    %
+% -------------------------------------------------------- %
+\def\appendixpagename{\sffamily\HUGE Anh\"ange}
+\def\appendixtocname{Anh\"ange}
+
+% -------------------------------------------------------- %
+% Choose a page layout                                     %
+% -------------------------------------------------------- %
+%                                                          %
+% The  layout  is based  on isopage,  with  the  following %
+% changes:                                                 %
+% - The spine margin is 30 mm. This is so that binding the %
+% document with  a ringbinder does  not come too  close to %
+% the text.                                                %
+% - The edge  margin is  1.5 times the spine  margin, i.e. %
+% 45 mm.                                                   %
+% - The top margin is 1/9  of the paper height, same as in %
+% \isopage                                                 %
+% - The bottom margin is decreased from isopage's value to %
+% 1.5 times the top margin, i.e. about 50 mm.              %
+% -------------------------------------------------------- %
+
+%    +----------^--------------------+
+%    |          | 33mm               |
+%    |     +----v------------+       |
+%    |30mm |                 | 45mm  |
+%    |<--->|                 |<----->|
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     +----^------------+       |
+%    |          | 49.5mm             |
+%    |          |                    |
+%    +----------v--------------------+
+\isopage%
+\setlrmarginsandblock{0.142857111\paperwidth}{0.190476190\paperwidth}{*}
+\setulmarginsandblock{0.111111111\paperheight}{*}{1.5}%
+\checkandfixthelayout%
+
+
+% -------------------------------------------------------- %
+% Choose a chapter style                                   %
+% We're  going  with  veelo, but  removing  the  "Chapter" %
+% designation in front of the chapter number.              %
+% -------------------------------------------------------- %
+\input{preamble/chapterstyle.tex}
+\chapterstyle{fhnw} % requires graphicx package
+
+\setsecheadstyle{\Large\bfseries\sffamily}
+\setsubsecheadstyle{\large\bfseries\sffamily}
+\setsubsubsecheadstyle{\bfseries\sffamily}
+
+% -------------------------------------------------------- %
+% Pagestyle (Headers, Footers)                             %
+% -------------------------------------------------------- %
+\pagestyle{headings}
+
+% -------------------------------------------------------- %
+% Cross Referencing Stuff                                  %
+% -------------------------------------------------------- %
+
+% Apparently these are not automatically translated into
+% German by babel:
+\def\figurerefname{Abbildung}
+\def\tablerefname{Tabelle}
+\def\pagerefname{Seite}
+
+% -------------------------------------------------------- %
+% Caption Configurations                                   %
+% -------------------------------------------------------- %
+\captionnamefont{\bfseries\small}
+\captiontitlefont{\small}
+\captiondelim{: }
+
+% Captions for use outside of floats
+\newfixedcaption{\figcaption}{figure}
+\newfixedcaption{\tabcaption}{table}
+
+% -------------------------------------------------------- %
+% Define  what  sort  of  sectional  divisions  should  be %
+% numbered.  See also "Document Divisions -- Numbering" in %
+% the memoir manual.                                       %
+%                                                          %
+%            Division            |  Level                  %
+%          ----------------------+---------                %
+%            \book               |  -2                     %
+%            \part               |  -1                     %
+%            \chapter            |   0                     %
+%            \section            |   1                     %
+%            \subsection         |   2                     %
+%            \subsubsection      |   3                     %
+%            \paragraph          |   4                     %
+%            \subparagraph       |   5                     %
+%                                                          %
+% \setsecnumdepth{<division>} sets  division numberings so %
+% that <division>  and above will be  numbered.  When used %
+% in  the preamble  (such as  here), \setsecnumdepth  also %
+% calls \maxsecnumdepth, which is the numbering level used %
+% in the \mainmatter part of the document. \setsecnumdepth %
+% can be used anywhere  in the mainmatter to (temporarily) %
+% change the numbering level.                              %
+%                                                          %
+% This template  uses chapters, sections,  subsections and %
+% subsubsections  by default,  so  we  will set  numbering %
+% level to subsubsection per default. Adjust as needed. We %
+% will set this to subsubsection per default.              %
+% -------------------------------------------------------- %
+\setsecnumdepth{subsubsection}
+\maxsecnumdepth{subsubsection}
+\settocdepth{subsubsection}
+\maxtocdepth{subsubsection}
