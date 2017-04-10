@@ -1,0 +1,443 @@
+\documentclass[a4paper,oneside,11pt]{memoir}
+
+\newif\ifhex
+\hextrue
+
+% ============================================================================ %
+% MEMOIR SETUP                                                                 %
+% ============================================================================ %
+
+% -------------------------------------------------------- %
+% Choose a page layout                                     %
+% -------------------------------------------------------- %
+%                                                          %
+% - The spine margin is 30 mm. This is so that binding the %
+% document with  a ringbinder does  not come too  close to %
+% the text.                                                %
+% - The edge  margin is  1.5 times the spine  margin, i.e. %
+% 45 mm.                                                   %
+% - The top margin is 1/9  of the paper height, same as in %
+% \isopage                                                 %
+% - The bottom margin is decreased from isopage's value to %
+% 1.5 times the top margin, i.e. about 50 mm.              %
+% -------------------------------------------------------- %
+%    +----------^--------------------+
+%    |          | 33mm               |
+%    |     +----v------------+       |
+%    |30mm |                 | 45mm  |
+%    |<--->|                 |<----->|
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     |                 |       |
+%    |     +----^------------+       |
+%    |          | 49.5mm             |
+%    |          |                    |
+%    +----------v--------------------+
+\isopage%
+\setlrmarginsandblock{0.142857111\paperwidth}{0.190476190\paperwidth}{*}
+\setulmarginsandblock{0.111111111\paperheight}{*}{1.5}%
+\checkandfixthelayout%
+
+% -------------------------------------------------------- %
+% Pagestyle (Headers, Footers)                             %
+% -------------------------------------------------------- %
+\pagestyle{headings}
+
+% -------------------------------------------------------- %
+% Choose a chapter style                                   %
+% We're  going  with  veelo, but  removing  the  "Chapter" %
+% designation in front of the chapter number.              %
+% -------------------------------------------------------- %
+
+\newcommand\setupfadings{%
+    \pgfmathsetmacro{\numberOfHorizSides}{12}%
+    \pgfmathtruncatemacro\numberOfHorizElements{round(\numberOfHorizSides * 5 / 4)}
+    \pgfmathsetmacro{\maxElementNumber}{\numberOfHorizSides - 1}%
+    \pgfmathsetmacro{\side}{0.5\paperwidth/\maxElementNumber}%
+    \pgfmathcos{30}%
+    \pgfmathsetmacro{\height}{\pgfmathresult * \side}%
+    \foreach \j in {0,...,\maxElementNumber}{%
+        \pgfmathsetmacro{\leftTransp} {100 *  \j    / \numberOfHorizSides}%
+        \pgfmathsetmacro{\rightTransp}{100 * (\j+1) / \numberOfHorizSides}%
+        \tikzfading[name=hexfade \j,right color=transparent!\rightTransp,left color=transparent!\leftTransp]%
+    }%
+}
+
+\newcommand\hexagons{%
+    \setupfadings
+    \tikzset{external/export next=false}%
+    %\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt,scale=0.6,transform canvas={xshift=2cm,yshift=-2cm}]
+    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+        \pgfmathtruncatemacro\iterstop{floor(\numberOfHorizElements / 2)}
+        \pgfmathtruncatemacro\iterstopvert{floor(\numberOfHorizElements / 3 )}
+        \foreach \n in {0,...,\iterstopvert} {%
+            \foreach \m in {0,...,\iterstop} {%
+                \pgfmathtruncatemacro\k{round(\m + 1)}
+                \fill[br0,draw=br1,path fading=hexfade \k]
+                    ($(current page.north west) + (1.5 * \side + 3 * \m * \side,+0.866025 * \side - \n * 1.732051 * \side)$)
+                    -- ++(   0:\side) 
+                    -- ++( -60:\side) 
+                    -- ++(-120:\side)
+                    -- ++(-180:\side)
+                    -- ++(-240:\side) -- cycle;
+                \fill[br0,draw=br1,path fading=hexfade \m]
+                    ($(current page.north west) + (0 * \side + 3 * \m * \side,-\n * 1.732051 * \side)$)
+                    -- ++(   0:\side) 
+                    -- ++( -60:\side) 
+                    -- ++(-120:\side)
+                    -- ++(-180:\side)
+                    -- ++(-240:\side) -- cycle;
+            }%
+        }%
+    \end{tikzpicture}%
+}
+
+\newcommand\chapnumhexagons{%
+    \setupfadings
+    \tikzset{external/export next=false}
+    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+        \foreach \n in {1,...,\thechapter} {%
+            \pgfkeysgetvalue{/chapter \thechapter/hexagon \n/x}{\randNumHoriz}
+            \pgfkeysgetvalue{/chapter \thechapter/hexagon \n/y}{\randNumVert}
+            \pgfmathmod{\randNumHoriz}{2}
+            \pgfmathtruncatemacro\fadingIndex{floor(\randNumHoriz / 2)}
+            \pgfmathsetmacro\offsetVert{\pgfmathresult}
+            \fill[dv-7,draw=br1,path fading=hexfade \fadingIndex]
+                ($(current page.north west) + (1.5 * \randNumHoriz * \side,- 0.866025 * \offsetVert * \side - \randNumVert * 1.732051 * \side)$)
+                -- ++(   0:\side) 
+                -- ++( -60:\side) 
+                -- ++(-120:\side)
+                -- ++(-180:\side)
+                -- ++(-240:\side) -- cycle;
+        }%
+        % Fade from below:
+    \end{tikzpicture}%
+}
+
+\newcommand\appendixnumhexagons{%
+    \setupfadings
+    \tikzset{external/export next=false}
+    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+        \foreach \n in {A,...,\thechapter} {%
+            \pgfkeysgetvalue{/appendix \thechapter/hexagon \n/x}{\randNumHoriz}
+            \pgfkeysgetvalue{/appendix \thechapter/hexagon \n/y}{\randNumVert}
+            \pgfmathmod{\randNumHoriz}{2}
+            \pgfmathtruncatemacro\fadingIndex{floor(\randNumHoriz / 2)}
+            \pgfmathsetmacro\offsetVert{\pgfmathresult}
+            \fill[ct4,draw=br1,path fading=hexfade \fadingIndex]
+                ($(current page.north west) + (1.5 * \randNumHoriz * \side,- 0.866025 * \offsetVert * \side - \randNumVert * 1.732051 * \side)$)
+                -- ++(   0:\side) 
+                -- ++( -60:\side) 
+                -- ++(-120:\side)
+                -- ++(-180:\side)
+                -- ++(-240:\side) -- cycle;
+        }%
+    \end{tikzpicture}%
+}
+
+\newcommand\bottomscreen{%
+    \setupfadings
+    \tikzset{external/export next=false}%
+    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+        \fill[white,path fading=north]%
+            ($(current page.north west) - (0pt, 10.5 * \side)$) rectangle ($(current page.north east) - (0pt,2 * \side)$);%
+    \end{tikzpicture}%
+}
+
+\newlength{\edgewidth}
+\makeatletter
+\makechapterstyle{alpenthesis}{%
+    % Lengths
+    \setlength{\afterchapskip}{40pt}
+    \renewcommand*{\chapterheadstart}{\ifhex\hexagons\fi\vspace*{40pt}}
+    \renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
+    \setlength{\beforechapskip}{18mm}%  \numberheight
+    \setlength{\midchapskip}{\paperwidth}% \barlength
+    \addtolength{\midchapskip}{-\textwidth}
+    \addtolength{\midchapskip}{-\spinemargin}
+    % Fonts
+    \renewcommand*{\chapnamefont}{\sffamily\LARGE\flushright}
+    \renewcommand*{\chapnumfont}{\sffamily\HUGE}
+    \renewcommand*{\chaptitlefont}{\sffamily\HUGE\flushright}
+    % Output:
+    \renewcommand*\printchaptertitle{\chaptitlefont}%
+    \renewcommand*{\printchaptername}{%
+        \ifhex\chapnumhexagons\fi%
+        \bottomscreen%
+        \chapnamefont\MakeTextUppercase{\@chapapp}%
+    }
+    \renewcommand*\printchapternonum{\bottomscreen}
+    % What comes between chaptername and the number:
+    \renewcommand*{\chapternamenum}{}
+    % Print chapter number etc.
+    \renewcommand*{\printchapternum}{%
+        \setlength{\edgewidth}{\marginparwidth}%
+        \addtolength{\edgewidth}{\marginparsep}%
+        \makebox[0pt][l]{%
+            \hspace{.8em}%
+            \resizebox{!}{\beforechapskip}{\chapnumfont \thechapter}%
+            \hspace{.8em}%
+            %\rule{\midchapskip}{\beforechapskip}%
+        }%
+   }%
+   \makeoddfoot{plain}{}{}{\thepage}}%
+\makechapterstyle{alpenappendix}{%
+    % Lengths
+    \setlength{\afterchapskip}{40pt}
+    \renewcommand*{\chapterheadstart}{\ifhex\hexagons\fi\vspace*{40pt}}
+    \renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
+    \setlength{\beforechapskip}{18mm}%  \numberheight
+    \setlength{\midchapskip}{\paperwidth}% \barlength
+    \addtolength{\midchapskip}{-\textwidth}
+    \addtolength{\midchapskip}{-\spinemargin}
+    % Fonts
+    \renewcommand*{\chapnamefont}{\sffamily\LARGE\flushright}
+    \renewcommand*{\chapnumfont}{\sffamily\HUGE}
+    \renewcommand*{\chaptitlefont}{\sffamily\HUGE\flushright}
+    % Output:
+    \renewcommand*\printchaptertitle{\chaptitlefont}%
+    \renewcommand*{\printchaptername}{%
+        \ifhex\appendixnumhexagons\fi%
+        \bottomscreen%
+        \chapnamefont\MakeTextUppercase{\@chapapp}%
+    }
+    \renewcommand*\printchapternonum{\bottomscreen}
+    % What comes between chaptername and the number:
+    \renewcommand*{\chapternamenum}{}
+    % Print chapter number etc.
+    \renewcommand*{\printchapternum}{%
+        \setlength{\edgewidth}{\marginparwidth}%
+        \addtolength{\edgewidth}{\marginparsep}%
+        \makebox[0pt][l]{%
+            \hspace{.8em}%
+            \resizebox{!}{\beforechapskip}{\chapnumfont \thechapter}%
+            \hspace{.8em}%
+            %\rule{\midchapskip}{\beforechapskip}%
+        }%
+   }%
+   \makeoddfoot{plain}{}{}{\thepage}}%
+\makeatother
+\chapterstyle{alpenthesis} % requires graphicx package
+
+%\newcommand{\chapterheadstart}{\vspace*{\beforechapskip}}
+%\newcommand{\printchaptername}{\chapnamefont \@chapapp}
+%\newcommand{\chapternamenum}{\space}
+%\newcommand{\printchapternum}{\chapnumfont \thechapter}
+%\newcommand{\afterchapternum}{\par\nobreak\vskip \midchapskip}
+%\newcommand{\printchapternonum}{}
+%\newcommand{\printchaptertitle}[1]{\chaptitlefont #1}
+%\newcommand{\afterchaptertitle}{\par\nobreak\vskip \afterchapskip}
+%\newcommand{\chapnamefont}{\normalfont\huge\bfseries}
+%\newcommand{\chapnumfont}{\normalfont\huge\bfseries}
+%\newcommand{\chaptitlefont}{\normalfont\Huge\bfseries}
+%\setlength{\beforechapskip}{50pt}
+%\setlength{\midchapskip}{20pt}
+%\setlength{\afterchapskip}{40pt}
+
+
+% ============================================================================ %
+% PACKAGES                                                                     %
+% ============================================================================ %
+\usepackage{xcolor-solarized}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{fadings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\tikzfading[name=topbot,top color=transparent!0,bottom color=transparent!100]
+\usepackage{lipsum}
+\usepackage[nott,light]{kpfonts}
+\usepackage{lettrine}
+\usepackage{graphicx}
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=cache/,optimize command away=\includepdf]
+\usepackage{ifthen}
+
+% ============================================================================ %
+% RANDOM INTEGERS                                                              %
+% ============================================================================ %
+\input{randInts.tex}
+
+% ============================================================================ %
+% COLORS                                                                       %
+% ============================================================================ %
+\definecolor{da0}{HTML}{002B36}
+\definecolor{da1}{HTML}{073642}
+\definecolor{da2}{HTML}{008080}
+\definecolor{da3}{HTML}{800080}
+\definecolor{da4}{HTML}{404040}
+\definecolor{ct0}{HTML}{CB4B16}
+\definecolor{ct1}{HTML}{DC322F}
+\definecolor{ct2}{HTML}{DC3682}
+\definecolor{ct3}{HTML}{268BD2}
+\definecolor{ct4}{HTML}{2AA198}
+\definecolor{ct5}{HTML}{B58900}
+\definecolor{ct6}{HTML}{859900}
+\definecolor{br0}{HTML}{BEB9AA}
+\definecolor{br1}{HTML}{EEE8D5}
+\definecolor{br2}{HTML}{FDF6E3}
+\definecolor{sq0}{HTML}{F7FBFF}
+\definecolor{sq1}{HTML}{EFF3FF}
+\definecolor{sq2}{HTML}{DECDF7}
+\definecolor{sq3}{HTML}{C6DBEF}
+\definecolor{sq4}{HTML}{BDD7E7}
+\definecolor{sq5}{HTML}{9ECAE1}
+\definecolor{sq6}{HTML}{6BAED6}
+\definecolor{sq7}{HTML}{4292C6}
+\definecolor{sq8}{HTML}{3182BD}
+\definecolor{sq9}{HTML}{2171B5}
+\definecolor{sqA}{HTML}{08519C}
+\definecolor{sqB}{HTML}{084594}
+\definecolor{sqC}{HTML}{08306B}
+\definecolor{dv-7}{HTML}{8E0152}
+\definecolor{dv-6}{HTML}{C51B7D}
+\definecolor{dv-5}{HTML}{D01C8B}
+\definecolor{dv-4}{HTML}{DE77AE}
+\definecolor{dv-3}{HTML}{E9A3C9}
+\definecolor{dv-2}{HTML}{F1B6DA}
+\definecolor{dv-1}{HTML}{FDE0EF}
+\definecolor{dv+0}{HTML}{F7F7F7}
+\definecolor{dv+1}{HTML}{D1E5F0}
+\definecolor{dv+2}{HTML}{92C5DE}
+\definecolor{dv+3}{HTML}{67A9CF}
+\definecolor{dv+4}{HTML}{4393C3}
+\definecolor{dv+5}{HTML}{0571B0}
+\definecolor{dv+6}{HTML}{2166AC}
+\definecolor{dv+7}{HTML}{053061}
+\definecolor{q0}{named}{ct3}
+\definecolor{q1}{named}{sqB}
+\definecolor{q2}{named}{ct2}
+\definecolor{q3}{named}{da3}
+\definecolor{q4}{HTML}{FEC44F}
+\definecolor{q5}{named}{ct0}
+\definecolor{q6}{HTML}{80EA82}
+\definecolor{q7}{HTML}{2E7D32}
+
+\title{Hexagon-Inspired Chapter Style}
+\author{Raphael Frey}
+
+% **************************************************************************** %
+\begin{document}
+% **************************************************************************** %
+
+\begin{titlingpage}
+    \maketitle
+\end{titlingpage}
+
+\frontmatter
+\begin{abstract}
+    \lipsum[1-2]
+\end{abstract}
+\newpage
+\tableofcontents*
+
+\mainmatter
+\chapter{This Is the First Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{This Is the Second Chapter With a Longer Title}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Third Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Fourth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Fifth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Sixth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Seventh Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Eigth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Ninth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Tenth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Eleventh Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Twelfth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Thirteenth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Fourteenth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Fifteenth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Sixteenth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Seventeenth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Eighteenth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Nineteenth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\chapter{Twentieth Chapter}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+
+\appendixpage
+\appendix
+\chapterstyle{alpenappendix}
+\chapter{First Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Second Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Third Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Fourth Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Fifth Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Sixth Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Seventh Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Eigth Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Ninth Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{Tenth Appendix}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\backmatter
+\chapter{Backmatter Stuff}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+
+\chapter{More Backmatter Stuff}
+\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+\end{document}
