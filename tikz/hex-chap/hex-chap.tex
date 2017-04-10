@@ -75,7 +75,6 @@
 \newcommand\hexagons{%
     \setupfadings
     \tikzset{external/export next=false}%
-    %\begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt,scale=0.6,transform canvas={xshift=2cm,yshift=-2cm}]
     \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
         \pgfmathtruncatemacro\iterstop{floor(\numberOfHorizElements / 2)}
         \pgfmathtruncatemacro\iterstopvert{floor(\numberOfHorizElements / 3 )}
@@ -157,27 +156,27 @@
 \makeatletter
 \makechapterstyle{alpenthesis}{%
     % Lengths
-    \setlength{\afterchapskip}{40pt}
-    \renewcommand*{\chapterheadstart}{\ifhex\hexagons\fi\vspace*{40pt}}
-    \renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
-    \setlength{\beforechapskip}{18mm}%  \numberheight
-    \setlength{\midchapskip}{\paperwidth}% \barlength
-    \addtolength{\midchapskip}{-\textwidth}
-    \addtolength{\midchapskip}{-\spinemargin}
+    \setlength{\afterchapskip}{40pt}%
+    \renewcommand*{\chapterheadstart}{\ifhex\hexagons\fi\vspace*{40pt}}%
+    \renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}%
+    \setlength{\beforechapskip}{18mm}%
+    \setlength{\midchapskip}{\paperwidth}%
+    \addtolength{\midchapskip}{-\textwidth}%
+    \addtolength{\midchapskip}{-\spinemargin}%
     % Fonts
-    \renewcommand*{\chapnamefont}{\sffamily\LARGE\flushright}
-    \renewcommand*{\chapnumfont}{\sffamily\HUGE}
-    \renewcommand*{\chaptitlefont}{\sffamily\HUGE\flushright}
+    \renewcommand*{\chapnamefont}{\sffamily\LARGE\flushright}%
+    \renewcommand*{\chapnumfont}{\sffamily\HUGE}%
+    \renewcommand*{\chaptitlefont}{\sffamily\HUGE\flushright}%
     % Output:
     \renewcommand*\printchaptertitle{\chaptitlefont}%
     \renewcommand*{\printchaptername}{%
         \ifhex\chapnumhexagons\fi%
         \bottomscreen%
         \chapnamefont\MakeTextUppercase{\@chapapp}%
-    }
-    \renewcommand*\printchapternonum{\bottomscreen}
+    }%
+    \renewcommand*\printchapternonum{\bottomscreen}%
     % What comes between chaptername and the number:
-    \renewcommand*{\chapternamenum}{}
+    \renewcommand*{\chapternamenum}{}%
     % Print chapter number etc.
     \renewcommand*{\printchapternum}{%
         \setlength{\edgewidth}{\marginparwidth}%
@@ -192,17 +191,17 @@
    \makeoddfoot{plain}{}{}{\thepage}}%
 \makechapterstyle{alpenappendix}{%
     % Lengths
-    \setlength{\afterchapskip}{40pt}
-    \renewcommand*{\chapterheadstart}{\ifhex\hexagons\fi\vspace*{40pt}}
-    \renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
-    \setlength{\beforechapskip}{18mm}%  \numberheight
-    \setlength{\midchapskip}{\paperwidth}% \barlength
-    \addtolength{\midchapskip}{-\textwidth}
-    \addtolength{\midchapskip}{-\spinemargin}
+    \setlength{\afterchapskip}{40pt}%
+    \renewcommand*{\chapterheadstart}{\ifhex\hexagons\fi\vspace*{40pt}}%
+    \renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}%
+    \setlength{\beforechapskip}{18mm}%
+    \setlength{\midchapskip}{\paperwidth}%
+    \addtolength{\midchapskip}{-\textwidth}%
+    \addtolength{\midchapskip}{-\spinemargin}%
     % Fonts
-    \renewcommand*{\chapnamefont}{\sffamily\LARGE\flushright}
-    \renewcommand*{\chapnumfont}{\sffamily\HUGE}
-    \renewcommand*{\chaptitlefont}{\sffamily\HUGE\flushright}
+    \renewcommand*{\chapnamefont}{\sffamily\LARGE\flushright}%
+    \renewcommand*{\chapnumfont}{\sffamily\HUGE}%
+    \renewcommand*{\chaptitlefont}{\sffamily\HUGE\flushright}%
     % Output:
     \renewcommand*\printchaptertitle{\chaptitlefont}%
     \renewcommand*{\printchaptername}{%
@@ -210,9 +209,9 @@
         \bottomscreen%
         \chapnamefont\MakeTextUppercase{\@chapapp}%
     }
-    \renewcommand*\printchapternonum{\bottomscreen}
+    \renewcommand*\printchapternonum{\bottomscreen}%
     % What comes between chaptername and the number:
-    \renewcommand*{\chapternamenum}{}
+    \renewcommand*{\chapternamenum}{}%
     % Print chapter number etc.
     \renewcommand*{\printchapternum}{%
         \setlength{\edgewidth}{\marginparwidth}%
