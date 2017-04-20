@@ -4,7 +4,7 @@
 %                                                          %
 % Purpose of Document                                      %
 % -------------------                                      %
-% Introductory Presentation on LaTeX                       %
+% Some Specific Remarks on LaTeX                           %
 %                                                          %
 % Institution                                              %
 % -----------                                              %
@@ -24,12 +24,13 @@
 % ******************************************************** %
 
 \documentclass{beamer}                % Presentation Version
-%\documentclass[handout]{beamer}      % Handout Version
+%\documentclass[trans]{beamer}         % Transparency Version
+%\documentclass[handout]{beamer}       % Handout Version
 
 % Beamer Setup --------------------------------------------------------------- %
-%\addtobeamertemplate{background canvas}{\transdissolve[duration=1]}{}
+%\addtobeamertemplate{background canvas}{\transdissolve[duration=1]\hspace{-0.29em}}{}
 %\usetheme[titleformat=smallcaps,numbering=none]{metropolis}
-\usetheme[titleformat=smallcaps]{metropolis}
+\usetheme[titleformat=smallcaps,progressbar=frametitle]{metropolis}
 
 % Packages ------------------------------------------------------------------- %
 \usepackage[ngerman]{babel}
@@ -39,6 +40,7 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{calc}
 \usetikzlibrary{fit}
+\usetikzlibrary{spy}
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{shapes.symbols}
 \usepackage{hyperref}
@@ -62,23 +64,23 @@
     \tikz[baseline=-0.67ex]\draw[double,very thick,-{stealth}](0,0)--(0.5,0);}
 \newlength{\yOffs}
 \newlength{\xOffs}
-\def\TikZ{Ti\emph{k}Z}
 
 % Title Setup ---------------------------------------------------------------- %
 \title{\vspace*{4em}\Huge\LaTeX}
-\subtitle{\hfill Fallbeispiele}
-\date{\today}
+\subtitle{\hfill Trouble on the Horizon}
+%\date{\today}
+\date{26. April 2017}
 \author{%
     Raphael Frey%
     \hfill%
     \scriptsize\texttt{%
-        \href{mailto:raphael.frey@students.fhnw.ch}%
-        {raphael.frey@students.fhnw.ch}}}
+        \href{mailto:rmfrey@runbox.com}%
+        {rmfrey@runbox.com}}}
 
 %\institute{IME}
 \titlegraphic{\includegraphics[height=2em]{images/fhnwLogoDE-solarized-base02.eps}}
-\subject{LaTeX -- Fallbeispiele}
-\keywords{LaTeX Snippets Examples Primer FHNW}
+\subject{LaTeX -- Kurze Einf\"uhrung}
+\keywords{LaTeX Introduction Primer FHNW Overview}
 %http://web.fhnw.ch/cd/corporate-design/logos-fur-die-hochschulen
 
 % **************************************************************************** %
@@ -88,82 +90,108 @@
 \frame[plain]{\titlepage} % -------------------------------------------- FRAME %
 
 
-\begin{frame}<handout:0> % --------------------------------------------- FRAME %
-    \frametitle{Programm}
-    \tableofcontents
+%\begin{frame}<handout:0> % --------------------------------------------- FRAME %
+%    \frametitle{Programm}
+%    \tableofcontents
+%\end{frame}
+
+
+% ---------------------------------------------------------------------------- %
+%\section<handout:0>{Was und Warum?} % --------------------------------- FRAME %
+% ---------------------------------------------------------------------------- %
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Lohnenswerte Packages}
+    \begin{itemize}
+        \item hyperref
+        \item microtype
+        \item babel/polyglossia
+        \item inputenc
+        \item fontenc, fontspec, luatextra: https://tex.stackexchange.com/a/44701/131649
+    \end{itemize}
 \end{frame}
 
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Bibliographie}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Modulare Dokumente}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Floats}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Farben}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{\texttt{minipages}}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Code Listings}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Externe PDF-Dokumente}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Elektrische Schaltungen zeichnen}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Daten Plotten}
+    \begin{itemize}
+        \item matlab2tikz
+        \item pgfplots
+    \end{itemize}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Alternative Klassen}
+\end{frame}
+
+\begin{frame} % -------------------------------------------------------- FRAME %
+    \frametitle{Support}
+
+    \begin{itemize}
+        \item
+            e-Mail:
+            \texttt{\href{mailto:raphael.frey@students.fhnw.ch}
+            {raphael.frey@students.fhnw.ch}}
+        \item
+            Raum 4.223
+        \item
+            \alert{\href{https://github.com/alpenwasser/TeX/}
+                        {https://github.com/alpenwasser/TeX/}}
+        \item
+            Weiteres Programm: 26. April
+            \begin{itemize}
+                \item
+                    modulare Dokumentstruktur
+                \item
+                    Bibliographie
+                \item
+                    Floats (Tabellen, Bilder, \ldots )
+                \item
+                    PGF/Ti\emph{k}Z
+                %\item
+                %    minipages
+                %\item
+                %    ISO-31
+                \item
+                    Listings, minted, \ldots
+                \item
+                    etc. etc. etc.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
 
 % ---------------------------------------------------------------------------- %
-\section<handout:0>{PGF \& \TikZ} % ------------------------------------ FRAME %
+\section<handout:0| trans:0>*{Fragen?} % ------------------------------- FRAME %
 % ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Circui\TikZ} % ------------------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{PGFPlots} % ---------------------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Farben} % ------------------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Schriftarten} % ------------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Python} % ------------------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Matlab} % ------------------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Code Listings} % ----------------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Tabellen} % ---------------------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Minipages} % --------------------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Bilder} % ------------------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Widows and Orphans} % ------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Babel \& Polyglossia} % ---------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Floats \& Captions} % ------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Formeln: ISO 80000} % ------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{PDF-Dateien integrieren} % ------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>{Modulare Dokumente} % ------------------------------ FRAME %
-% ---------------------------------------------------------------------------- %
-
-% ---------------------------------------------------------------------------- %
-\section<handout:0>*{Fragen?} % ---------------------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
 \end{document}
