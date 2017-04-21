@@ -64,6 +64,13 @@
     \tikz[baseline=-0.67ex]\draw[double,very thick,-{stealth}](0,0)--(0.5,0);}
 \newlength{\yOffs}
 \newlength{\xOffs}
+\newcommand*\code[1]{\texttt{#1}}
+\newcommand\source[1]{%
+    \tikz[remember picture,overlay] 
+        \node[align=left,anchor=south west,text=solarized-base1,font=\tiny]
+        at (current page.south west)
+        {Quelle: #1};
+}
 
 % Title Setup ---------------------------------------------------------------- %
 \title{\vspace*{4em}\Huge\LaTeX}
@@ -113,83 +120,200 @@
 
 \begin{frame} % -------------------------------------------------------- FRAME %
     \frametitle{Bibliographie}
+    \hspace*{-1em}%
+    \begin{tikzpicture}[
+        draw=solarized-base02,
+        text=solarized-base02,
+        rounded corners=2mm,
+        every node/.append style={
+            draw,
+            thick,
+            fill=solarized-base2,
+            % technically not necessary with the global rounded corners option:
+            rounded corners=2mm, 
+            inner sep=2mm,
+            font=\fontsize{9}{10}\selectfont,
+        },
+        inputfile/.style={
+            draw=solarized-orange,
+            double,
+        },
+        signal/.append style={
+            text=solarized-base2,
+            fill=solarized-magenta,
+            rounded corners=1mm,
+        },
+    ]
+        \setlength{\xOffs}{5mm}
+        \setlength{\yOffs}{6mm}
+
+        \node[inputfile] (tex) 
+            {\code{.tex}};
+
+        \node (latex1)
+            [xshift=\xOffs,yshift=-\yOffs,rotate=-45,signal,shape = signal,signal from =west,signal to=east,below right of=tex]
+            {latex};
+
+        \node (aux1) 
+            [xshift=2*\xOffs,yshift=-\yOffs,right of=latex1]
+            {\code{.aux}};
+
+        \node (latex2)
+            [xshift=2.5*\xOffs,signal,shape = signal,signal from =west,signal to=east,right of=aux1]
+            {latex};
+
+        \node (bibtex)
+            [yshift=-\yOffs,signal,shape = signal,signal from =west,signal to=east,below of=aux1]
+            {bibtex};
+
+        \node (aux2) 
+            [xshift=2.5*\xOffs,right of=latex2]
+            {\code{.aux}};
+
+        \node (latex3)
+            %[xshift=\xOffs,yshift=-\yOffs,rotate=-45,signal,shape = signal,signal from =west,signal to=east,below right of=aux2]
+            [xshift=2*\xOffs,rotate=-45,signal,shape = signal,signal from =west,signal to=east,right of=aux2]
+            {latex};
+
+        \node (bbl)
+            [yshift=-\yOffs,below of=latex2]
+            {\code{.bbl}};
+
+        \node[inputfile] (bib)
+            [xshift=-2* \xOffs,left of=bibtex]
+            {\code{.bib}};
+
+        \node[inputfile] (bst)
+            [yshift=-\yOffs,below of=bibtex]
+            {\code{.bst}};
+
+        \node (blg)
+            [yshift=-\yOffs,below of=bbl]
+            {\code{.blg}};
+
+        \node (pdf) 
+            [xshift=8.5 * \xOffs,right of=blg]
+            {\color{solarized-red}\code{.pdf,.dvi}};
+
+        \draw[thick,-{stealth}]
+            (tex.south) to[out=-90,in=135] (latex1.west);
+
+        \draw[thick,-{stealth}]
+            (tex.east) to[out=0,in=180] (latex2.west);
+
+        \draw[thick,-{stealth}]
+            (tex.east) to[out=0,in=135] (latex3.west);
+
+        \draw[thick,-{stealth}]
+            (latex1.east) to[out=-45,in=180] (aux1.west);
+
+        \draw[thick,-{stealth}]
+            (aux1.east) to[out=0,in=180] (latex2.west);
+
+        \draw[thick,-{stealth}]
+            (latex2.east) to[out=0,in=180] (aux2.west);
+
+        \draw[thick,-{stealth}]
+            (latex3.east) to[out=-45,in=90] (pdf.north);
+
+        \draw[thick,-{stealth}]
+            (bib.east) -- (bibtex.west);
+
+        \draw[thick,-{stealth}]
+            (bst.north) -- (bibtex.south);
+
+        \draw[thick,-{stealth}]
+            (bibtex.east) -- (bbl.west);
+
+        \draw[thick,-{stealth}]
+            (bbl.north) -- (latex2.south);
+
+        \draw[thick,-{stealth}]
+            (bibtex.east) to[out=0,in=180] (blg.west);
+
+        \draw[thick,-{stealth}]
+            (aux2.east) to[out=0,in=135] (latex3.west);
+
+    \end{tikzpicture}
+
+    \source{\emph{The \LaTeX\ Companion}, 2nd Ed., p.688, Fig. 12.1}
 \end{frame}
 
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Modulare Dokumente}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Floats}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Farben}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{\texttt{minipages}}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Code Listings}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Externe PDF-Dokumente}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Elektrische Schaltungen zeichnen}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Daten Plotten}
-    \begin{itemize}
-        \item matlab2tikz
-        \item pgfplots
-    \end{itemize}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Alternative Klassen}
-\end{frame}
-
-\begin{frame} % -------------------------------------------------------- FRAME %
-    \frametitle{Support}
-
-    \begin{itemize}
-        \item
-            e-Mail:
-            \texttt{\href{mailto:raphael.frey@students.fhnw.ch}
-            {raphael.frey@students.fhnw.ch}}
-        \item
-            Raum 4.223
-        \item
-            \alert{\href{https://github.com/alpenwasser/TeX/}
-                        {https://github.com/alpenwasser/TeX/}}
-        \item
-            Weiteres Programm: 26. April
-            \begin{itemize}
-                \item
-                    modulare Dokumentstruktur
-                \item
-                    Bibliographie
-                \item
-                    Floats (Tabellen, Bilder, \ldots )
-                \item
-                    PGF/Ti\emph{k}Z
-                %\item
-                %    minipages
-                %\item
-                %    ISO-31
-                \item
-                    Listings, minted, \ldots
-                \item
-                    etc. etc. etc.
-            \end{itemize}
-    \end{itemize}
-\end{frame}
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Modulare Dokumente}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Floats}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Farben}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{\texttt{minipages}}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Code Listings}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Externe PDF-Dokumente}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Elektrische Schaltungen zeichnen}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Daten Plotten}
+%    \begin{itemize}
+%        \item matlab2tikz
+%        \item pgfplots
+%    \end{itemize}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Alternative Klassen}
+%\end{frame}
+%
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Support}
+%
+%    \begin{itemize}
+%        \item
+%            e-Mail:
+%            \texttt{\href{mailto:raphael.frey@students.fhnw.ch}
+%            {raphael.frey@students.fhnw.ch}}
+%        \item
+%            Raum 4.223
+%        \item
+%            \alert{\href{https://github.com/alpenwasser/TeX/}
+%                        {https://github.com/alpenwasser/TeX/}}
+%        \item
+%            Weiteres Programm: 26. April
+%            \begin{itemize}
+%                \item
+%                    modulare Dokumentstruktur
+%                \item
+%                    Bibliographie
+%                \item
+%                    Floats (Tabellen, Bilder, \ldots )
+%                \item
+%                    PGF/Ti\emph{k}Z
+%                %\item
+%                %    minipages
+%                %\item
+%                %    ISO-31
+%                \item
+%                    Listings, minted, \ldots
+%                \item
+%                    etc. etc. etc.
+%            \end{itemize}
+%    \end{itemize}
+%\end{frame}
 
 % ---------------------------------------------------------------------------- %
 \section<handout:0| trans:0>*{Fragen?} % ------------------------------- FRAME %
