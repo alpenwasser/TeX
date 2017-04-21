@@ -112,7 +112,7 @@
 \end{frame}%>>>
 
 \begin{frame} % ------------------------------------------BIBTEX FLOW CHART %<<<
-    \frametitle{Bibliographie}
+    \frametitle{Bib\TeX}
     \hspace*{-1em}%
     \begin{tikzpicture}[
         draw=solarized-base02,
@@ -156,7 +156,7 @@
             {latex};
 
         \node (bibtex)
-            [yshift=-\yOffs,signal,shape = signal,signal from =west,signal to=east,below of=aux1]
+            [yshift=-2.33 * \yOffs,signal,shape = signal,signal from =west,signal to=east,below of=aux1]
             {bibtex};
 
         \node (aux2) 
@@ -172,11 +172,11 @@
             {\code{.bbl}};
 
         \node[inputfile] (bib)
-            [xshift=-2* \xOffs,left of=bibtex]
+            [xshift=-9* \xOffs,yshift=-\yOffs,below of=latex2]
             {\code{.bib}};
 
         \node[inputfile] (bst)
-            [yshift=-\yOffs,below of=bibtex]
+            [yshift=-\yOffs,below of=bib]
             {\code{.bst}};
 
         \node (blg)
@@ -209,13 +209,13 @@
             (latex3.east) to[out=-45,in=90] (pdf.north);
 
         \draw[thick,-{stealth}]
-            (bib.east) -- (bibtex.west);
+            (bib.east) to[out=0,in=180] (bibtex.west);
 
         \draw[thick,-{stealth}]
-            (bst.north) -- (bibtex.south);
+            (bst.east) to[out=0,in=180] (bibtex.west);
 
         \draw[thick,-{stealth}]
-            (bibtex.east) -- (bbl.west);
+            (bibtex.east) to[out=0,in=180] (bbl.west);
 
         \draw[thick,-{stealth}]
             (bbl.north) -- (latex2.south);
@@ -228,7 +228,7 @@
 
     \end{tikzpicture}
 
-    \source{\emph{The \LaTeX\ Companion}, 2nd Ed., p.688, Fig. 12.1}
+    \source{Mittelbach et al.,\emph{The \LaTeX\ Companion}, 2nd Ed., p.688, Fig. 12.1}
 \end{frame}%>>>
 
 %\begin{frame} % -------------------------------------------------------- FRAME %
