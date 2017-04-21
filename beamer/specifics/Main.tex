@@ -27,12 +27,13 @@
 %\documentclass[trans]{beamer}         % Transparency Version
 %\documentclass[handout]{beamer}       % Handout Version
 
-% Beamer Setup --------------------------------------------------------------- %
+% ------------------------------------------------------------ Beamer Setup %<<<
 %\addtobeamertemplate{background canvas}{\transdissolve[duration=1]\hspace{-0.29em}}{}
 %\usetheme[titleformat=smallcaps,numbering=none]{metropolis}
 \usetheme[titleformat=smallcaps,progressbar=frametitle]{metropolis}
+%>>>
 
-% Packages ------------------------------------------------------------------- %
+% ---------------------------------------------------------------- Packages %<<<
 \usepackage[ngerman]{babel}
 \usepackage{xcolor-solarized}
 \usetikzlibrary{calc}
@@ -56,9 +57,10 @@
     linenos=true,
 }
 %\setbeamercolor{alerted text}{fg=solarized-red}
+%>>>
 
 
-% Macros --------------------------------------------------------------------- %
+% ------------------------------------------------------------------ Macros %<<<
 % Arrow for use in text
 \def\tikzrarrow{%
     \tikz[baseline=-0.67ex]\draw[double,very thick,-{stealth}](0,0)--(0.5,0);}
@@ -71,8 +73,9 @@
         at (current page.south west)
         {Quelle: #1};
 }
+%>>>
 
-% Title Setup ---------------------------------------------------------------- %
+% ------------------------------------------------------------- Title Setup %<<<
 \title{\vspace*{4em}\Huge\LaTeX}
 \subtitle{\hfill Trouble on the Horizon}
 %\date{\today}
@@ -89,25 +92,15 @@
 \subject{LaTeX -- Kurze Einf\"uhrung}
 \keywords{LaTeX Introduction Primer FHNW Overview}
 %http://web.fhnw.ch/cd/corporate-design/logos-fur-die-hochschulen
+%>>>
 
 % **************************************************************************** %
 \begin{document}                                                              
 % **************************************************************************** %
 
-\frame[plain]{\titlepage} % -------------------------------------------- FRAME %
+\frame[plain]{\titlepage} % -------------------------------------- TITLE FRAME %
 
-
-%\begin{frame}<handout:0> % --------------------------------------------- FRAME %
-%    \frametitle{Programm}
-%    \tableofcontents
-%\end{frame}
-
-
-% ---------------------------------------------------------------------------- %
-%\section<handout:0>{Was und Warum?} % --------------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
-
-\begin{frame} % -------------------------------------------------------- FRAME %
+\begin{frame} % ------------------------------------- NICE-TO-HAVE PACKAGES %<<<
     \frametitle{Lohnenswerte Packages}
     \begin{itemize}
         \item hyperref
@@ -116,9 +109,9 @@
         \item inputenc
         \item fontenc, fontspec, luatextra: https://tex.stackexchange.com/a/44701/131649
     \end{itemize}
-\end{frame}
+\end{frame}%>>>
 
-\begin{frame} % -------------------------------------------------------- FRAME %
+\begin{frame} % ------------------------------------------BIBTEX FLOW CHART %<<<
     \frametitle{Bibliographie}
     \hspace*{-1em}%
     \begin{tikzpicture}[
@@ -171,7 +164,6 @@
             {\code{.aux}};
 
         \node (latex3)
-            %[xshift=\xOffs,yshift=-\yOffs,rotate=-45,signal,shape = signal,signal from =west,signal to=east,below right of=aux2]
             [xshift=2*\xOffs,rotate=-45,signal,shape = signal,signal from =west,signal to=east,right of=aux2]
             {latex};
 
@@ -237,7 +229,7 @@
     \end{tikzpicture}
 
     \source{\emph{The \LaTeX\ Companion}, 2nd Ed., p.688, Fig. 12.1}
-\end{frame}
+\end{frame}%>>>
 
 %\begin{frame} % -------------------------------------------------------- FRAME %
 %    \frametitle{Modulare Dokumente}
@@ -319,3 +311,4 @@
 \section<handout:0| trans:0>*{Fragen?} % ------------------------------- FRAME %
 % ---------------------------------------------------------------------------- %
 \end{document}
+% vim: foldenable foldcolumn=4 foldmethod=marker foldmarker=<<<,>>>

@@ -62,7 +62,9 @@
     \pgfmathsetmacro{\numberOfHorizSides}{12}%
     \pgfmathtruncatemacro\numberOfHorizElements{round(\numberOfHorizSides * 5 / 4)}
     \pgfmathsetmacro{\maxElementNumber}{\numberOfHorizSides - 1}%
-    \pgfmathsetmacro{\side}{0.5\paperwidth/\maxElementNumber}%
+    \dimendef\referenceWidth=0
+    \pgfmathsetlength{\referenceWidth}{\paperwidth * 25.4 / 72}%
+    \pgfmathsetmacro{\side}{0.5\referenceWidth/\maxElementNumber}%
     \pgfmathcos{30}%
     \pgfmathsetmacro{\height}{\pgfmathresult * \side}%
     \foreach \j in {0,...,\maxElementNumber}{%
@@ -75,9 +77,10 @@
 \newcommand\hexagons{%
     \setupfadings
     \tikzset{external/export next=false}%
-    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+    \begin{tikzpicture}[remember picture,overlay,x=1mm,y=1mm]
         \pgfmathtruncatemacro\iterstop{floor(\numberOfHorizElements / 2)}
         \pgfmathtruncatemacro\iterstopvert{floor(\numberOfHorizElements / 3 )}
+        \path[clip] (current page.north west) rectangle (current page.east);
         \foreach \n in {0,...,\iterstopvert} {%
             \foreach \m in {0,...,\iterstop} {%
                 \pgfmathtruncatemacro\k{round(\m + 1)}
@@ -103,7 +106,8 @@
 \newcommand\chapnumhexagons{%
     \setupfadings
     \tikzset{external/export next=false}
-    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+    \begin{tikzpicture}[remember picture,overlay,x=1mm,y=1mm]
+        \path[clip] (current page.north west) rectangle (current page.east);
         \foreach \n in {1,...,\thechapter} {%
             \pgfkeysgetvalue{/chapter \thechapter/hexagon \n/x}{\randNumHoriz}
             \pgfkeysgetvalue{/chapter \thechapter/hexagon \n/y}{\randNumVert}
@@ -125,7 +129,8 @@
 \newcommand\appendixnumhexagons{%
     \setupfadings
     \tikzset{external/export next=false}
-    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+    \begin{tikzpicture}[remember picture,overlay,x=1mm,y=1mm]
+        \path[clip] (current page.north west) rectangle (current page.east);
         \foreach \n in {A,...,\thechapter} {%
             \pgfkeysgetvalue{/appendix \thechapter/hexagon \n/x}{\randNumHoriz}
             \pgfkeysgetvalue{/appendix \thechapter/hexagon \n/y}{\randNumVert}
@@ -146,7 +151,8 @@
 \newcommand\bottomscreen{%
     \setupfadings
     \tikzset{external/export next=false}%
-    \begin{tikzpicture}[remember picture,overlay,x=1pt,y=1pt]
+    \begin{tikzpicture}[remember picture,overlay,x=1mm,y=1mm]
+        \path[clip] (current page.north west) rectangle (current page.east);
         \fill[white,path fading=north]%
             ($(current page.north west) - (0pt, 10.5 * \side)$) rectangle ($(current page.north east) - (0pt,2 * \side)$);%
     \end{tikzpicture}%
@@ -343,62 +349,62 @@
 \chapter{This Is the First Chapter}
 \lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
 
-\chapter{This Is the Second Chapter With a Longer Title}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{Third Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Fourth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Fifth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Sixth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Seventh Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Eigth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Ninth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Tenth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Eleventh Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Twelfth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Thirteenth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Fourteenth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Fifteenth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Sixteenth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Seventeenth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Eighteenth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Nineteenth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
-
-\chapter{Twentieth Chapter}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%\chapter{This Is the Second Chapter With a Longer Title}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{Third Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Fourth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Fifth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Sixth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Seventh Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Eigth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Ninth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Tenth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Eleventh Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Twelfth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Thirteenth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Fourteenth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Fifteenth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Sixteenth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Seventeenth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Eighteenth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Nineteenth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
+%
+%\chapter{Twentieth Chapter}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-3]
 
 \appendixpage
 \appendix
@@ -409,34 +415,34 @@
 \chapter{Second Appendix}
 \lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
 
-\chapter{Third Appendix}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{Fourth Appendix}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{Fifth Appendix}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{Sixth Appendix}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{Seventh Appendix}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{Eigth Appendix}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{Ninth Appendix}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{Tenth Appendix}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\backmatter
-\chapter{Backmatter Stuff}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
-
-\chapter{More Backmatter Stuff}
-\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%\chapter{Third Appendix}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{Fourth Appendix}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{Fifth Appendix}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{Sixth Appendix}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{Seventh Appendix}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{Eigth Appendix}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{Ninth Appendix}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{Tenth Appendix}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\backmatter
+%\chapter{Backmatter Stuff}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
+%
+%\chapter{More Backmatter Stuff}
+%\lettrine{\textcolor[gray]{0.5}{L}}{orem} \lipsum[1-2]
 \end{document}
