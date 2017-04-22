@@ -1,10 +1,10 @@
 TIMESTAMP := $(shell date '+%Y-%m-%d--%H-%M-%S')
-PRES_REGEX_TO_REPLACE  := '^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}'
-PRES_REGEX_REPLACEMENT := '\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}'
 
 .DEFAULT_GOAL := simple
 
-simple:
+.PHONY: code
+
+simple: code
 	@xelatex -shell-escape Main
 
 # Clean cache
@@ -12,6 +12,9 @@ cclean:
 	@rm -f cache/*.log cache/*.pdf cache/*.md5 cache/*.dpth cache/*.dep cache/*.ctr
 	@rm -f _minted-Main/*
 
+# http://www.cplusplus.com/forum/unices/28931/
+code:
+	$(MAKE) -C $@
 
 # Clean all
 clean: cclean
@@ -61,7 +64,6 @@ presentation:
 	@cp Main.tex Main.tex.bak
 	@cat Main.tex.bak | \
 		sed 's/^%\?\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}/\\addtobeamertemplate{background canvas}{\\transdissolve\[duration=1\]\\hspace{-0.29em}}{}/' > Main.tex
-	#@cat Main.tex.bak | sed 's/'$(PRES_REGEX_TO_REPLACE)'/'$(PRES_REGEX_REPLACEMENT)'/' > Main.tex
 	@xelatex -shell-escape Main
 	@xelatex -shell-escape Main
 	@cp Main.pdf presentation.pdf

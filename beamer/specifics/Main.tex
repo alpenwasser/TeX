@@ -44,7 +44,6 @@
 \usetikzlibrary{spy}
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{shapes.symbols}
-\usepackage{hyperref}
 \usepackage{dirtree}
 \usepackage{minted}
 \setminted{%
@@ -56,6 +55,7 @@
     bgcolor=solarized-base3,
     linenos=true,
 }
+\usepackage{booktabs}
 %\setbeamercolor{alerted text}{fg=solarized-red}
 %>>>
 
@@ -72,6 +72,15 @@
         \node[align=left,anchor=south west,text=solarized-base1,font=\tiny]
         at (current page.south west)
         {Quelle: #1};
+}
+\newcommand\contrastnode[1]{%
+    \tikz[
+        baseline=(n0.base),
+        rounded corners=2mm,
+        inner sep=5pt,
+        text=solarized-base2,
+    ] 
+        \node[fill=solarized-base01] (n0) {#1}; 
 }
 %>>>
 
@@ -107,12 +116,31 @@
         \item microtype
         \item babel/polyglossia
         \item inputenc
+        \item amsmath
         \item fontenc, fontspec, luatextra: https://tex.stackexchange.com/a/44701/131649
     \end{itemize}
 \end{frame}%>>>
 
+
+\begin{frame} % ---------------------------------------------- BIBTEX INTRO %<<<
+    \frametitle{Bibliographie -- Was, Wozu?}
+    \centering
+    \setlength\tabcolsep{1pt}
+    \renewcommand\arraystretch{1.5}
+    \begin{tabular}{p{20mm}rclp{34mm}}
+        \toprule
+        \scshape Layer    & \multicolumn{3}{l}{\scshape Komponente} & \scshape Zweck \\
+        \midrule
+        \LaTeX            & \contrastnode{biblatex}          & \contrastnode{natbib} & \contrastnode{native} & Bereitstellen von \mintinline{tex}|\cite|  and friends \\
+        externer Arbeiter & \contrastnode{\scshape Bib\TeX}  & \contrastnode{biber}  &        & Verkn\"upfen von \code{.tex}- und \code{.bib}-Dateien  \\
+        Datenbank-Datei   & \contrastnode{\code{.bib}}       & \contrastnode{andere} &        & Referenzdaten speichern                                \\
+        \bottomrule
+    \end{tabular}
+    \source{https://tex.stackexchange.com/a/299286/131649}
+\end{frame}%>>>
+
 \begin{frame} % ------------------------------------------BIBTEX FLOW CHART %<<<
-    \frametitle{Bib\TeX}
+    \frametitle{Bib\TeX\ -- Was, Woher, Wohin?}
     \hspace*{-1em}%
     \begin{tikzpicture}[
         draw=solarized-base02,
@@ -200,10 +228,10 @@
             (latex1.east) to[out=-45,in=180] (aux1.west);
 
         \draw[thick,-{stealth}]
-            (aux1.east) to[out=0,in=180] (latex2.west);
+            (aux1.east) -- (latex2.west);
 
         \draw[thick,-{stealth}]
-            (latex2.east) to[out=0,in=180] (aux2.west);
+            (latex2.east) -- (aux2.west);
 
         \draw[thick,-{stealth}]
             (latex3.east) to[out=-45,in=90] (pdf.north);
@@ -226,17 +254,137 @@
         \draw[thick,-{stealth}]
             (aux2.east) to[out=0,in=135] (latex3.west);
 
+        \draw[thick,-{stealth}]
+            (aux1.south) -- (bibtex);
+
     \end{tikzpicture}
 
     \source{Mittelbach et al.,\emph{The \LaTeX\ Companion}, 2nd Ed., p.688, Fig. 12.1}
 \end{frame}%>>>
 
+\begin{frame}[fragile] % ------------------------ NATIVE BIBLIOGRAPHY: CODE %<<<
+    \frametitle{Bibliography -- Native}
+
+    \inputminted{tex}{code/native.tex}
+\end{frame}
+%>>>
+
+\begin{frame} % ------------------------------- NATIVE BIBLIOGRAPHY: RESULT %<<<
+    \frametitle{Bibliography -- Native}
+
+    \fbox{\includegraphics[width=\textwidth,clip,viewport=45mm 220mm 170mm 257mm]{code/native.pdf}}
+\end{frame}%>>>
+
+\begin{frame}[fragile] % ------------------------------------- BIBTEX: CODE %<<<
+    \frametitle{Bib\TeX}
+
+    \code{.tex}-File:
+
+    \inputminted{tex}{code/bibtex.tex}
+\end{frame}
+%>>>
+
+\begin{frame}[fragile] % --------------------------- BIBTEX: REFERENCES.BIB %<<<
+    \frametitle{Bib\TeX}
+
+    \code{references.bib}-File:
+
+    \inputminted{tex}{code/references.bib}
+\end{frame}
+%>>>
+
+\begin{frame} % -------------------------------------------- BIBTEX: RESULT %<<<
+    \frametitle{Bib\TeX}
+
+    \fbox{\includegraphics[width=\textwidth,clip,viewport=45mm 220mm 170mm 257mm]{code/bibtex.pdf}}
+\end{frame}%>>>
+
+\begin{frame} % ------------------------------------------- BIBTEX: CAVEATS %<<<
+    \frametitle{Bib\TeX\ IEEEtran}
+
+    \begin{itemize}
+        \item
+            \alert{Vorsicht:} Es    gibt     auch    eine    \textsf{IEEEtran}
+            \LaTeX-Klasse! (\code{IEEEtran.cls})
+        \item
+            Wir   sind  aber   nur  am   \textsc{Bib}\TeX-Style  interessiert:
+            \code{IEEEtran.\alert{bst}}
+        \item
+            Dokumentation:         \code{IEEEtran\_HOWTO.pdf}        respektive
+            \code{IEEEtran\_bst\_HOWTO.pdf}
+        \item
+            \href{http://ctan.org/tex-archive/macros/latex/contrib/IEEEtran/bibtex}
+                 {\nolinkurl{ctan.org/tex-archive/macros/latex/contrib/IEEEtran/bibtex}}
+        \item
+            \href{http://www.ieee.org/documents/IEEEtranBST.zip}
+                 {\nolinkurl{ieee.org/documents/IEEEtranBST.zip}}
+        \item
+            \href{https://github.com/alpenwasser/TeX/tree/master/bibliography/official-IEEE-resources}
+                 {\nolinkurl{https://github.com/alpenwasser/TeX/bibliography/official-IEEE-resources}}
+    \end{itemize}
+\end{frame}%>>>
+
+\begin{frame} % ------------------------------------------- BIBTEX: CAVEATS %<<<
+    \frametitle{Bib\TeX\ -- Die h\"assliche Seite}
+
+    \begin{itemize}
+        \item
+            Referenzieren   und  Erstellen   der  Bibliographie   funktioniert
+            $\pm$ automatisch, aber
+        \item
+            es    gibt    16    verschiedene   IEEE    citation    types    in
+            \code{IEEEtran.bst}, und
+        \item
+            welcher Typ  unter welchen  Umst\"anden wie  auszuf\"ullen
+            ist, ist eine (stratosph\"arisch hohe) Kunst f\"ur sich.
+        \item
+            Meinungsverschiedenheiten sind  vorprogrammiert, selbst  wenn alle
+            beteiligten  Parteien   nach  bestem  Wissen  und   Gewissen  nach
+            offiziellen Style Guides vorgehen.
+    \end{itemize}
+
+    \tikzrarrow\ Allenfalls mal im Voraus die Bibliographie absegnen lassen.
+\end{frame}%>>>
+
+\begin{frame} % -------------------- BIBTEX: ACCESSE DATE, NUMBERED SECTION %<<<
+    \frametitle{Bib\TeX\ -- Zugriffsdatum f\"ur Onlinequellen}
+    \begin{itemize}
+        \item
+            Wunsch  FHNW: Bibliographie  als   nummerierte  Section  nach  den
+            \emph{Schlussfolgerungen},   \emph{Fazit}    o.\"a.: Aufgabe   des
+            \code{.cls}-Files, momentan aber noch nicht implementiert.
+        \item
+            Zugriffsdatum  f\"ur  URLs: Wird   von  \code{IEEEtran.bst}  nicht
+            unterst\"utzt  (implizite  Annahme:  alle URLs  sind  g\"ultig  am
+            Publikationsdatum).
+            \begin{itemize}
+                \item
+                    Entweder globale Anmkerung diesbez\"uglich machen, oder
+                \item
+                    manuell das \code{.bbl}-File editieren.
+            \end{itemize}
+    \end{itemize}
+\end{frame}%>>>
+
+\begin{frame} % ----------------------------------------- MODULAR DOCUMENTS %<<<
+    \frametitle{Modulare Dokumente}
+    master/root document!
+\end{frame}%>>>
+
+\begin{frame} % -----------------------------------------------FLOATS INTRO %<<<
+    \frametitle{Floats -- \"Ubersicht}
+\end{frame}%>>>
+
+\begin{frame} % -------------------------------------------------- HYPERREF %<<<
+    \frametitle{Hyperref}
+\end{frame}%>>>
+
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Einfache Macros}
+%\end{frame}
+
 %\begin{frame} % -------------------------------------------------------- FRAME %
 %    \frametitle{Modulare Dokumente}
-%\end{frame}
-%
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Floats}
 %\end{frame}
 %
 %\begin{frame} % -------------------------------------------------------- FRAME %
