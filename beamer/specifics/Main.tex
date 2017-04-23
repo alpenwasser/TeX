@@ -1,4 +1,4 @@
-% ******************************************************** %
+% **************************************************** <<< %
 % DOCUMENT INFORMATION                                     %
 % ******************************************************** %
 %                                                          %
@@ -21,19 +21,20 @@
 %               rmfrey@runbox.com                          %
 %                                                          %
 % Date: 2017-APR-26                                        %
-% ******************************************************** %
+% **************************************************** >>> %
 
+% ================================================================= PREAMBLE <<<
+% ----------------------------------------------------------- DOCUMENT CLASS <<<
 \documentclass{beamer}                % Presentation Version
 %\documentclass[trans]{beamer}         % Transparency Version
 %\documentclass[handout]{beamer}       % Handout Version
-
-% ------------------------------------------------------------ Beamer Setup %<<<
+%>>>
+% ------------------------------------------------------------- Beamer Setup <<<
 %\addtobeamertemplate{background canvas}{\transdissolve[duration=1]\hspace{-0.29em}}{}
 %\usetheme[titleformat=smallcaps,numbering=none]{metropolis}
 \usetheme[titleformat=smallcaps,progressbar=frametitle]{metropolis}
 %>>>
-
-% ---------------------------------------------------------------- Packages %<<<
+% ----------------------------------------------------------------- Packages <<<
 \usepackage[ngerman]{babel}
 \usepackage{xcolor-solarized}
 \usetikzlibrary{calc}
@@ -58,9 +59,7 @@
 \usepackage{booktabs}
 %\setbeamercolor{alerted text}{fg=solarized-red}
 %>>>
-
-
-% ------------------------------------------------------------------ Macros %<<<
+% ------------------------------------------------------------------- Macros <<<
 % Arrow for use in text
 \def\tikzrarrow{%
     \tikz[baseline=-0.67ex]\draw[double,very thick,-{stealth}](0,0)--(0.5,0);}
@@ -68,23 +67,23 @@
 \newlength{\xOffs}
 \newcommand*\code[1]{\texttt{#1}}
 \newcommand\source[1]{%
-    \tikz[remember picture,overlay] 
+    \tikz[remember picture,overlay]
         \node[align=left,anchor=south west,text=solarized-base1,font=\tiny]
         at (current page.south west)
         {Quelle: #1};
 }
+% Node for use in Table/Text
 \newcommand\contrastnode[1]{%
     \tikz[
         baseline=(n0.base),
         rounded corners=2mm,
         inner sep=5pt,
         text=solarized-base2,
-    ] 
-        \node[fill=solarized-base01] (n0) {#1}; 
+    ]
+        \node[fill=solarized-base01] (n0) {#1};
 }
 %>>>
-
-% ------------------------------------------------------------- Title Setup %<<<
+% -------------------------------------------------------------- Title Setup <<<
 \title{\vspace*{4em}\Huge\LaTeX}
 \subtitle{\hfill Trouble on the Horizon}
 %\date{\today}
@@ -102,14 +101,14 @@
 \keywords{LaTeX Introduction Primer FHNW Overview}
 %http://web.fhnw.ch/cd/corporate-design/logos-fur-die-hochschulen
 %>>>
-
+%>>>
 % **************************************************************************** %
-\begin{document}                                                              
+\begin{document}
 % **************************************************************************** %
 
 \frame[plain]{\titlepage} % -------------------------------------- TITLE FRAME %
 
-\begin{frame} % ------------------------------------- NICE-TO-HAVE PACKAGES %<<<
+\begin{frame} % -------------------------------------- NICE-TO-HAVE PACKAGES <<<
     \frametitle{Lohnenswerte Packages}
     \begin{itemize}
         \item hyperref
@@ -122,24 +121,44 @@
 \end{frame}%>>>
 
 
-\begin{frame} % ---------------------------------------------- BIBTEX INTRO %<<<
-    \frametitle{Bibliographie -- Was, Wozu?}
+% ============================================================= BIBLIOGRAPHY <<<
+\begin{frame} % ----------------------------------------------- BIBTEX INTRO <<<
+    \frametitle{Bibliographie -- Wer, Wozu?}
     \centering
     \setlength\tabcolsep{1pt}
-    \renewcommand\arraystretch{1.5}
+    \renewcommand\arraystretch{1.75}
     \begin{tabular}{p{20mm}rclp{34mm}}
         \toprule
-        \scshape Layer    & \multicolumn{3}{l}{\scshape Komponente} & \scshape Zweck \\
+        \scshape Layer    &
+        \multicolumn{3}{l}{\scshape Komponente} &
+        \scshape Zweck \\
+
         \midrule
-        \LaTeX            & \contrastnode{biblatex}          & \contrastnode{natbib} & \contrastnode{native} & Bereitstellen von \mintinline{tex}|\cite|  and friends \\
-        externer Arbeiter & \contrastnode{\scshape Bib\TeX}  & \contrastnode{biber}  &        & Verkn\"upfen von \code{.tex}- und \code{.bib}-Dateien  \\
-        Datenbank-Datei   & \contrastnode{\code{.bib}}       & \contrastnode{andere} &        & Referenzdaten speichern                                \\
+
+        \LaTeX                  &
+        \contrastnode{biblatex} &
+        \contrastnode{natbib}   &
+        \contrastnode{native}   &
+        Bereitstellen von \mintinline{tex}|\cite|  and friends \\
+
+        externer Arbeiter                &
+        \contrastnode{\scshape Bib\TeX}  &
+        \contrastnode{biber}             &
+                                         &
+        Verkn\"upfen von \code{.tex}- und \code{.bib}-Dateien \\
+
+        Datenbank-Datei            &
+        \contrastnode{\code{.bib}} &
+        \contrastnode{andere}      &
+                                   &
+        Referenzdaten speichern    \\
+
         \bottomrule
     \end{tabular}
     \source{https://tex.stackexchange.com/a/299286/131649}
-\end{frame}%>>>
-
-\begin{frame} % ------------------------------------------BIBTEX FLOW CHART %<<<
+\end{frame}
+%>>>
+\begin{frame} % ------------------------------------------ BIBTEX FLOW CHART <<<
     \frametitle{Bib\TeX\ -- Was, Woher, Wohin?}
     \hspace*{-1em}%
     \begin{tikzpicture}[
@@ -151,7 +170,7 @@
             thick,
             fill=solarized-base2,
             % technically not necessary with the global rounded corners option:
-            rounded corners=2mm, 
+            rounded corners=2mm,
             inner sep=2mm,
             font=\fontsize{9}{10}\selectfont,
         },
@@ -168,14 +187,14 @@
         \setlength{\xOffs}{5mm}
         \setlength{\yOffs}{6mm}
 
-        \node[inputfile] (tex) 
+        \node[inputfile] (tex)
             {\code{.tex}};
 
         \node (latex1)
             [xshift=\xOffs,yshift=-\yOffs,rotate=-45,signal,shape = signal,signal from =west,signal to=east,below right of=tex]
             {latex};
 
-        \node (aux1) 
+        \node (aux1)
             [xshift=2*\xOffs,yshift=-\yOffs,right of=latex1]
             {\code{.aux}};
 
@@ -187,7 +206,7 @@
             [yshift=-2.33 * \yOffs,signal,shape = signal,signal from =west,signal to=east,below of=aux1]
             {bibtex};
 
-        \node (aux2) 
+        \node (aux2)
             [xshift=2.5*\xOffs,right of=latex2]
             {\code{.aux}};
 
@@ -211,7 +230,7 @@
             [yshift=-\yOffs,below of=bbl]
             {\code{.blg}};
 
-        \node (pdf) 
+        \node (pdf)
             [xshift=8.5 * \xOffs,right of=blg]
             {\color{solarized-red}\code{.pdf,.dvi}};
 
@@ -260,31 +279,21 @@
     \end{tikzpicture}
 
     \source{Mittelbach et al.,\emph{The \LaTeX\ Companion}, 2nd Ed., p.688, Fig. 12.1}
-\end{frame}%>>>
-
-\begin{frame}[fragile] % ------------------------ NATIVE BIBLIOGRAPHY: CODE %<<<
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ------------------------- NATIVE BIBLIOGRAPHY: CODE <<<
     \frametitle{Bibliography -- Native}
 
     \inputminted{tex}{code/native.tex}
 \end{frame}
 %>>>
-
-\begin{frame} % ------------------------------- NATIVE BIBLIOGRAPHY: RESULT %<<<
+\begin{frame} % -------------------------------- NATIVE BIBLIOGRAPHY: RESULT <<<
     \frametitle{Bibliography -- Native}
 
     \fbox{\includegraphics[width=\textwidth,clip,viewport=45mm 220mm 170mm 257mm]{code/native.pdf}}
-\end{frame}%>>>
-
-\begin{frame}[fragile] % ------------------------------------- BIBTEX: CODE %<<<
-    \frametitle{Bib\TeX}
-
-    \code{.tex}-File:
-
-    \inputminted{tex}{code/bibtex.tex}
 \end{frame}
 %>>>
-
-\begin{frame}[fragile] % --------------------------- BIBTEX: REFERENCES.BIB %<<<
+\begin{frame}[fragile] % ---------------------------- BIBTEX: REFERENCES.BIB <<<
     \frametitle{Bib\TeX}
 
     \code{references.bib}-File:
@@ -292,14 +301,21 @@
     \inputminted{tex}{code/references.bib}
 \end{frame}
 %>>>
+\begin{frame}[fragile] % -------------------------------------- BIBTEX: CODE <<<
+    \frametitle{Bib\TeX}
 
-\begin{frame} % -------------------------------------------- BIBTEX: RESULT %<<<
+    \code{.tex}-File:
+
+    \inputminted{tex}{code/bibtex.tex}
+\end{frame}
+%>>>
+\begin{frame} % --------------------------------------------- BIBTEX: RESULT <<<
     \frametitle{Bib\TeX}
 
     \fbox{\includegraphics[width=\textwidth,clip,viewport=45mm 220mm 170mm 257mm]{code/bibtex.pdf}}
-\end{frame}%>>>
-
-\begin{frame} % ------------------------------------------- BIBTEX: CAVEATS %<<<
+\end{frame}
+%>>>
+\begin{frame} % -------------------------------------------- BIBTEX: CAVEATS <<<
     \frametitle{Bib\TeX\ IEEEtran}
 
     \begin{itemize}
@@ -322,9 +338,9 @@
             \href{https://github.com/alpenwasser/TeX/tree/master/bibliography/official-IEEE-resources}
                  {\nolinkurl{https://github.com/alpenwasser/TeX/bibliography/official-IEEE-resources}}
     \end{itemize}
-\end{frame}%>>>
-
-\begin{frame} % ------------------------------------------- BIBTEX: CAVEATS %<<<
+\end{frame}
+%>>>
+\begin{frame} % -------------------------------------------- BIBTEX: CAVEATS <<<
     \frametitle{Bib\TeX\ -- Die h\"assliche Seite}
 
     \begin{itemize}
@@ -336,46 +352,52 @@
             \code{IEEEtran.bst}, und
         \item
             welcher Typ  unter welchen  Umst\"anden wie  auszuf\"ullen
-            ist, ist eine (stratosph\"arisch hohe) Kunst f\"ur sich.
+            ist, ist eine Kunst f\"ur sich.
         \item
             Meinungsverschiedenheiten sind  vorprogrammiert, selbst  wenn alle
             beteiligten  Parteien   nach  bestem  Wissen  und   Gewissen  nach
             offiziellen Style Guides vorgehen.
     \end{itemize}
 
-    \tikzrarrow\ Allenfalls mal im Voraus die Bibliographie absegnen lassen.
-\end{frame}%>>>
-
-\begin{frame} % -------------------- BIBTEX: ACCESSE DATE, NUMBERED SECTION %<<<
-    \frametitle{Bib\TeX\ -- Zugriffsdatum f\"ur Onlinequellen}
-    \begin{itemize}
-        \item
-            Wunsch  FHNW: Bibliographie  als   nummerierte  Section  nach  den
-            \emph{Schlussfolgerungen},   \emph{Fazit}    o.\"a.: Aufgabe   des
+    \hspace*{-1em}\tikzrarrow\ Allenfalls mal im Voraus die Bibliographie absegnen lassen.
+\end{frame}
+%>>>
+\begin{frame} % ---------------------- BIBTEX: ACCESS DATE, NUMBERED SECTION <<<
+    \frametitle{Bib\TeX\ -- Abschliessende Feinheiten}
+    \begin{description}
+        \item[Platzierung:]
+            Bibliographie     als     nummerierte     Section     nach     den
+            \emph{Schlussfolgerungen},     \emph{Fazit}:       Aufgabe     des
             \code{.cls}-Files, momentan aber noch nicht implementiert.
-        \item
-            Zugriffsdatum  f\"ur  URLs: Wird   von  \code{IEEEtran.bst}  nicht
-            unterst\"utzt  (implizite  Annahme:  alle URLs  sind  g\"ultig  am
-            Publikationsdatum).
+        \item[Zugriffsdatum:]
+            Wird      von     \code{IEEEtran.bst}      nicht     unterst\"utzt
+            (implizite    Annahme:     alle    URLs    sind     g\"ultig    am
+            Publikationsdatum). Workarounds:
             \begin{itemize}
                 \item
-                    Entweder globale Anmkerung diesbez\"uglich machen, oder
+                    Entweder globale Anmerkung diesbez\"uglich machen, oder
                 \item
-                    manuell das \code{.bbl}-File editieren.
+                    manuell das \code{.bbl}-File  editieren (Anh\"angen an den
+                    Eintrag gem\"ass Style Guide m\"oglich).
             \end{itemize}
-    \end{itemize}
-\end{frame}%>>>
+    \end{description}
+\end{frame}
+%>>>
+%>>>
 
-\begin{frame} % ----------------------------------------- MODULAR DOCUMENTS %<<<
+\begin{frame} % ------------------------------------------ MODULAR DOCUMENTS <<<
     \frametitle{Modulare Dokumente}
     master/root document!
-\end{frame}%>>>
+\end{frame}
+%>>>
 
-\begin{frame} % -----------------------------------------------FLOATS INTRO %<<<
+
+\begin{frame} % ------------------------------------------------FLOATS INTRO <<<
     \frametitle{Floats -- \"Ubersicht}
 \end{frame}%>>>
 
-\begin{frame} % -------------------------------------------------- HYPERREF %<<<
+
+\begin{frame} % --------------------------------------------------- HYPERREF <<<
     \frametitle{Hyperref}
 \end{frame}%>>>
 
