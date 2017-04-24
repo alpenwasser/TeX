@@ -55,6 +55,7 @@
     style=murphy,
     bgcolor=solarized-base3,
     linenos=true,
+    autogobble,
 }
 \usepackage{booktabs}
 %\setbeamercolor{alerted text}{fg=solarized-red}
@@ -107,18 +108,6 @@
 % **************************************************************************** %
 
 \frame[plain]{\titlepage} % -------------------------------------- TITLE FRAME %
-
-\begin{frame} % -------------------------------------- NICE-TO-HAVE PACKAGES <<<
-    \frametitle{Lohnenswerte Packages}
-    \begin{itemize}
-        \item hyperref
-        \item microtype
-        \item babel/polyglossia
-        \item inputenc
-        \item amsmath
-        \item fontenc, fontspec, luatextra: https://tex.stackexchange.com/a/44701/131649
-    \end{itemize}
-\end{frame}%>>>
 
 
 % ============================================================= BIBLIOGRAPHY <<<
@@ -385,40 +374,456 @@
 %>>>
 %>>>
 
-\begin{frame} % ------------------------------------------ MODULAR DOCUMENTS <<<
-    \frametitle{Modulare Dokumente}
-    master/root document!
+
+% ======================================================== MODULAR DOCUMENTS <<<
+\begin{frame} % --------------------------------------------------- \input{} <<<
+    \frametitle{Modulare Dokumente: \code{input}}
+    \begin{center}
+        \mintinline{tex}|\input{filename.tex}|
+    \end{center}
+
+    \begin{itemize}
+        \item
+            Importiert code aus \code{filename.tex} in das \"ubergeordnete
+            Dokument und f\"uhrt ihn aus.
+        \item
+            Kann verschachtelt werden.
+        \item
+            Kann an ziemlich jedem Ort verwendet werden.
+        \item
+            Gut f\"ur Grafiken, Konfigurationsdateien geeignet.
+    \end{itemize}
+\end{frame}
+%>>>
+\begin{frame} % ------------------------------------------------- \include{} <<<
+    \frametitle{Modulare Dokumente: \code{include}}
+    \begin{center}
+        \mintinline{tex}|\include{filename}|
+    \end{center}
+
+    \begin{itemize}
+        \item
+            Schiebt ein \code{\textbackslash clearpage} vor und nach
+            \code{filename} ein. \tikzrarrow\ Neue Seiten.
+        \item
+            \"Offnet ein neues \code{.aux}-File
+        \item
+            Kann \alert{nicht} verschachtelt werden.
+        \item
+            Kann \alert{nicht} in der Preamble verwendet werden.
+        \item
+            Erlaubt selektives Ein-und Ausschliessen von Sub-Dokumenten.
+        \item
+            Geeignet  f\"ur  gr\"ossere  Bl\"ocke,  die  allenfalls  auch  mal
+            unabh\"angig  vom Rest  des  Dokuments  kompiliert werden  sollten
+            (Chapter, Section).
+    \end{itemize}
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ------------------------------------ \includeonly{} <<<
+    \frametitle{Modulare Dokumente: \code{includeonly}}
+    \begin{minted}{tex}
+        \includeonly{subdoc2,subdoc3}
+        \begin{document}
+        \include{subdoc1}
+        \include{subdoc2}
+        \include{subdoc3}
+        \include{subdoc4}
+    \end{minted}
+
+    \begin{itemize}
+        \item
+            N\"utzlich, wenn  man nicht  immer das ganze  Dokument kompilieren
+            will.
+        \item
+            Counter, Referenzen, Seitenzahlen  entsprechen dem Gesamtdokument,
+            solange   dieses   einmal   kompiliert    worden   ist   (um   die
+            \code{.aux}-Files zu f\"ullen).
+    \end{itemize}
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ----------------------------------------- Practices <<<
+    \frametitle{Modulare Dokumente: Some Practices}
+
+    \begin{columns}
+        \column{0.45\textwidth}
+        Eine m\"ogliche Variante:
+        {\small
+        \dirtree{%
+            .1 /.
+            .2 Main.tex.
+            .2 sections/.
+            .3 intro.tex.
+            .3 concept.tex.
+            .3 implementation.tex.
+            .3 conclusions.tex.
+            .2 images/.
+            .3 fancypic1.tex.
+            .3 fancypic2.png.
+        }}
+
+
+        \column{0.55\textwidth}
+
+        \begin{itemize}
+            \item
+                Root/Master-Dokument konfigurieren!
+            \item
+                Logisch strukturieren, nicht syntaktisch.
+            \item
+                Pfade in Subfiles  (z.B. \code{sections/intro.tex}) sind immer
+                relativ zum Hauptdocument (hier \code{Main.tex}).
+            \item
+                Weitere Beispiele: Siehe \TeX\ Github-Repo.
+        \end{itemize}
+    \end{columns}
+\end{frame}
+%>>>
+%>>>
+
+
+% =============================================================== REFERENCES <<<
+\begin{frame}[fragile] % ---------------------------------------- REFERENCES <<<
+    \frametitle{Referenzieren}
+
+    \begin{minted}[linenos=false]{tex}
+        \label{marker}
+        \ref{marker}
+        \pageref{marker}
+    \end{minted}
+
+    \begin{itemize}
+        \item
+            \mintinline{tex}|\label|  muss  nach dem  zu  referenzierenden
+            Objekt      kommen      (z.B.      \mintinline{tex}|\section|,
+            \mintinline{tex}|\caption|).
+        \item
+            zwei Kompilierdurchl\"aufe erforderlich
+        \item
+            Ung\"ultige   Referenzen  werden   im  Output-Dokument   durch
+            \code{??} ersetzt.
+        \item
+            Klickbare Links: Package \code{hyperref}.
+    \end{itemize}
+
+    \begin{center}
+        z.B.: \mintinline{tex}|See Figure~\ref{fig} on page~\pageref{fig}|
+    \end{center}
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ------------------------ REFERENCES: BEST PRACTICES <<<
+    \frametitle{Referenzieren -- Best Practices}
+
+    \centering
+
+    \code{marker} folgendermassen definieren:
+
+    \vspace*{1em}
+
+    \begin{tabular}{ll|p{30mm}l}
+        \toprule
+        \scshape Objekt & \scshape Label Prefix & \scshape Objekt      & \scshape Label Prefix \\
+        \midrule
+        chapter         & \code{ch:}            & section              & \code{sec:}           \\
+        subsection      & \code{subsec:}        & figure               & \code{fig:}           \\
+        table           & \code{tab:}           & equation             & \code{eq:}            \\
+        code listing    & \code{lst:}           & enumerated list item & \code{itm:}           \\
+        algorithm       & \code{alg:}           & appendix subsection  & \code{app:}           \\
+        \bottomrule
+    \end{tabular}
+
+    \begin{center}
+        z.B.: \mintinline{tex}|\label{fig:la-tete-de-robespierre}|
+    \end{center}
+\end{frame}
+%>>>
+%>>>
+
+
+% =================================================================== FLOATS <<<
+\begin{frame} % ------------------------------------------------FLOATS INTRO <<<
+    \frametitle{Was sind Floats?}
+
+    \begin{itemize}
+        \item
+            Normaler Text wird  von \TeX\ gesammelt und  an geeigneten Stellen
+            in Zeilen zerlegt.
+        \item
+            Macht z.B. f\"ur Bilder und Tabellen nicht viel Sinn.
+        \item
+            Stattdessen   sollten  diese   so  platziert   werden,  dass   ein
+            m\"oglichst optimales Layout resultiert.
+    \end{itemize}
+
+    \tikzrarrow\ L\"osung: floats (``Gleitumgebungen'')
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ------------------------------ FLOATS: FIGURE/TABLE <<<
+    \frametitle{Standard-Floats}
+
+    \begin{columns}
+        \column{0.4\textwidth}
+        \begin{itemize}
+            \item
+                \code{figure}
+            \item
+                \code{figure*}
+            \item
+                \code{table}
+            \item
+                \code{table*}
+        \end{itemize}
+
+        \column{0.6\textwidth}
+        \begin{minted}{tex}
+            \begin{table}
+                \centering
+                \begin{tabular}{ll}
+                    A & a \\
+                    B & b \\
+                \end{tabular}
+                \caption{A table}
+                \label{tab:a-table}
+            \end{table}
+        \end{minted}
+    \end{columns}
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ---------------------------------- FLOATS: CAPTIONS <<<
+    \frametitle{Captions}
+
+    \begin{minted}{tex}
+        \caption[Short Caption]{%
+            Long Caption Text with explanations,
+            elaborations, clarifications and
+            contemplations.}
+        \label{tab:a-table}
+    \end{minted}
+
+    \begin{itemize}
+        \item
+            Optionales Argument: \mintinline{tex}|[Short Caption]|: F\"ur
+            \emph{List of Figures} etc.
+        \item
+            \mintinline{tex}|\label|:            \alert{Nach}            dem
+            \mintinline{tex}|\caption|-Command
+    \end{itemize}
+\end{frame}
+%>>>
+\begin{frame}[fragile] % -------------------------------- NON-FLOAT CAPTIONS <<<
+    \frametitle{Captions ohne Floats}
+
+    \begin{minted}{tex}
+        \usepackage{capt-of}
+        ...
+        \captionof{table}{%
+            This is a table with things in it.}
+        \label{tab:table-with-things}
+    \end{minted}
+
+    Vorsicht  mit   Reihenfolge  beim  Mischen  von   Floats  und  Non-Floats.
+    \tikzrarrow\   Allenfalls   \mintinline{tex}|\clearpage|   oder   sonstige
+    manuelle Eingriffe erforderlich.
+\end{frame}
+%>>>
+\begin{frame}[fragile] % -------------------------- FLOATS: PLACEMENT PARAMS <<<
+    \frametitle{Placement Options}
+
+    Teilen \LaTeX\ mit, wo das Platzieren des entsprechenden Floats erlaubt ist.
+
+    \begin{columns}
+        \column{0.33\textwidth}
+        \begin{itemize}
+            \item[\code{h}]: \emph{Here}
+            \item[\code{t}]: \emph{Top}
+            \item[\code{b}]: \emph{Bottom}
+            \item[\code{p}]: \emph{Page of floats}
+            \item[\code{!}]: \emph{Try Harder}
+        \end{itemize}
+        \column{0.67\textwidth}
+
+        \begin{itemize}
+            \item
+                default: \mintinline{tex}|\begin{figure}[tbp]|
+            \item
+                alternativ, z.B.: \mintinline{tex}|\begin{figure}[!htp]|
+            \item
+                Aufpassen,  dass man  \LaTeX\ gen\"ugend  Flexibilit\"at gibt,
+                sonst kann  es passieren,  dass floats  bis Ende  des Kapitels
+                gebuffert werden.
+            \item
+                Erzwingen der Ausgabe: \mintinline{tex}|\clearpage|,
+                \mintinline{tex}|\cleardoublepage|
+        \end{itemize}
+
+    \end{columns}
+\end{frame}
+%>>>
+\begin{frame} % ------------------------------------------- FLOATS: PROBLEMS <<<
+    \frametitle{Floats -- Probleme}
+
+    \begin{itemize}
+        \item
+            viele Floats, wenig Text
+        \item
+            Alle        floats       springen        ans       Ende        des
+            Kapitels/Dokuments/\ldots: Normalerweise  verursacht  durch  einen
+            Mangel an Placement Options f\"ur ein oder mehrere Floats.
+        \item
+            Andere     unerw\"unschte     Ergebnisse: Manuelle     Workarounds
+            erforderlich (siehe \TeX\ Github-Repo, Float-Tutorial, Abschn. 5).
+    \end{itemize}
+\end{frame}
+%>>>
+%>>>
+
+
+% ================================================================= LISTINGS <<<
+\begin{frame} % ----------------------------------------- LISTINGS: OVERVIEW <<<
+    \frametitle{Listings -- \"Ubersicht}
+
+    \begin{itemize}
+        \item
+            viele verschiedene  Packages  mit unterschiedlichen  St\"arken und
+            Schw\"achen
+        \item
+            Stock     \code{verbatim}     environment,     Packages,     u.a.:
+            \code{verbatimbox},        \code{fancyvrb},        \code{listing},
+            \code{listings}, \code{matlab-prettifier}, \code{minted}, \ldots
+        \item
+            Siehe
+            \href{https://github.com/alpenwasser/TeX/tree/master/listings}
+                 {\nolinkurl{https://github.com/alpenwasser/TeX/tree/master/listings}}
+            f\"ur eine kompakte Einf\"uhrung mit einigen Beispielen.
+        \item
+            (Diese Pr\"asentation verwendet \code{minted}.)
+    \end{itemize}
+\end{frame}
+%>>>
+\begin{frame} % ----------------------------------------- LISTINGS: OVERVIEW <<<
+    \frametitle{Listings -- Hinweise}
+
+    \begin{itemize}
+        \item
+            Es   gibt  zwei   Grundprinzipien: Inline  Content   und  separate
+            Environments.
+        \item
+            Bei       Environments: Darauf        achten,       dass       das
+            \mintinline{tex}|\end{environment}|  auf   einer  separaten  Zeile
+            steht, ohne Kommentar oder sonstiges Beigem\"use.
+        \item
+            Gewisse  packages  unterst\"utzen Escape-Mechanismen,  um  manuell
+            in   den  Formatierungsprozess   eingreifen   zu  k\"onnen   (z.B.
+            \code{escapeinside}  bei  \code{minted},  \code{commandchars}  bei
+            \code{fancyvrb}).
+        \item
+            F\"ur ``Fancy Features'': Manuals konsultieren.
+    \end{itemize}
+\end{frame}
+%>>>
+%>>>
+
+
+% =================================================================== FLOATS <<<
+\begin{frame} % ---------------------------------------- MINIPAGES: OVERVIEW <<<
+    \frametitle{minipages}
+
+    Praktisch, um z.B. \ldots
+    \begin{itemize}
+        \item
+            \ldots\ Dinge nebeneinander zu platzieren,
+        \item
+            als Alternative zu Floats,
+        \item
+            wenn man Dinge beisammen behalten muss, die sich trennen k\"onnten.
+        \item
+            Siehe
+            \href{https://github.com/alpenwasser/TeX/tree/master/minipages}
+                 {\nolinkurl{https://github.com/alpenwasser/TeX/tree/master/minipages}}
+    \end{itemize}
+\end{frame}
+%>>>
+\begin{frame}[fragile] % -------------------------------- MINIPAGES: EXAMPLE <<<
+    \frametitle{minipages: Beispiel}
+
+    Inhalte nebeneinander platzieren:
+
+    \begin{minted}{tex}
+        \begin{minipage}{0.45\textwidth}
+            Robespierre
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            Robespierre's head
+        \end{minipage}
+    \end{minted}
+
+    Ergebnis:
+
+    \fbox{\begin{minipage}{0.45\textwidth}
+        Robespierre
+    \end{minipage}}
+    \hfill
+    \fbox{\begin{minipage}{0.45\textwidth}
+        Robespierre's head
+    \end{minipage}}
+\end{frame}
+%>>>
+%>>>
+
+
+\begin{frame} % -------------------------------------- NICE-TO-HAVE PACKAGES <<<
+    \frametitle{Lohnenswerte Packages}
+    \begin{itemize}
+        \item hyperref
+        \item microtype
+        \item babel/polyglossia
+        \item inputenc
+        \item amsmath
+        \item fontenc, fontspec, luatextra: https://tex.stackexchange.com/a/44701/131649
+    \end{itemize}
 \end{frame}
 %>>>
 
 
-\begin{frame} % ------------------------------------------------FLOATS INTRO <<<
-    \frametitle{Floats -- \"Ubersicht}
-\end{frame}%>>>
+\begin{frame} % ------------------------------------------------------ LINKS <<<
+    \frametitle{Links}
+    \begin{itemize}
+        \item
+            \alert{\href{https://github.com/alpenwasser/TeX/}
+                        {https://github.com/alpenwasser/TeX/}}
+        \item
+            Modulare Dokumente:
+            \begin{itemize}
+                \item
+                    \href{https://en.wikibooks.org/wiki/LaTeX/Modular_Documents}
+                         {\nolinkurl{en.wikibooks.org/wiki/LaTeX/Modular_Documents}}
+                 \item
+                     \href{https://tex.stackexchange.com/questions/246/}
+                          {\nolinkurl{tex.stackexchange.com/questions/246/}}
+            \end{itemize}
+        \item
+            Referenzieren:
+            \href{https://en.wikibooks.org/wiki/LaTeX/Labels_and_Cross-referencing}
+                 {\nolinkurl{https://en.wikibooks.org/wiki/LaTeX/Labels_and_Cross-referencing}}
+    \end{itemize}
+\end{frame}
+%>>>
 
-
-\begin{frame} % --------------------------------------------------- HYPERREF <<<
-    \frametitle{Hyperref}
-\end{frame}%>>>
+%\begin{frame} % -------------------------------------------------------- FRAME %
+%    \frametitle{Daten Plotten}
+%    \begin{itemize}
+%        \item matlab2tikz
+%        \item pgfplots
+%    \end{itemize}
+%\end{frame}
 
 %\begin{frame} % -------------------------------------------------------- FRAME %
 %    \frametitle{Einfache Macros}
 %\end{frame}
 
 %\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Modulare Dokumente}
-%\end{frame}
-%
-%\begin{frame} % -------------------------------------------------------- FRAME %
 %    \frametitle{Farben}
-%\end{frame}
-%
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{\texttt{minipages}}
-%\end{frame}
-%
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Code Listings}
 %\end{frame}
 %
 %\begin{frame} % -------------------------------------------------------- FRAME %
@@ -429,17 +834,7 @@
 %    \frametitle{Elektrische Schaltungen zeichnen}
 %\end{frame}
 %
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Daten Plotten}
-%    \begin{itemize}
-%        \item matlab2tikz
-%        \item pgfplots
-%    \end{itemize}
-%\end{frame}
 %
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Alternative Klassen}
-%\end{frame}
 %
 %\begin{frame} % -------------------------------------------------------- FRAME %
 %    \frametitle{Support}
