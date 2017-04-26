@@ -6,16 +6,3 @@
 *.toc
 *.out
 *.auxlock
-microtype
-dsp
-resources
-links.txt
-example--simple-document/
-fhnwreport_with_example_v22/
-ltxprimer-1.0.pdf
-ltxprimer-1.0.txt
-math--iso-31/
-tables/
-latex-intro.txt
-circuits
-memoir
