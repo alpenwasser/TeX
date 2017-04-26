@@ -47,6 +47,7 @@
 \usetikzlibrary{shapes.symbols}
 \usepackage{dirtree}
 \usepackage{minted}
+\usepackage{hologo}
 \setminted{%
     %style=xcode,
     %style=trac,
@@ -54,7 +55,7 @@
     %style=lovelace,
     style=murphy,
     bgcolor=solarized-base3,
-    linenos=true,
+    linenos=false,
     autogobble,
 }
 \usepackage{booktabs}
@@ -83,10 +84,11 @@
     ]
         \node[fill=solarized-base01] (n0) {#1};
 }
+\newcommand*\XeLaTeX{\hologo{XeLaTeX}}
 %>>>
 % -------------------------------------------------------------- Title Setup <<<
 \title{\vspace*{4em}\Huge\LaTeX}
-\subtitle{\hfill Trouble on the Horizon}
+\subtitle{\hfill Particulars}
 %\date{\today}
 \date{26. April 2017}
 \author{%
@@ -282,20 +284,20 @@
     \fbox{\includegraphics[width=\textwidth,clip,viewport=45mm 220mm 170mm 257mm]{code/native.pdf}}
 \end{frame}
 %>>>
-\begin{frame}[fragile] % ---------------------------- BIBTEX: REFERENCES.BIB <<<
-    \frametitle{Bib\TeX}
-
-    \code{references.bib}-File:
-
-    \inputminted{tex}{code/references.bib}
-\end{frame}
-%>>>
 \begin{frame}[fragile] % -------------------------------------- BIBTEX: CODE <<<
     \frametitle{Bib\TeX}
 
     \code{.tex}-File:
 
     \inputminted{tex}{code/bibtex.tex}
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ---------------------------- BIBTEX: REFERENCES.BIB <<<
+    \frametitle{Bib\TeX}
+
+    \code{references.bib}-File:
+
+    \inputminted{tex}{code/references.bib}
 \end{frame}
 %>>>
 \begin{frame} % --------------------------------------------- BIBTEX: RESULT <<<
@@ -330,14 +332,14 @@
 \end{frame}
 %>>>
 \begin{frame} % -------------------------------------------- BIBTEX: CAVEATS <<<
-    \frametitle{Bib\TeX\ -- Die h\"assliche Seite}
+    \frametitle{Bib\TeX\ -- Vorbehalte}
 
     \begin{itemize}
         \item
             Referenzieren   und  Erstellen   der  Bibliographie   funktioniert
             $\pm$ automatisch, aber
         \item
-            es    gibt    16    verschiedene   IEEE    citation    types    in
+            es   gibt    viele   verschiedene    IEEE   citation    types   in
             \code{IEEEtran.bst}, und
         \item
             welcher Typ  unter welchen  Umst\"anden wie  auszuf\"ullen
@@ -356,8 +358,8 @@
     \begin{description}
         \item[Platzierung:]
             Bibliographie     als     nummerierte     Section     nach     den
-            \emph{Schlussfolgerungen},     \emph{Fazit}:       Aufgabe     des
-            \code{.cls}-Files, momentan aber noch nicht implementiert.
+            \emph{Schlussfolgerungen}:     Aufgabe   des    \code{.cls}-Files,
+            momentan aber noch nicht implementiert.
         \item[Zugriffsdatum:]
             Wird      von     \code{IEEEtran.bst}      nicht     unterst\"utzt
             (implizite    Annahme:     alle    URLs    sind     g\"ultig    am
@@ -376,8 +378,28 @@
 
 
 % ======================================================== MODULAR DOCUMENTS <<<
-\begin{frame} % --------------------------------------------------- \input{} <<<
-    \frametitle{Modulare Dokumente: \code{input}}
+\begin{frame}<handout: 0> % ----------------------- MODULAR DOCUMENTS: INTRO <<<
+    \frametitle{Modulare Dokumente: Idee}
+
+    \dirtree{%
+        .1 masterdoc.tex.
+        .2 subdoc1.tex.
+        .2 subdoc2.tex.
+        .2 subdoc3.tex.
+    }
+
+    \begin{itemize}
+        \item Macht den Code \"ubersichtlicher.
+        \item Nutzt die Vorteile von Versionskontrollsystemen besser aus.
+        \item Erleichtert das Arbeiten in Gruppen.
+        \item Vereinfacht das Umstellen des Dokuments.
+        \item Erleichtert Code-Sharing zwischen Dokumenten und Projekten.
+    \end{itemize}
+
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ------------------------------------------ \input{} <<<
+    \frametitle{Modulare Dokumente: \code{\textbackslash input}}
     \begin{center}
         \mintinline{tex}|\input{filename.tex}|
     \end{center}
@@ -395,8 +417,8 @@
     \end{itemize}
 \end{frame}
 %>>>
-\begin{frame} % ------------------------------------------------- \include{} <<<
-    \frametitle{Modulare Dokumente: \code{include}}
+\begin{frame}[fragile] % ---------------------------------------- \include{} <<<
+    \frametitle{Modulare Dokumente: \code{\textbackslash include}}
     \begin{center}
         \mintinline{tex}|\include{filename}|
     \end{center}
@@ -421,7 +443,7 @@
 \end{frame}
 %>>>
 \begin{frame}[fragile] % ------------------------------------ \includeonly{} <<<
-    \frametitle{Modulare Dokumente: \code{includeonly}}
+    \frametitle{Modulare Dokumente: \code{\textbackslash includeonly}}
     \begin{minted}{tex}
         \includeonly{subdoc2,subdoc3}
         \begin{document}
@@ -443,11 +465,10 @@
 \end{frame}
 %>>>
 \begin{frame}[fragile] % ----------------------------------------- Practices <<<
-    \frametitle{Modulare Dokumente: Some Practices}
+    \frametitle{Modulare Dokumente: Eine m\"ogliche Variante}
 
     \begin{columns}
         \column{0.45\textwidth}
-        Eine m\"ogliche Variante:
         {\small
         \dirtree{%
             .1 /.
@@ -555,7 +576,7 @@
             m\"oglichst optimales Layout resultiert.
     \end{itemize}
 
-    \tikzrarrow\ L\"osung: floats (``Gleitumgebungen'')
+    \tikzrarrow\ L\"osung: Floats (``Gleitumgebungen'')
 \end{frame}
 %>>>
 \begin{frame}[fragile] % ------------------------------ FLOATS: FIGURE/TABLE <<<
@@ -632,15 +653,18 @@
     Teilen \LaTeX\ mit, wo das Platzieren des entsprechenden Floats erlaubt ist.
 
     \begin{columns}
-        \column{0.33\textwidth}
+        \column{0.35\textwidth}
         \begin{itemize}
-            \item[\code{h}]: \emph{Here}
+            \item[\code{h}]: \emph{Here} (if possible)
             \item[\code{t}]: \emph{Top}
             \item[\code{b}]: \emph{Bottom}
             \item[\code{p}]: \emph{Page of floats}
             \item[\code{!}]: \emph{Try Harder}
+            \item[\code{H}]: \emph{Here} (definitely)
+                (Zusatzpackages, z.B. \code{float}, \code{floatrow})
         \end{itemize}
-        \column{0.67\textwidth}
+
+        \column{0.65\textwidth}
 
         \begin{itemize}
             \item
@@ -650,7 +674,7 @@
             \item
                 Aufpassen,  dass man  \LaTeX\ gen\"ugend  Flexibilit\"at gibt,
                 sonst kann  es passieren,  dass floats  bis Ende  des Kapitels
-                gebuffert werden.
+                gehalten werden.
             \item
                 Erzwingen der Ausgabe: \mintinline{tex}|\clearpage|,
                 \mintinline{tex}|\cleardoublepage|
@@ -666,12 +690,14 @@
         \item
             viele Floats, wenig Text
         \item
-            Alle        floats       springen        ans       Ende        des
+            Alle        Floats       springen        ans       Ende        des
             Kapitels/Dokuments/\ldots: Normalerweise  verursacht  durch  einen
             Mangel an Placement Options f\"ur ein oder mehrere Floats.
         \item
             Andere     unerw\"unschte     Ergebnisse: Manuelle     Workarounds
             erforderlich (siehe \TeX\ Github-Repo, Float-Tutorial, Abschn. 5).
+        \item
+            Nicht manuell eingreifen, bis das Dokument (fast) fertig ist.
     \end{itemize}
 \end{frame}
 %>>>
@@ -687,32 +713,34 @@
             viele verschiedene  Packages  mit unterschiedlichen  St\"arken und
             Schw\"achen
         \item
-            Stock     \code{verbatim}     environment,     Packages,     u.a.:
-            \code{verbatimbox},        \code{fancyvrb},        \code{listing},
-            \code{listings}, \code{matlab-prettifier}, \code{minted}, \ldots
+            \code{verbatim} environment und \code{\textbackslash verb}
+        \item
+            Packages:      z.B.      \code{verbatimbox},      \code{fancyvrb},
+            \code{listing},     \code{listings},     \code{matlab-prettifier},
+            \code{minted}, \ldots
         \item
             Siehe
             \href{https://github.com/alpenwasser/TeX/tree/master/listings}
                  {\nolinkurl{https://github.com/alpenwasser/TeX/tree/master/listings}}
-            f\"ur eine kompakte Einf\"uhrung mit einigen Beispielen.
+            f\"ur eine Einf\"uhrung/\"Ubersicht mit Beispielen.
         \item
             (Diese Pr\"asentation verwendet \code{minted}.)
     \end{itemize}
 \end{frame}
 %>>>
-\begin{frame} % ----------------------------------------- LISTINGS: OVERVIEW <<<
+\begin{frame}[fragile] % -------------------------------- LISTINGS: OVERVIEW <<<
     \frametitle{Listings -- Hinweise}
 
     \begin{itemize}
         \item
-            Es   gibt  zwei   Grundprinzipien: Inline  Content   und  separate
-            Environments.
+            Es  gibt drei  Grundprinzipien: Inline  Content, Environment, File
+            Input.
         \item
             Bei       Environments: Darauf        achten,       dass       das
             \mintinline{tex}|\end{environment}|  auf   einer  separaten  Zeile
             steht, ohne Kommentar oder sonstiges Beigem\"use.
         \item
-            Gewisse  packages  unterst\"utzen Escape-Mechanismen,  um  manuell
+            Gewisse  Packages  unterst\"utzen Escape-Mechanismen,  um  manuell
             in   den  Formatierungsprozess   eingreifen   zu  k\"onnen   (z.B.
             \code{escapeinside}  bei  \code{minted},  \code{commandchars}  bei
             \code{fancyvrb}).
@@ -724,7 +752,7 @@
 %>>>
 
 
-% =================================================================== FLOATS <<<
+% ================================================================ MINIPAGES <<<
 \begin{frame} % ---------------------------------------- MINIPAGES: OVERVIEW <<<
     \frametitle{minipages}
 
@@ -737,13 +765,15 @@
         \item
             wenn man Dinge beisammen behalten muss, die sich trennen k\"onnten.
         \item
+            Sind aber ein bisschen exzentrisch.
+        \item
             Siehe
             \href{https://github.com/alpenwasser/TeX/tree/master/minipages}
                  {\nolinkurl{https://github.com/alpenwasser/TeX/tree/master/minipages}}
     \end{itemize}
 \end{frame}
 %>>>
-\begin{frame}[fragile] % -------------------------------- MINIPAGES: EXAMPLE <<<
+\begin{frame}[fragile] % ------------------ MINIPAGES: EXAMPLE: SIDE-BY-SIDE <<<
     \frametitle{minipages: Beispiel}
 
     Inhalte nebeneinander platzieren:
@@ -769,29 +799,108 @@
     \end{minipage}}
 \end{frame}
 %>>>
+\begin{frame}[fragile] % -------------- MINIPAGES: EXAMPLE: REPLACING FLOATS <<<
+    \frametitle{minipages: Beispiel: Float-Ersatz}
+
+    Caption und Bild zusammenbehalten (z.B. Seitenumbruch verhindern):
+
+    \begin{minted}{tex}
+        \begin{minipage}{\textwidth}
+            \centering
+            \includegraphics{mypic}
+            \captionof{figure}{a picture}
+        \end{minipage}
+    \end{minted}
+
+\end{frame}
+%>>>
+%>>>
+
+
+% =================================================================== MACROS <<<
+\begin{frame}[fragile] % ------------------------------------- HELPER MACROS <<<
+    \frametitle{Kurze Hilfs-Macros}
+
+    \def\mymacro{my macro}
+
+    Pure \TeX: \mintinline{tex}|\def\mymacro{my macro}|.
+
+    Usage: \mintinline{tex}|This is \mymacro\ in use|.
+
+    Resultat: This is \mymacro\ in use.
+
+    \newcommand\anothermacro{another macro}
+    \LaTeX: \mintinline{tex}|\newcommand\anothermacro{another macro}|.
+
+    Usage: \mintinline{tex}|This is \anothermacro{} in use|.
+
+    Resultat: This is \anothermacro{} in use.
+\end{frame}
+%>>>
+\begin{frame}[fragile] % ------------------------------------- HELPER MACROS <<<
+    \frametitle{Kurze Hilfs-Macros: Parameter}
+
+    \def\mymacro#1{\texttt{#1}}
+
+    Pure \TeX: \mintinline{tex}|\def\mymacro#1{\texttt{#1}}|.
+
+    Usage: \mintinline{tex}|This is \mymacro{my macro} in use|.
+
+    Resultat: This is \mymacro{my macro} in use.
+
+    \newcommand\anothermacro[1]{\texttt{#1}}
+    \LaTeX: \mintinline{tex}|\newcommand\anothermacro[1]{\texttt{#1}}|
+
+    Usage: \mintinline{tex}|This is \anothermacro{another macro} in use|.
+
+    Resultat: This is \anothermacro{another macro} in use.
+\end{frame}
+%>>>
 %>>>
 
 
 \begin{frame} % -------------------------------------- NICE-TO-HAVE PACKAGES <<<
-    \frametitle{Lohnenswerte Packages}
-    \begin{itemize}
-        \item hyperref
-        \item microtype
-        \item babel/polyglossia
-        \item inputenc
-        \item amsmath
-        \item fontenc, fontspec, luatextra: https://tex.stackexchange.com/a/44701/131649
+    \frametitle{Packages}
+
+    % Itemize margin:
+    % https://tex.stackexchange.com/a/51421/131649
+    \setlength\leftmargini{0.5em}
+    \begin{itemize}\small\setlength\itemsep{0pt}\setlength\parsep{0pt}
+        \item Einbinden von Grafiken: graphicx
+        \item Hyperlinks: hyperref
+        \item Typographische Feinheiten: microtype
+        \item Hyphenation etc.: babel (pdf\LaTeX), polyglossia (\XeLaTeX, Lua\LaTeX)
+        \item Mathematik: amsmath
+        \item Tabellen: array, booktabs
+        \item Zeichensatz:
+        \begin{itemize}
+            \item pdf\LaTeX: inputenc \& fontenc
+            \item \XeLaTeX: fontspec
+            \item Lua\LaTeX: luatextra
+            \item Siehe
+                \href{https://tex.stackexchange.com/a/44701/131649}
+                     {\nolinkurl{tex.stackexchange.com/a/44701/131649}}
+        \end{itemize}
+        \item Zeichnen: Ti\emph{k}Z, PSTricks
+        \item Elektrische Schaltungen: Circuitikz, pst-circ
+        \item Daten plotten: \textsc{pgfplots}, Matlab2Ti\emph{k}Z, matplotlib (Python)
+        \item Farben: xcolor
+        \item Einbinden von PDFs: pdfpages
     \end{itemize}
 \end{frame}
 %>>>
 
 
 \begin{frame} % ------------------------------------------------------ LINKS <<<
-    \frametitle{Links}
+    \frametitle{Sonstige Links}
+
     \begin{itemize}
         \item
-            \alert{\href{https://github.com/alpenwasser/TeX/}
-                        {https://github.com/alpenwasser/TeX/}}
+            \href{https://github.com/alpenwasser/TeX/}
+                 {\nolinkurl{https://github.com/alpenwasser/TeX/}}
+        \item Tabellen:
+            \href{https://www.tug.org/pracjourn/2007-1/mori/mori.pdf}
+                 {\nolinkurl{https://www.tug.org/pracjourn/2007-1/mori/mori.pdf}}
         \item
             Modulare Dokumente:
             \begin{itemize}
@@ -806,74 +915,17 @@
             Referenzieren:
             \href{https://en.wikibooks.org/wiki/LaTeX/Labels_and_Cross-referencing}
                  {\nolinkurl{https://en.wikibooks.org/wiki/LaTeX/Labels_and_Cross-referencing}}
+        \item ISO 31/ISO 80000
+            \href{http://www.moritz-nadler.de/formelsatz.pdf}
+                 {\nolinkurl{http://www.moritz-nadler.de/formelsatz.pdf}}
+        \item Macros:
+            \href{https://en.wikibooks.org/wiki/LaTeX/Macros}
+                 {\nolinkurl{https://en.wikibooks.org/wiki/LaTeX/Macros}}
     \end{itemize}
 \end{frame}
 %>>>
 
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Daten Plotten}
-%    \begin{itemize}
-%        \item matlab2tikz
-%        \item pgfplots
-%    \end{itemize}
-%\end{frame}
 
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Einfache Macros}
-%\end{frame}
-
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Farben}
-%\end{frame}
-%
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Externe PDF-Dokumente}
-%\end{frame}
-%
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Elektrische Schaltungen zeichnen}
-%\end{frame}
-%
-%
-%
-%\begin{frame} % -------------------------------------------------------- FRAME %
-%    \frametitle{Support}
-%
-%    \begin{itemize}
-%        \item
-%            e-Mail:
-%            \texttt{\href{mailto:raphael.frey@students.fhnw.ch}
-%            {raphael.frey@students.fhnw.ch}}
-%        \item
-%            Raum 4.223
-%        \item
-%            \alert{\href{https://github.com/alpenwasser/TeX/}
-%                        {https://github.com/alpenwasser/TeX/}}
-%        \item
-%            Weiteres Programm: 26. April
-%            \begin{itemize}
-%                \item
-%                    modulare Dokumentstruktur
-%                \item
-%                    Bibliographie
-%                \item
-%                    Floats (Tabellen, Bilder, \ldots )
-%                \item
-%                    PGF/Ti\emph{k}Z
-%                %\item
-%                %    minipages
-%                %\item
-%                %    ISO-31
-%                \item
-%                    Listings, minted, \ldots
-%                \item
-%                    etc. etc. etc.
-%            \end{itemize}
-%    \end{itemize}
-%\end{frame}
-
-% ---------------------------------------------------------------------------- %
 \section<handout:0| trans:0>*{Fragen?} % ------------------------------- FRAME %
-% ---------------------------------------------------------------------------- %
 \end{document}
 % vim: foldenable foldcolumn=4 foldmethod=marker foldmarker=<<<,>>>
