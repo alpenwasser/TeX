@@ -2,25 +2,25 @@
 \usepackage{lipsum}
 
 %%%%
-\let\ifchapterflag\iftrue
-%\let\ifchapterflag{ch1}
-
-\ifcsname ifchapterflag\endcsname\else
-    \expandafter\let\csname ifchapterflag\expandafter\endcsname
-                    \csname iffalse\endcsname
-\fi
-
-\ifchapterflag
-  \newcommand\comment[1]{\emph{#1}}
-\else
-  \newcommand\comment[1]{\textbf{#1}}
-\fi
+%\let\ifchapterflag\iftrue
+%%\let\ifchapterflag{ch1}
+%
+%\ifcsname ifchapterflag\endcsname\else
+%    \expandafter\let\csname ifchapterflag\expandafter\endcsname
+%                    \csname iffalse\endcsname
+%\fi
+%
+%\ifchapterflag
+%  \newcommand\comment[1]{\emph{#1}}
+%\else
+%  \newcommand\comment[1]{\textbf{#1}}
+%\fi
 %%%%
 
 %%%%
-\newcommand\includechapter[1]{%
-    \expandafter\def\csname chapterone\endcsname{asdf}%
-}
+%\newcommand\includechapter[1]{%
+%    \expandafter\def\csname chapterone\endcsname{asdf}%
+%}
 %%%%
 
 %\def\mychapters{chapter2,chapter3}

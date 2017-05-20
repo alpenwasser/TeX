@@ -21,7 +21,7 @@ reflect:
 
 # -------------------------------------------------------- #
 # $(chaps)  comma-separated list  from command  line, like #
-# $so: make partial chaps=chapter1file,chapter2file,...    #
+# so:  make   partial  chaps=chapter1file,chapter2file,... #
 # This is  useful for when  you want to compile  more than #
 # one chapter, but not the entire document.                #
 # -------------------------------------------------------- #
@@ -37,21 +37,25 @@ gen:
 	@$(foreach chapterfile,$(CHAPTERFILES),\
 		echo $(chapterfile):| sed 's/$(CHAPTERDIR)\///' >> Makefile;\
 		echo -e '\t'$(PDFLATEXOPEN)$(chapterfile)$(PDFLATEXCLOSE)'\n' >> Makefile;)
+	@echo '+ ------------------------------------------------ +'
+	@echo '| Do not forget to add an \include{chaptername} to |'
+	@echo '| the master tex file.                             |'
+	@echo '+ ------------------------------------------------ +'
 
 # -------------------------------------------------------- #
 # Remove  everything below  the  AUTOSECTION  line in  the #
 # Makefile.                                                #
 # -------------------------------------------------------- #
 reset:
-	sed "1,$(LINENO)!d" Makefile > new.Makefile
-	printf '\n' >> new.Makefile
-	mv new.Makefile Makefile
+	@sed "1,$(LINENO)!d" Makefile > new.Makefile
+	@printf '\n' >> new.Makefile
+	@mv new.Makefile Makefile
 
 # Remove automatic targets, generate new ones.
 regen: reset gen
 
 # -------------------------------------------------------- #
-# Below  here: Automatatically  generated targets. Do  not #
+# Below  here: Automatically   generated  targets. Do  not #
 # remove the AUTOSECTION line,  and only edit the makefile #
 # above the AUDOSECTION LINE.                              #
 # -------------------------------------------------------- #
