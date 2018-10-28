@@ -1,0 +1,14 @@
+\documentclass[draft]{article}
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{fontspec}
+  \setmonofont{Latin Modern Mono}
+\else
+  \usepackage{lmodern}
+\fi
+\usepackage{lipsum}
+\textwidth=10cm
+\begin{document}
+\ttfamily
+\noindent\lipsum[2]
+\end{document}

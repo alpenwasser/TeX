@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\usepackage{everysel}
+\usepackage{lipsum}
+\renewcommand*\familydefault{\ttdefault}
+\EverySelectfont{%
+    \fontdimen2\font=0.4em% interword space
+    \fontdimen3\font=0.2em% interword stretch
+    \fontdimen4\font=0.1em% interword shrink
+    \fontdimen7\font=0.1em% extra space
+    \hyphenchar\font=`\-% to allow hyphenation
+}
+
+\begin{document}
+\tableofcontents
+
+\section{Test}
+\lipsum[2]
+\lipsum[2]
+\lipsum[2]
+\lipsum[2]
+\lipsum[2]
+\section{another section}
+\lipsum[2]
+\lipsum[2]
+\lipsum[2]
+\section{third section}
+\lipsum[2]
+\lipsum[2]
+\end{document}
